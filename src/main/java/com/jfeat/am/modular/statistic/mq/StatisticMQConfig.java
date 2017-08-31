@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
  * Created by Silent-Y on 2017/8/31.
  */
 @Configuration
-public class MemberMQConfig {
+public class StatisticMQConfig {
 
     @Bean
-    public Queue memberAnalysisNotifyQueue() {
-        return new Queue(Const.MEMBER_ANALYSIS_NOTIFY_QUEUE);
+    public Queue statisticDataNotifyQueue() {
+        return new Queue(Const.STATISTIC_DATA_NOTIFY);
     }
 }

@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author admin
- * @since 2017-08-31
+ * @since 2017-09-01
  */
 @TableName("st_type_definition")
 public class TypeDefinition extends Model<TypeDefinition> {
@@ -27,6 +27,10 @@ public class TypeDefinition extends Model<TypeDefinition> {
      * 统计名称
      */
 	private String name;
+    /**
+     * 标识符
+     */
+	private String identifier;
 
 
 	public Long getId() {
@@ -45,6 +49,14 @@ public class TypeDefinition extends Model<TypeDefinition> {
 		this.name = name;
 	}
 
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -55,6 +67,7 @@ public class TypeDefinition extends Model<TypeDefinition> {
 		return "TypeDefinition{" +
 			"id=" + id +
 			", name=" + name +
+			", identifier=" + identifier +
 			"}";
 	}
 }

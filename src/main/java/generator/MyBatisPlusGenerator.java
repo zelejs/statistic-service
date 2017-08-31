@@ -28,7 +28,7 @@ public class MyBatisPlusGenerator {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir("E:\\mydocuments\\idea\\sb-statistic\\src\\main\\java");//这里写你自己的java目录
+        gc.setOutputDir("sb-statistic/src/main/java");//这里写你自己的java目录
         gc.setFileOverride(true);//是否覆盖
         gc.setActiveRecord(true);
         gc.setEnableCache(false);// XML 二级缓存
@@ -50,7 +50,7 @@ public class MyBatisPlusGenerator {
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/sbseed?characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/sbstatistic?characterEncoding=utf8");
         mpg.setDataSource(dsc);
 
         // 策略配置

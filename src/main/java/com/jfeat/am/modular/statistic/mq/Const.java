@@ -5,6 +5,6 @@ package com.jfeat.am.modular.statistic.mq;
  */
 public class Const {
 
-    public static final String MEMBER_ANALYSIS_NOTIFY_QUEUE = "member-analysis-notify";
+    public static final String STATISTIC_DATA_NOTIFY = "statistic-data-notify";
 
 }

@@ -28,7 +28,7 @@ public class MyBatisPlusGenerator {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir("src/main/java");//这里写你自己的java目录
+        gc.setOutputDir("E:\\mydocuments\\idea\\sb-statistic\\src\\main\\java");//这里写你自己的java目录
         gc.setFileOverride(true);//是否覆盖
         gc.setActiveRecord(true);
         gc.setEnableCache(false);// XML 二级缓存
@@ -55,7 +55,7 @@ public class MyBatisPlusGenerator {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        //strategy.setTablePrefix(new String[]{"_"});// 此处可以修改为您的表前缀
+        strategy.setTablePrefix(new String[]{"st_"});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
         strategy.setLogicDeleteFieldName("delete_flag"); //逻辑删除字段
         mpg.setStrategy(strategy);

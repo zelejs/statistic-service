@@ -6,6 +6,7 @@
 	<resultMap id="BaseResultMap" type="com.jfeat.am.common.persistence.model.TypeDefinition">
 		<id column="id" property="id" />
 		<result column="name" property="name" />
+		<result column="identifier" property="identifier" />
 	</resultMap>
 
 </mapper>

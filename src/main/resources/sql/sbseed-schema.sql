@@ -1,20 +1,4 @@
 
-SET FOREIGN_KEY_CHECKS=0;
-
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : Silent-Y
-Source Server Version : 50625
-Source Host           : localhost:3306
-Source Database       : sbseed
-
-Target Server Type    : MYSQL
-Target Server Version : 50625
-File Encoding         : 65001
-
-Date: 2017-08-31 14:38:13
-*/
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -58,6 +42,7 @@ DROP TABLE IF EXISTS `st_type_definition`;
 CREATE TABLE `st_type_definition` (
   `id` bigint(20) NOT NULL COMMENT 'ID',
   `name` varchar(255) NOT NULL COMMENT '统计名称',
+  `identifier` varchar(255) NOT NULL COMMENT '标识符',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

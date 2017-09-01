@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author admin
- * @since 2017-08-31
+ * @since 2017-09-01
  */
 @TableName("st_statistic_field")
 public class StatisticField extends Model<StatisticField> {

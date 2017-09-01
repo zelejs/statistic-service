@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jfeat</groupId>
-    <artifactId>sb-seed</artifactId>
+    <artifactId>sb-statistic</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>SpringBoot-Seed</name>
-    <description>Seed Component</description>
+    <name>SimpleBusiness - Statistic</name>
+    <description>Statistic Component</description>
 
     <parent>
         <groupId>com.jfeat</groupId>

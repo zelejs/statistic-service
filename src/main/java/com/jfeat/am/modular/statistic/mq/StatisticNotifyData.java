@@ -11,7 +11,7 @@ public class StatisticNotifyData {
     private String identifier;
     private Date recordTime;
     private String defaultName;
-    private Map<String, Object> value;
+    private Map<String, String> value;
 
     public String getIdentifier() {
         return identifier;
@@ -37,11 +37,11 @@ public class StatisticNotifyData {
         this.defaultName = defaultName;
     }
 
-    public Map<String, Object> getValue() {
+    public Map<String, String> getValue() {
         return value;
     }
 
-    public void setValue(Map<String, Object> value) {
+    public void setValue(Map<String, String> value) {
         this.value = value;
     }
 }

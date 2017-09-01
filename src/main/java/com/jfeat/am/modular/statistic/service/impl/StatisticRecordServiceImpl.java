@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * Created by Silent-Y on 2017/8/31.
@@ -36,8 +37,15 @@ public class StatisticRecordServiceImpl extends ServiceImpl<StatisticRecordMappe
         }
 
         //TODO 从 statisticNotifyData.getValue() 迭代取出填到record
-        StatisticRecord statisticRecord = new StatisticRecord();
-        statisticRecord.setTypeId(typeDefinition.getId());
-        return insert(statisticRecord);
+        Map<String, String> map = statisticNotifyData.getValue();
+        for (Map.Entry<String,String> entry:map.entrySet()){
+            StatisticRecord statisticRecord = new StatisticRecord();
+            statisticRecord.setRecordTime(statisticNotifyData.getRecordTime());
+            statisticRecord.setTypeId(typeDefinition.getId());
+            statisticRecord.setFieldName(entry.getKey());
+            statisticRecord.setValue(entry.getValue().toString());
+            insert(statisticRecord);
+        }
+        return true;
     }
 }

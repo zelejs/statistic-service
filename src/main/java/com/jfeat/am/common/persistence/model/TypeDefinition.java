@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author admin
- * @since 2017-09-01
+ * @since 2017-09-02
  */
 @TableName("st_type_definition")
 public class TypeDefinition extends Model<TypeDefinition> {

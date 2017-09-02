@@ -15,10 +15,6 @@ CREATE TABLE `st_statistic_field` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of st_statistic_field
--- ----------------------------
-
--- ----------------------------
 -- Table structure for st_statistic_record
 -- ----------------------------
 DROP TABLE IF EXISTS `st_statistic_record`;
@@ -27,13 +23,10 @@ CREATE TABLE `st_statistic_record` (
   `type_id` bigint(20) NOT NULL,
   `record_time` datetime NOT NULL,
   `field_name` varchar(255) NOT NULL,
+  `group` bigint(20) NOT NULL COMMENT '数据分组，用于同一次统计有多种统计项，比如文章排行榜',
   `value` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of st_statistic_record
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for st_type_definition
@@ -45,7 +38,3 @@ CREATE TABLE `st_type_definition` (
   `identifier` varchar(255) NOT NULL COMMENT '标识符',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of st_type_definition
--- ----------------------------

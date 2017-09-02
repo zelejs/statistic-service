@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author admin
- * @since 2017-09-01
+ * @since 2017-09-02
  */
 @TableName("st_statistic_record")
 public class StatisticRecord extends Model<StatisticRecord> {
@@ -28,6 +28,10 @@ public class StatisticRecord extends Model<StatisticRecord> {
 	private Date recordTime;
 	@TableField("field_name")
 	private String fieldName;
+    /**
+     * 数据分组，用于同一次统计有多种统计项，比如文章排行榜
+     */
+	private Long group;
 	private String value;
 
 
@@ -63,6 +67,14 @@ public class StatisticRecord extends Model<StatisticRecord> {
 		this.fieldName = fieldName;
 	}
 
+	public Long getGroup() {
+		return group;
+	}
+
+	public void setGroup(Long group) {
+		this.group = group;
+	}
+
 	public String getValue() {
 		return value;
 	}
@@ -83,6 +95,7 @@ public class StatisticRecord extends Model<StatisticRecord> {
 			", typeId=" + typeId +
 			", recordTime=" + recordTime +
 			", fieldName=" + fieldName +
+			", group=" + group +
 			", value=" + value +
 			"}";
 	}

@@ -2,6 +2,7 @@ package com.jfeat.am.modular.statistic.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.toolkit.IdWorker;
 import com.jfeat.am.common.persistence.dao.StatisticRecordMapper;
 import com.jfeat.am.common.persistence.dao.TypeDefinitionMapper;
 import com.jfeat.am.common.persistence.model.StatisticRecord;
@@ -16,6 +17,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Silent-Y on 2017/8/31.
@@ -38,14 +40,15 @@ public class StatisticRecordServiceImpl extends ServiceImpl<StatisticRecordMappe
             typeDefinitionMapper.insert(typeDefinition);
         }
 
-        //TODO 从 statisticNotifyData.getValue() 迭代取出填到record
         Map<String, String> map = statisticNotifyData.getValue();
+        Long group = IdWorker.getId();
         for (Map.Entry<String,String> entry:map.entrySet()){
             StatisticRecord statisticRecord = new StatisticRecord();
             statisticRecord.setRecordTime(statisticNotifyData.getRecordTime());
             statisticRecord.setTypeId(typeDefinition.getId());
             statisticRecord.setFieldName(entry.getKey());
-            statisticRecord.setValue(entry.getValue().toString());
+            statisticRecord.setValue(entry.getValue());
+            statisticRecord.setGroup(group);
             insert(statisticRecord);
         }
         return true;

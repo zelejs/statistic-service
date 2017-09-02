@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,5 +49,21 @@ public class StatisticRecordServiceImpl extends ServiceImpl<StatisticRecordMappe
             insert(statisticRecord);
         }
         return true;
+    }
+
+    public List<StatisticRecord> getStatisticRecordByTypeIdAndStartTimeAndEndTime(long typeId,String startTime,String endTime){
+
+        if (startTime != null && endTime == null){
+            return selectList(new EntityWrapper<StatisticRecord>().eq("type_id",typeId).and("record_time > {0}",startTime));
+        }
+        if (startTime == null && endTime != null){
+            String endTimeStr=endTime+" 23:59:59";
+            return selectList(new EntityWrapper<StatisticRecord>().eq("type_id",typeId).and("record_time < {0}",endTimeStr));
+        }
+        if (startTime == null && endTime == null){
+            return selectList(new EntityWrapper<StatisticRecord>().eq("type_id",typeId));
+        }
+        String endTimeStr=endTime+" 23:59:59";
+        return selectList(new EntityWrapper<StatisticRecord>().eq("type_id",typeId).between("record_time",startTime,endTimeStr));
     }
 }

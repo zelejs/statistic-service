@@ -1,7 +1,9 @@
 package com.jfeat.am.base;
 
 import com.jfeat.am.AmApplication;
+import com.jfeat.am.core.support.DateTimeKit;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,5 +41,13 @@ public class BaseJunit {
 
     @Before
     public void initDatabase(){
+    }
+
+    @Test
+    public void test(){
+        System.out.println("==================================================================================================="+DateTimeKit.lastMouth());
+
+
+
     }
 }

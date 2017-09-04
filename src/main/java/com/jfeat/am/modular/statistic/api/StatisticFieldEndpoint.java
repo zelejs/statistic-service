@@ -1,6 +1,5 @@
-package com.jfeat.am.modular.api;
+package com.jfeat.am.modular.statistic.api;
 
-import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
@@ -15,7 +14,7 @@ import java.util.List;
  * Created by Silent-Y on 2017/9/2.
  */
 @RestController
-@RequestMapping("/api/statistic_fields")
+@RequestMapping("/api/adm/statistic_fields")
 public class StatisticFieldEndpoint extends BaseController{
 
     @Resource

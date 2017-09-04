@@ -1,4 +1,4 @@
-package com.jfeat.am.modular.api;
+package com.jfeat.am.modular.statistic.api;
 
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Silent-Y on 2017/9/2.
  */
 @RestController
-@RequestMapping("/api/type_definitions")
+@RequestMapping("/api/adm/type_definitions")
 public class TypeDefinitionEndpoint extends BaseController{
 
     @Resource

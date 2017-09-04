@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.modular.statistic.dao.StatisticRecordDao">
+
+	<select id="getStatisticRecordByTypeIdAndStartTimeAndEndTime">
+	lect  type_id,record_time,
+    sum(case when field_name=‘field1' then value else 0 end) as 'field1',
+    sum(case when field_name=‘field2' then value else 0 end) as 'field2'
+    from st_statistic_record group by type_id,record_time;
+
+	</select>
+
+</mapper>

@@ -1,4 +1,4 @@
-package com.jfeat.am.modular.api;
+package com.jfeat.am.modular.statistic.api;
 
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
@@ -8,14 +8,13 @@ import com.jfeat.am.modular.statistic.service.StatisticRecordService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Silent-Y on 2017/9/2.
  */
 @RestController
-@RequestMapping("/api/statistic_records")
+@RequestMapping("/api/adm/statistic_records")
 public class StatisticRecordEndpoint extends BaseController{
 
     @Resource

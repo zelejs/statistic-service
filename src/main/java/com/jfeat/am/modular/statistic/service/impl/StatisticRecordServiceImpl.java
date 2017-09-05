@@ -77,7 +77,7 @@ public class StatisticRecordServiceImpl extends ServiceImpl<StatisticRecordMappe
         return true;
     }
 
-    public List<Map<String,String>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(List<String> fields,String startTime,String endTime){
-        return statisticRecordDao.getStatisticRecordByTypeIdAndStartTimeAndEndTime(fields,startTime,endTime);
+    public List<Map<String,String>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(Long typeId,List<String> fields,String startTime,String endTime){
+        return statisticRecordDao.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId,fields,startTime,endTime);
     }
 }

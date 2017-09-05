@@ -5,8 +5,10 @@ import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
+import com.jfeat.am.common.persistence.dao.TypeDefinitionMapper;
 import com.jfeat.am.common.persistence.model.StatisticField;
 import com.jfeat.am.common.persistence.model.StatisticRecord;
+import com.jfeat.am.common.persistence.model.TypeDefinition;
 import com.jfeat.am.core.support.BeanKit;
 import com.jfeat.am.core.support.DateTimeKit;
 import com.jfeat.am.modular.statistic.constant.StatisticPermission;
@@ -15,6 +17,8 @@ import com.jfeat.am.modular.statistic.service.StatisticRecordService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.swing.text.html.parser.Entity;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -31,10 +35,20 @@ public class StatisticRecordEndpoint extends BaseController{
     StatisticRecordService statisticRecordService;
     @Resource
     StatisticFieldService statisticFieldService;
+    @Resource
+    TypeDefinitionMapper typeDefinitionMapper;
 
-    @GetMapping("/{typeId}")
+    @GetMapping
     @Permission(StatisticPermission.STATISTIC_VIEW)
-    public Tip getStatisticRecordByTypeIdAndStartTimeAndEndTime(@PathVariable long typeId,@RequestParam(required = false)String startTime, @RequestParam(required = false)String endTime){
+    public Tip getStatisticRecordByTypeIdAndStartTimeAndEndTime(@RequestParam(name = "typeId",required = false) Long typeId,
+                                                                @RequestParam(name = "identifier",required = false)String identifier,
+                                                                @RequestParam(required = false)String startTime,
+                                                                @RequestParam(required = false)String endTime){
+        if (typeId == null){
+            TypeDefinition typeDefinition = new TypeDefinition();
+            typeDefinition.setIdentifier(identifier);
+            typeId = typeDefinitionMapper.selectOne(typeDefinition).getId();
+        }
 //        获取fields
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         List<String> fields = Lists.newArrayList();
@@ -43,40 +57,16 @@ public class StatisticRecordEndpoint extends BaseController{
             fields.add(field);
         }
         if (startTime == null && endTime != null){
-            /*Calendar lastMonth = Calendar.getInstance();
-            lastMonth.add(Calendar.MONTH,-1);
-            String startTimeNew = lastMonth.getTime().toString();*/
-            String startTimeNew = DateTimeKit.lastMouth().toString();
-
-            List<Map<String,String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(fields, startTimeNew, endTime);
-            return SuccessTip.create(statisticRecords);
+            startTime = DateTimeKit.lastMouth().toString();
         }
         if (startTime != null && endTime == null){
-            /*Calendar today = Calendar.getInstance();
-            String endTimeNew = today.getTime().toString();*/
-            String endTimeNew = new Date().toString();
-
-            List<Map<String,String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(fields, startTime, endTimeNew);
-            return SuccessTip.create(statisticRecords);
+            endTime = DateTimeKit.formatDateTime(new Date());
         }
         if (startTime == null && endTime == null){
-
-   /*         Calendar lastMonth = Calendar.getInstance();
-            lastMonth.add(Calendar.MONTH,-1);
-            String startTimeNew = lastMonth.getTime().toString();
-            Calendar today = Calendar.getInstance();
-            String endTimeNew = today.getTime().toString();
-
-            System.out.print(today.getTime());
-            Date todayNew = today.getTime();
-            System.out.print(todayNew);*/
-            String startTimeNew = DateTimeKit.lastMouth().toString();
-            String endTimeNew = new Date().toString();
-
-            List<Map<String,String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(fields, startTimeNew, endTimeNew);
-            return SuccessTip.create(statisticRecords);
+            startTime = DateTimeKit.lastMouth().toString();
+            endTime = DateTimeKit.formatDateTime(new Date());
         }
-        List<Map<String,String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(fields, startTime, endTime);
+        List<Map<String,String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId,fields, startTime, endTime);
         return SuccessTip.create(statisticRecords);
     }
 }

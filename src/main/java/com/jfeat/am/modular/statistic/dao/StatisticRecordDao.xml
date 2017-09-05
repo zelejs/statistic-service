@@ -8,7 +8,8 @@
         ,max(case when field_name='${field}' then value else 0 end) as '${field}'
     </foreach>
     FROM st_statistic_record
-    WHERE record_time BETWEEN #{startTime} AND #{endTime}
+    WHERE (record_time BETWEEN #{startTime} AND #{endTime})
+        AND type_id = #{typeId}
     GROUP BY type_id,`group`,record_time
     </select>
 

@@ -1,9 +1,11 @@
 package com.jfeat.am.modular.statistic.api;
 
+import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.persistence.model.StatisticField;
+import com.jfeat.am.modular.statistic.constant.StatisticPermission;
 import com.jfeat.am.modular.statistic.service.StatisticFieldService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,7 @@ public class StatisticFieldEndpoint extends BaseController{
     StatisticFieldService statisticFieldService;
 
     @GetMapping("/{typeId}")
+    @Permission(StatisticPermission.STATISTIC_VIEW)
     public Tip getStatisticFieldByTypeId(@PathVariable long typeId){
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         return SuccessTip.create(statisticFields);

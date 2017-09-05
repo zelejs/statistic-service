@@ -1,9 +1,11 @@
 package com.jfeat.am.modular.statistic.api;
 
+import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.persistence.model.TypeDefinition;
+import com.jfeat.am.modular.statistic.constant.StatisticPermission;
 import com.jfeat.am.modular.statistic.service.TypeDefinitionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,7 @@ public class TypeDefinitionEndpoint extends BaseController{
     TypeDefinitionService typeDefinitionService;
 
     @GetMapping
+    @Permission(StatisticPermission.STATISTIC_VIEW)
     public Tip getTypeDefinitions(){
         List<TypeDefinition> typeDefinitions = typeDefinitionService.getTypeDefinitions();
         return SuccessTip.create(typeDefinitions);

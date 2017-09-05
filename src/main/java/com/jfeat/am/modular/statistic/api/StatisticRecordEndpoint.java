@@ -1,6 +1,7 @@
 package com.jfeat.am.modular.statistic.api;
 
 import com.google.common.collect.Lists;
+import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
@@ -8,6 +9,7 @@ import com.jfeat.am.common.persistence.model.StatisticField;
 import com.jfeat.am.common.persistence.model.StatisticRecord;
 import com.jfeat.am.core.support.BeanKit;
 import com.jfeat.am.core.support.DateTimeKit;
+import com.jfeat.am.modular.statistic.constant.StatisticPermission;
 import com.jfeat.am.modular.statistic.service.StatisticFieldService;
 import com.jfeat.am.modular.statistic.service.StatisticRecordService;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,7 @@ public class StatisticRecordEndpoint extends BaseController{
     StatisticFieldService statisticFieldService;
 
     @GetMapping("/{typeId}")
+    @Permission(StatisticPermission.STATISTIC_VIEW)
     public Tip getStatisticRecordByTypeIdAndStartTimeAndEndTime(@PathVariable long typeId,@RequestParam(required = false)String startTime, @RequestParam(required = false)String endTime){
 //        获取fields
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);

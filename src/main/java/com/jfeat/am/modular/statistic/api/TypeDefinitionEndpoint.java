@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Silent-Y on 2017/9/2.
  */
 @RestController
-@RequestMapping("/api/adm/type_definitions")
+@RequestMapping("/api/adm/statistic_types")
 public class TypeDefinitionEndpoint extends BaseController{
 
     @Resource

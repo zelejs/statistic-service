@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author admin
- * @since 2017-09-04
+ * @since 2017-09-06
  */
 public interface StatisticRecordMapper extends BaseMapper<StatisticRecord> {
 

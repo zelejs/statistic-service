@@ -7,6 +7,7 @@ import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.persistence.model.StatisticField;
 import com.jfeat.am.modular.statistic.constant.StatisticPermission;
 import com.jfeat.am.modular.statistic.service.StatisticFieldService;
+import com.jfeat.am.modular.statistic.wrapper.StatisticFieldWrapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,5 +28,11 @@ public class StatisticFieldEndpoint extends BaseController{
     public Tip getStatisticFieldByTypeId(@PathVariable long typeId){
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         return SuccessTip.create(statisticFields);
+    }
+
+    @PutMapping("/{typeId}")
+    public Tip updateStatisticFieldByTypeId(@PathVariable long typeId,@RequestBody List<StatisticFieldWrapper> statisticFieldWrappers){
+        boolean result = statisticFieldService.updateStatisticFieldByTypeId(typeId,statisticFieldWrappers);
+        return SuccessTip.create(result);
     }
 }

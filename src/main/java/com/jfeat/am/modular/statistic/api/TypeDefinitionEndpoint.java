@@ -31,6 +31,7 @@ public class TypeDefinitionEndpoint extends BaseController{
     }
 
     @PutMapping("/{id}")
+    @Permission(StatisticPermission.STATISTIC_UPDATE)
     public Tip updateTypeDefinition(@PathVariable long id,@RequestBody TypeDefinitionWrapper typeDefinitionWrapper){
         boolean result = typeDefinitionService.updateTypeDefinition(id,typeDefinitionWrapper);
         return SuccessTip.create(result);

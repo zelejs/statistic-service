@@ -31,6 +31,7 @@ public class StatisticFieldEndpoint extends BaseController{
     }
 
     @PutMapping("/{typeId}")
+    @Permission(StatisticPermission.STATISTIC_UPDATE)
     public Tip updateStatisticFieldByTypeId(@PathVariable long typeId,@RequestBody List<StatisticFieldWrapper> statisticFieldWrappers){
         boolean result = statisticFieldService.updateStatisticFieldByTypeId(typeId,statisticFieldWrappers);
         return SuccessTip.create(result);

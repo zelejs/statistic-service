@@ -3,16 +3,16 @@
 <mapper namespace="com.jfeat.am.modular.statistic.dao.StatisticRecordDao">
 
 	<select id="getStatisticRecordByTypeIdAndStartTimeAndEndTime" resultType="map">
-	SELECT type_id as typeId,
+        SELECT type_id as typeId,
         `group`,
         record_time as recordTime
-	<foreach collection="fields" index="index" item="field">
-        ,max(case when field_name='${field}' then value else 0 end) as '${field}'
-    </foreach>
-    FROM st_statistic_record
-    WHERE (record_time BETWEEN #{startTime} AND #{endTime})
+        <foreach collection="fields" index="index" item="field">
+            ,max(case when field_name='${field}' then value else 0 end) as '${field}'
+        </foreach>
+        FROM st_statistic_record
+        WHERE (record_time BETWEEN #{startTime} AND #{endTime})
         AND type_id = #{typeId}
-    GROUP BY type_id,`group`,record_time
+        GROUP BY type_id,`group`,record_time
     </select>
 
 </mapper>

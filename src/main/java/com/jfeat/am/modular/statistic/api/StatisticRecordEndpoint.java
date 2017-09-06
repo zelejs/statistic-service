@@ -11,6 +11,7 @@ import com.jfeat.am.common.persistence.model.StatisticRecord;
 import com.jfeat.am.common.persistence.model.TypeDefinition;
 import com.jfeat.am.core.support.BeanKit;
 import com.jfeat.am.core.support.DateTimeKit;
+import com.jfeat.am.core.support.StrKit;
 import com.jfeat.am.modular.statistic.constant.StatisticPermission;
 import com.jfeat.am.modular.statistic.service.StatisticFieldService;
 import com.jfeat.am.modular.statistic.service.StatisticRecordService;
@@ -29,7 +30,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/adm/statistic_records")
-public class StatisticRecordEndpoint extends BaseController{
+public class StatisticRecordEndpoint extends BaseController {
 
     @Resource
     StatisticRecordService statisticRecordService;
@@ -40,11 +41,11 @@ public class StatisticRecordEndpoint extends BaseController{
 
     @GetMapping
     @Permission(StatisticPermission.STATISTIC_VIEW)
-    public Tip getStatisticRecordByTypeIdAndStartTimeAndEndTime(@RequestParam(name = "typeId",required = false) Long typeId,
-                                                                @RequestParam(name = "identifier",required = false)String identifier,
-                                                                @RequestParam(required = false)String startTime,
-                                                                @RequestParam(required = false)String endTime){
-        if (typeId == null){
+    public Tip getStatisticRecords(@RequestParam(name = "typeId", required = false) Long typeId,
+                                   @RequestParam(name = "identifier", required = false) String identifier,
+                                   @RequestParam(required = false) String startTime,
+                                   @RequestParam(required = false) String endTime) {
+        if (typeId == null) {
             TypeDefinition typeDefinition = new TypeDefinition();
             typeDefinition.setIdentifier(identifier);
             typeId = typeDefinitionMapper.selectOne(typeDefinition).getId();
@@ -52,21 +53,17 @@ public class StatisticRecordEndpoint extends BaseController{
 //        获取fields
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         List<String> fields = Lists.newArrayList();
-        for (StatisticField statisticField:statisticFields){
+        for (StatisticField statisticField : statisticFields) {
             String field = statisticField.getName();
             fields.add(field);
         }
-        if (startTime == null && endTime != null){
+        if (StrKit.notBlank(startTime)) {
             startTime = DateTimeKit.lastMouth().toString();
         }
-        if (startTime != null && endTime == null){
+        if (StrKit.notBlank(endTime)) {
             endTime = DateTimeKit.formatDateTime(new Date());
         }
-        if (startTime == null && endTime == null){
-            startTime = DateTimeKit.lastMouth().toString();
-            endTime = DateTimeKit.formatDateTime(new Date());
-        }
-        List<Map<String,String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId,fields, startTime, endTime);
+        List<Map<String, String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
         return SuccessTip.create(statisticRecords);
     }
 }

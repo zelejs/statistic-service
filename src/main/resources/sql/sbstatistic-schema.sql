@@ -11,6 +11,8 @@ CREATE TABLE `st_statistic_field` (
   `type_id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL,
   `display_name` varchar(255) NOT NULL,
+  `sort_order` int(11) DEFAULT 0,
+  `visible` int(11) DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

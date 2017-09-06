@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author admin
- * @since 2017-09-04
+ * @since 2017-09-06
  */
 @TableName("st_type_definition")
 public class TypeDefinition extends Model<TypeDefinition> {
@@ -24,11 +24,11 @@ public class TypeDefinition extends Model<TypeDefinition> {
      */
 	private Long id;
     /**
-     * 缁熻鍚嶇О
+     * 统计名称
      */
 	private String name;
     /**
-     * 鏍囪瘑绗�
+     * 标识符
      */
 	private String identifier;
 

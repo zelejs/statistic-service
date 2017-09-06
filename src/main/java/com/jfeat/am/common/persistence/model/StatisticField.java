@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author admin
- * @since 2017-09-04
+ * @since 2017-09-06
  */
 @TableName("st_statistic_field")
 public class StatisticField extends Model<StatisticField> {
@@ -26,6 +26,9 @@ public class StatisticField extends Model<StatisticField> {
 	private String name;
 	@TableField("display_name")
 	private String displayName;
+	@TableField("sort_order")
+	private Integer sortOrder;
+	private Integer visible;
 
 
 	public Long getId() {
@@ -60,6 +63,22 @@ public class StatisticField extends Model<StatisticField> {
 		this.displayName = displayName;
 	}
 
+	public Integer getSortOrder() {
+		return sortOrder;
+	}
+
+	public void setSortOrder(Integer sortOrder) {
+		this.sortOrder = sortOrder;
+	}
+
+	public Integer getVisible() {
+		return visible;
+	}
+
+	public void setVisible(Integer visible) {
+		this.visible = visible;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -72,6 +91,8 @@ public class StatisticField extends Model<StatisticField> {
 			", typeId=" + typeId +
 			", name=" + name +
 			", displayName=" + displayName +
+			", sortOrder=" + sortOrder +
+			", visible=" + visible +
 			"}";
 	}
 }

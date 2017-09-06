@@ -38,6 +38,6 @@ public class AmApplication extends WebMvcConfigurerAdapter{
 
     public static void main(String[] args) {
         SpringApplication.run(AmApplication.class, args);
-        logger.info("SB Article is success!");
+        logger.info("SB Statistic is success!");
     }
 }

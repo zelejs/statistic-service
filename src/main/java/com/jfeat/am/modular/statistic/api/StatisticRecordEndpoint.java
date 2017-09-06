@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Silent-Y on 2017/9/2.
@@ -52,15 +53,11 @@ public class StatisticRecordEndpoint extends BaseController {
         }
 //        获取fields
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
-        List<String> fields = Lists.newArrayList();
-        for (StatisticField statisticField : statisticFields) {
-            String field = statisticField.getName();
-            fields.add(field);
-        }
-        if (StrKit.notBlank(startTime)) {
+        List<String> fields = statisticFields.stream().map(StatisticField::getName).collect(Collectors.toList());
+        if (StrKit.isBlank(startTime)) {
             startTime = DateTimeKit.lastMouth().toString();
         }
-        if (StrKit.notBlank(endTime)) {
+        if (StrKit.isBlank(endTime)) {
             endTime = DateTimeKit.formatDateTime(new Date());
         }
         List<Map<String, String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);

@@ -6,4 +6,5 @@ package com.jfeat.am.modular.statistic.constant;
 public class StatisticPermission {
 
     public static final String STATISTIC_VIEW = "statistic.view";
+    public static final String STATISTIC_UPDATE = "statistic.update";
 }

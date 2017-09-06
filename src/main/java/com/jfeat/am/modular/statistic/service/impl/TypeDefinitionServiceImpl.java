@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.jfeat.am.common.persistence.dao.TypeDefinitionMapper;
 import com.jfeat.am.common.persistence.model.TypeDefinition;
 import com.jfeat.am.modular.statistic.service.TypeDefinitionService;
+import com.jfeat.am.modular.statistic.wrapper.TypeDefinitionWrapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,4 +19,11 @@ public class TypeDefinitionServiceImpl extends ServiceImpl<TypeDefinitionMapper,
     public List<TypeDefinition> getTypeDefinitions(){
         return selectList(new EntityWrapper<TypeDefinition>());
     }
+
+    public boolean updateTypeDefinition(long id,TypeDefinitionWrapper typeDefinitionWrapper){
+        TypeDefinition typeDefinition = selectById(id);
+        typeDefinition.setName(typeDefinitionWrapper.getName());
+        return updateById(typeDefinition);
+    }
+
 }

@@ -7,9 +7,9 @@ import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.persistence.model.TypeDefinition;
 import com.jfeat.am.modular.statistic.constant.StatisticPermission;
 import com.jfeat.am.modular.statistic.service.TypeDefinitionService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.jfeat.am.modular.statistic.wrapper.TypeDefinitionWrapper;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -28,5 +28,11 @@ public class TypeDefinitionEndpoint extends BaseController{
     public Tip getTypeDefinitions(){
         List<TypeDefinition> typeDefinitions = typeDefinitionService.getTypeDefinitions();
         return SuccessTip.create(typeDefinitions);
+    }
+
+    @PutMapping("/{id}")
+    public Tip updateTypeDefinition(@PathVariable long id,@RequestBody TypeDefinitionWrapper typeDefinitionWrapper){
+        boolean result = typeDefinitionService.updateTypeDefinition(id,typeDefinitionWrapper);
+        return SuccessTip.create(result);
     }
 }

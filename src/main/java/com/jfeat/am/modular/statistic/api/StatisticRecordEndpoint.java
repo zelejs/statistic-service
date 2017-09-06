@@ -11,6 +11,7 @@ import com.jfeat.am.common.persistence.model.StatisticRecord;
 import com.jfeat.am.common.persistence.model.TypeDefinition;
 import com.jfeat.am.core.support.BeanKit;
 import com.jfeat.am.core.support.DateTimeKit;
+import com.jfeat.am.core.support.StrKit;
 import com.jfeat.am.modular.statistic.constant.StatisticPermission;
 import com.jfeat.am.modular.statistic.service.StatisticFieldService;
 import com.jfeat.am.modular.statistic.service.StatisticRecordService;
@@ -56,10 +57,10 @@ public class StatisticRecordEndpoint extends BaseController {
             String field = statisticField.getName();
             fields.add(field);
         }
-        if (startTime == null) {
+        if (StrKit.notBlank(startTime)) {
             startTime = DateTimeKit.lastMouth().toString();
         }
-        if (endTime == null) {
+        if (StrKit.notBlank(endTime)) {
             endTime = DateTimeKit.formatDateTime(new Date());
         }
         List<Map<String, String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);

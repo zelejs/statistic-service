@@ -1,6 +1,7 @@
 package com.jfeat.am.modular.statistic.mq;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,7 +12,7 @@ public class StatisticNotifyData {
     private String identifier;
     private Date recordTime;
     private String defaultName;
-    private Map<String, String> value;
+    private List<Statistic> values;
 
     public String getIdentifier() {
         return identifier;
@@ -37,11 +38,11 @@ public class StatisticNotifyData {
         this.defaultName = defaultName;
     }
 
-    public Map<String, String> getValue() {
-        return value;
+    public List<Statistic> getValues() {
+        return values;
     }
 
-    public void setValue(Map<String, String> value) {
-        this.value = value;
+    public void setValues(List<Statistic> values) {
+        this.values = values;
     }
 }

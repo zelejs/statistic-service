@@ -11,6 +11,7 @@ import com.jfeat.am.common.persistence.model.StatisticRecord;
 import com.jfeat.am.common.persistence.model.TypeDefinition;
 import com.jfeat.am.core.support.BeanKit;
 import com.jfeat.am.modular.statistic.dao.StatisticRecordDao;
+import com.jfeat.am.modular.statistic.mq.Statistic;
 import com.jfeat.am.modular.statistic.mq.StatisticNotifyData;
 import com.jfeat.am.modular.statistic.service.StatisticRecordService;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class StatisticRecordServiceImpl extends ServiceImpl<StatisticRecordMappe
     @Transactional
     public boolean insertStatisticRecord(StatisticNotifyData statisticNotifyData) {
 
-        Map<String, String> map = statisticNotifyData.getValue();
+        List<Statistic> statisticList = statisticNotifyData.getValues();
         Long group = IdWorker.getId();
 
         //插入type
@@ -53,31 +54,31 @@ public class StatisticRecordServiceImpl extends ServiceImpl<StatisticRecordMappe
         }
 
         //插入field
-        Integer count = statisticFieldMapper.selectCount(new EntityWrapper<StatisticField>().eq("type_id",typeDefinition.getId()));
-        if (count < 1){
-            for (Map.Entry<String,String> entry:map.entrySet()){
+        Integer count = statisticFieldMapper.selectCount(new EntityWrapper<StatisticField>().eq("type_id", typeDefinition.getId()));
+        if (count < 1) {
+            for (Statistic statistic : statisticList) {
                 StatisticField statisticField = new StatisticField();
                 statisticField.setTypeId(typeDefinition.getId());
-                statisticField.setName(entry.getKey());
-                statisticField.setDisplayName(entry.getKey());
+                statisticField.setName(statistic.getKey());
+                statisticField.setDisplayName(statistic.getName());
                 statisticFieldMapper.insert(statisticField);
             }
         }
 
         //插入record
-        for (Map.Entry<String,String> entry:map.entrySet()){
+        for (Statistic statistic : statisticList) {
             StatisticRecord statisticRecord = new StatisticRecord();
             statisticRecord.setRecordTime(statisticNotifyData.getRecordTime());
             statisticRecord.setTypeId(typeDefinition.getId());
-            statisticRecord.setFieldName(entry.getKey());
-            statisticRecord.setValue(entry.getValue());
+            statisticRecord.setFieldName(statistic.getKey());
+            statisticRecord.setValue(statistic.getValue());
             statisticRecord.setGroup(group);
             insert(statisticRecord);
         }
         return true;
     }
 
-    public List<Map<String,String>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(Long typeId,List<String> fields,String startTime,String endTime){
-        return statisticRecordDao.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId,fields,startTime,endTime);
+    public List<Map<String, String>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(Long typeId, List<String> fields, String startTime, String endTime) {
+        return statisticRecordDao.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
     }
 }

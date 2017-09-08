@@ -5,6 +5,8 @@ import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
+import com.jfeat.am.common.exception.BizExceptionEnum;
+import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.common.persistence.dao.TypeDefinitionMapper;
 import com.jfeat.am.common.persistence.model.StatisticField;
 import com.jfeat.am.common.persistence.model.StatisticRecord;
@@ -46,11 +48,19 @@ public class StatisticRecordEndpoint extends BaseController {
                                    @RequestParam(name = "identifier", required = false) String identifier,
                                    @RequestParam(required = false) String startTime,
                                    @RequestParam(required = false) String endTime) {
-        if (typeId == null) {
-            TypeDefinition typeDefinition = new TypeDefinition();
-            typeDefinition.setIdentifier(identifier);
-            typeId = typeDefinitionMapper.selectOne(typeDefinition).getId();
+        if (typeId == null && StrKit.isBlank(identifier)) {
+            throw new BusinessException(BizExceptionEnum.REQUEST_INVALIDATE);
         }
+        if (typeId == null) {
+            TypeDefinition query = new TypeDefinition();
+            query.setIdentifier(identifier);
+            TypeDefinition typeDefinition = typeDefinitionMapper.selectOne(query);
+            if (typeDefinition == null) {
+                throw new BusinessException(BizExceptionEnum.INVALID_TUPLE_ID);
+            }
+            typeId = typeDefinition.getId();
+        }
+
 //        获取fields
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         List<String> fields = statisticFields.stream().map(StatisticField::getName).collect(Collectors.toList());

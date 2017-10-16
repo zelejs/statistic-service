@@ -17,6 +17,6 @@ import java.util.Map;
  */
 public interface StatisticRecordDao extends BaseMapper<StatisticRecord> {
 
-    public List<Map<String,String>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(@Param("typeId") Long typeId,@Param("fields")List<String> fields,@Param("startTime")String startTime,@Param("endTime")String endTime);
+    public List<Map<String,Object>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(@Param("typeId") Long typeId,@Param("fields")List<String> fields,@Param("startTime")String startTime,@Param("endTime")String endTime);
 
 }

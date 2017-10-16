@@ -13,6 +13,7 @@
         WHERE (record_time BETWEEN #{startTime} AND #{endTime})
         AND type_id = #{typeId}
         GROUP BY type_id,`group`,record_time
+        ORDER BY record_time DESC
     </select>
 
 </mapper>

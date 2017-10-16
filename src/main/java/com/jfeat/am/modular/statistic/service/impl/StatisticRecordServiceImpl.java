@@ -80,7 +80,7 @@ public class StatisticRecordServiceImpl extends ServiceImpl<StatisticRecordMappe
         return true;
     }
 
-    public List<Map<String, String>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(Long typeId, List<String> fields, String startTime, String endTime) {
+    public List<Map<String, Object>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(Long typeId, List<String> fields, String startTime, String endTime) {
         if (StrKit.isBlank(startTime)) {
             startTime = DateTimeKit.lastMouth().toString();
         }

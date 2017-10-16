@@ -14,5 +14,5 @@ public interface StatisticRecordService {
 
     public boolean insertStatisticRecord(StatisticNotifyData memberAnalysisNotifyData);
 
-    public List<Map<String,String>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(Long typeId,List<String> fields,String startTime,String endTime);
+    public List<Map<String,Object>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(Long typeId,List<String> fields,String startTime,String endTime);
 }

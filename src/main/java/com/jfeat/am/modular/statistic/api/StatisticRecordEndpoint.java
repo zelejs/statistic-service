@@ -66,7 +66,7 @@ public class StatisticRecordEndpoint extends BaseController {
 //        获取fields
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         List<String> fields = statisticFields.stream().map(StatisticField::getName).collect(Collectors.toList());
-        List<Map<String, String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
+        List<Map<String, Object>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
         return SuccessTip.create(statisticRecords);
     }
 

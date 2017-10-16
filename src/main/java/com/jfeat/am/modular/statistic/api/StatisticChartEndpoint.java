@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
+import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.exception.BizExceptionEnum;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.common.persistence.dao.TypeDefinitionMapper;
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api/adm/statistic/chart")
-public class StatisticChartEndpoint {
+public class StatisticChartEndpoint extends BaseController{
 
     @Resource
     StatisticRecordService statisticRecordService;
@@ -70,25 +71,25 @@ public class StatisticChartEndpoint {
 //        获取fields
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         List<String> fields = statisticFields.stream().map(StatisticField::getName).collect(Collectors.toList());
-        List<Map<String, String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
-        List<Map<String,String>> data = Lists.newArrayList();
-        List<String> recordTime = Lists.newArrayList();
-        for (Map<String,String> statisticRecord:statisticRecords){
-            String time = statisticRecord.get("recordTime");
-            recordTime.add(time);
-            for(String key : statisticRecord.keySet()){
-                Map<String,String> pie = Maps.newHashMap();
-                pie.put(key.toString(), statisticRecord.get(key));
-                if (!key.equals("recordTime")){
+        List<Map<String, Object>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
+        List<Map<String,Object>> data = Lists.newArrayList();
+
+//        for (Map<String,Object> statisticRecord:statisticRecords){
+            String time = statisticRecords.get(0).get("recordTime").toString();
+            for(StatisticField statisticField : statisticFields){
+                if ( statisticField.getVisible() == 1) {
+                    Map<String, Object> pie = Maps.newHashMap();
+                    pie.put("name", statisticField.getDisplayName());
+                    pie.put("value", statisticRecords.get(0).get(statisticField.getName()));
                     data.add(pie);
                 }
             }
-        }
+//        }
 
         Map<String,Object> result = new HashMap<>();
-        result.put("timestamp", recordTime);
+        result.put("timestamp", time);
         result.put("type", type);
-        result.put("data", statisticRecords);
+        result.put("data", data);
 
         return SuccessTip.create(result);
     }
@@ -121,10 +122,10 @@ public class StatisticChartEndpoint {
 //        获取fields
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         List<String> fields = statisticFields.stream().map(StatisticField::getName).collect(Collectors.toList());
-        List<Map<String, String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
+        List<Map<String, Object>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
         List fieldName = Lists.newArrayList();
         for (String field:fields){
-            for (Map<String,String> statisticRecord:statisticRecords){
+            for (Map<String,Object> statisticRecord:statisticRecords){
                 fieldName.add(statisticRecord.get(field));
             }
         }
@@ -167,7 +168,7 @@ public class StatisticChartEndpoint {
 //        获取fields
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         List<String> fields = statisticFields.stream().map(StatisticField::getName).collect(Collectors.toList());
-        List<Map<String, String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
+        List<Map<String, Object>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
         return SuccessTip.create(statisticRecords);
     }
 }

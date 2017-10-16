@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api/adm/statistic/chart")
-public class StatisticChartEndpoint extends BaseController{
+public class StatisticChartEndpoint extends BaseController {
 
     @Resource
     StatisticRecordService statisticRecordService;
@@ -49,22 +49,15 @@ public class StatisticChartEndpoint extends BaseController{
     {value:400, name:'搜索引擎'}
     ]*/
 
-    @GetMapping("/pie/{typeId}")
-    public Tip getPieData(@PathVariable Long typeId,
+    @GetMapping("/pie/{identifier}")
+    public Tip getPieData(@PathVariable String identifier,
                           @RequestParam(required = false) String startTime,
                           @RequestParam(required = false) String endTime) {
-     /*   if (typeId == null && StrKit.isBlank(identifier)) {
-            throw new BusinessException(BizExceptionEnum.REQUEST_INVALIDATE);
-        }
-        if (typeId == null) {
-            TypeDefinition query = new TypeDefinition();
-            query.setIdentifier(identifier);
-            TypeDefinition typeDefinition = typeDefinitionMapper.selectOne(query);
-            if (typeDefinition == null) {
-                throw new BusinessException(BizExceptionEnum.INVALID_TUPLE_ID);
-            }
-            typeId = typeDefinition.getId();
-        }*/
+
+        TypeDefinition query = new TypeDefinition();
+        query.setIdentifier(identifier);
+        TypeDefinition typeDefinition = typeDefinitionMapper.selectOne(query);
+        Long typeId = typeDefinition.getId();
 
         String type = typeDefinitionMapper.selectById(typeId).getName();
 
@@ -72,21 +65,19 @@ public class StatisticChartEndpoint extends BaseController{
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         List<String> fields = statisticFields.stream().map(StatisticField::getName).collect(Collectors.toList());
         List<Map<String, Object>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
-        List<Map<String,Object>> data = Lists.newArrayList();
+        List<Map<String, Object>> data = Lists.newArrayList();
 
-//        for (Map<String,Object> statisticRecord:statisticRecords){
-            String time = statisticRecords.get(0).get("recordTime").toString();
-            for(StatisticField statisticField : statisticFields){
-                if ( statisticField.getVisible() == 1) {
-                    Map<String, Object> pie = Maps.newHashMap();
-                    pie.put("name", statisticField.getDisplayName());
-                    pie.put("value", statisticRecords.get(0).get(statisticField.getName()));
-                    data.add(pie);
-                }
+        String time = statisticRecords.get(0).get("recordTime").toString();
+        for (StatisticField statisticField : statisticFields) {
+            if (statisticField.getVisible() == 1) {
+                Map<String, Object> pie = Maps.newHashMap();
+                pie.put("name", statisticField.getDisplayName());
+                pie.put("value", statisticRecords.get(0).get(statisticField.getName()));
+                data.add(pie);
             }
-//        }
+        }
 
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         result.put("timestamp", time);
         result.put("type", type);
         result.put("data", data);
@@ -105,7 +96,7 @@ public class StatisticChartEndpoint extends BaseController{
     public Tip getLineData(@RequestParam(name = "typeId", required = false) Long typeId,
                            @RequestParam(name = "identifier", required = false) String identifier,
                            @RequestParam(required = false) String startTime,
-                           @RequestParam(required = false) String endTime){
+                           @RequestParam(required = false) String endTime) {
         if (typeId == null && StrKit.isBlank(identifier)) {
             throw new BusinessException(BizExceptionEnum.REQUEST_INVALIDATE);
         }
@@ -124,8 +115,8 @@ public class StatisticChartEndpoint extends BaseController{
         List<String> fields = statisticFields.stream().map(StatisticField::getName).collect(Collectors.toList());
         List<Map<String, Object>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
         List fieldName = Lists.newArrayList();
-        for (String field:fields){
-            for (Map<String,Object> statisticRecord:statisticRecords){
+        for (String field : fields) {
+            for (Map<String, Object> statisticRecord : statisticRecords) {
                 fieldName.add(statisticRecord.get(field));
             }
         }
@@ -142,7 +133,7 @@ public class StatisticChartEndpoint extends BaseController{
     "data":[220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];*/
 
     @GetMapping("/bar/{typeId}")
-    public Tip getBarData(){
+    public Tip getBarData() {
         return SuccessTip.create();
     }
 

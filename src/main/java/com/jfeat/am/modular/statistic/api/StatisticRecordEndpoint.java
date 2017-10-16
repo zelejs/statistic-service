@@ -44,7 +44,7 @@ public class StatisticRecordEndpoint extends BaseController {
     @Resource
     TypeDefinitionMapper typeDefinitionMapper;
 
-    @GetMapping("/records/{typeId}")
+    @GetMapping("/records")
     @Permission(StatisticPermission.STATISTIC_VIEW)
     public Tip getStatisticRecords(@RequestParam(name = "typeId", required = false) Long typeId,
                                    @RequestParam(name = "identifier", required = false) String identifier,

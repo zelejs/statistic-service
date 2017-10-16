@@ -92,37 +92,34 @@ public class StatisticChartEndpoint extends BaseController {
     "dataAxis":['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
     "data":[220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];*/
 
-    @GetMapping("/line/{typeId}")
-    public Tip getLineData(@RequestParam(name = "typeId", required = false) Long typeId,
-                           @RequestParam(name = "identifier", required = false) String identifier,
+    @GetMapping("/line/{identifier}")
+    public Tip getLineData(@PathVariable String identifier,
                            @RequestParam(required = false) String startTime,
                            @RequestParam(required = false) String endTime) {
-        if (typeId == null && StrKit.isBlank(identifier)) {
-            throw new BusinessException(BizExceptionEnum.REQUEST_INVALIDATE);
-        }
-        if (typeId == null) {
+
             TypeDefinition query = new TypeDefinition();
             query.setIdentifier(identifier);
             TypeDefinition typeDefinition = typeDefinitionMapper.selectOne(query);
-            if (typeDefinition == null) {
-                throw new BusinessException(BizExceptionEnum.INVALID_TUPLE_ID);
-            }
-            typeId = typeDefinition.getId();
-        }
+            Long typeId = typeDefinition.getId();
 
 //        获取fields
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         List<String> fields = statisticFields.stream().map(StatisticField::getName).collect(Collectors.toList());
         List<Map<String, Object>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
-        List fieldName = Lists.newArrayList();
+        List list = Lists.newArrayList();
+        Map<String,Object> data = Maps.newHashMap();
+        List time = Lists.newArrayList();
         for (String field : fields) {
             for (Map<String, Object> statisticRecord : statisticRecords) {
-                fieldName.add(statisticRecord.get(field));
+                time.add(statisticRecord.get("recordTime"));
+                list.add(statisticRecord.get(field));
+                data.put(field,list);
+                data.put("timestamp",time);
             }
         }
 
 
-        return SuccessTip.create();
+        return SuccessTip.create(data);
     }
 
     /*柱状图数据结构

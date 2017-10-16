@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Silent-Y on 2017/9/2.
  */
 @RestController
-@RequestMapping("/api/adm/statistic_fields")
+@RequestMapping("/api/adm/statistic/fields")
 public class StatisticFieldEndpoint extends BaseController{
 
     @Resource

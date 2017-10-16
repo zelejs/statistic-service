@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 
 @Deprecated
 @RestController
-@RequestMapping("/api/adm/statistic/records")
+@RequestMapping("/api/adm/statistic_records")
 public class StatisticRecordEndpoint extends BaseController {
 
     @Resource
@@ -44,7 +44,7 @@ public class StatisticRecordEndpoint extends BaseController {
     @Resource
     TypeDefinitionMapper typeDefinitionMapper;
 
-    @GetMapping("/records")
+    @GetMapping
     @Permission(StatisticPermission.STATISTIC_VIEW)
     public Tip getStatisticRecords(@RequestParam(name = "typeId", required = false) Long typeId,
                                    @RequestParam(name = "identifier", required = false) String identifier,

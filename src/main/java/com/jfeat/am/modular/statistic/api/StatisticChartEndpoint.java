@@ -1,6 +1,7 @@
 package com.jfeat.am.modular.statistic.api;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.exception.BizExceptionEnum;
@@ -11,15 +12,10 @@ import com.jfeat.am.common.persistence.model.TypeDefinition;
 import com.jfeat.am.core.support.StrKit;
 import com.jfeat.am.modular.statistic.service.StatisticFieldService;
 import com.jfeat.am.modular.statistic.service.StatisticRecordService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Array;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -51,11 +47,10 @@ public class StatisticChartEndpoint {
     ]*/
 
     @GetMapping("/pie/{typeId}")
-    public Tip getPieData(@RequestParam(name = "typeId", required = false) Long typeId,
-                          @RequestParam(name = "identifier", required = false) String identifier,
+    public Tip getPieData(@PathVariable Long typeId,
                           @RequestParam(required = false) String startTime,
                           @RequestParam(required = false) String endTime) {
-        if (typeId == null && StrKit.isBlank(identifier)) {
+     /*   if (typeId == null && StrKit.isBlank(identifier)) {
             throw new BusinessException(BizExceptionEnum.REQUEST_INVALIDATE);
         }
         if (typeId == null) {
@@ -66,7 +61,7 @@ public class StatisticChartEndpoint {
                 throw new BusinessException(BizExceptionEnum.INVALID_TUPLE_ID);
             }
             typeId = typeDefinition.getId();
-        }
+        }*/
 
         String type = typeDefinitionMapper.selectById(typeId).getName();
 
@@ -74,19 +69,26 @@ public class StatisticChartEndpoint {
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         List<String> fields = statisticFields.stream().map(StatisticField::getName).collect(Collectors.toList());
         List<Map<String, String>> statisticRecords = statisticRecordService.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
+        List<Map<String,String>> data = Lists.newArrayList();
         List<String> recordTime = Lists.newArrayList();
         for (Map<String,String> statisticRecord:statisticRecords){
+            String time = statisticRecord.get("recordTime");
+            recordTime.add(time);
             for(String key : statisticRecord.keySet()){
-                statisticRecord.remove("recordTime");
-                recordTime.add(statisticRecord.get("recordTime"));
+                Map<String,String> pie = Maps.newHashMap();
+                pie.put(key.toString(), statisticRecord.get(key));
+                if (!key.equals("recordTime")){
+                    data.add(pie);
+                }
             }
         }
-        Map<String,Object> data = new HashMap<>();
-        data.put("recordTime",recordTime);
-        data.put("type",type);
-        data.put("statisticRecords",statisticRecords);
 
-        return SuccessTip.create(data);
+        Map<String,Object> result = new HashMap<>();
+        result.put("timestamp", recordTime);
+        result.put("type", type);
+        result.put("data", statisticRecords);
+
+        return SuccessTip.create(result);
     }
 
     /*折线图数据结构

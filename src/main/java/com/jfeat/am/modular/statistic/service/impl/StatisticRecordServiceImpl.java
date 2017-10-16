@@ -10,6 +10,8 @@ import com.jfeat.am.common.persistence.model.StatisticField;
 import com.jfeat.am.common.persistence.model.StatisticRecord;
 import com.jfeat.am.common.persistence.model.TypeDefinition;
 import com.jfeat.am.core.support.BeanKit;
+import com.jfeat.am.core.support.DateTimeKit;
+import com.jfeat.am.core.support.StrKit;
 import com.jfeat.am.modular.statistic.dao.StatisticRecordDao;
 import com.jfeat.am.modular.statistic.mq.Statistic;
 import com.jfeat.am.modular.statistic.mq.StatisticNotifyData;
@@ -79,6 +81,12 @@ public class StatisticRecordServiceImpl extends ServiceImpl<StatisticRecordMappe
     }
 
     public List<Map<String, String>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(Long typeId, List<String> fields, String startTime, String endTime) {
+        if (StrKit.isBlank(startTime)) {
+            startTime = DateTimeKit.lastMouth().toString();
+        }
+        if (StrKit.isBlank(endTime)) {
+            endTime = DateTimeKit.formatDateTime(new Date());
+        }
         return statisticRecordDao.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
     }
 }

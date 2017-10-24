@@ -49,8 +49,8 @@ public class StatisticChartEndpoint extends BaseController {
     {value:400, name:'搜索引擎'}
     ]*/
 
-    @GetMapping("/pie/{identifier}")
-    public Tip getPieData(@PathVariable String identifier,
+    @GetMapping("/pie")
+    public Tip getPieData(@RequestParam String identifier,
                           @RequestParam(required = false) String startTime,
                           @RequestParam(required = false) String endTime) {
 
@@ -117,8 +117,6 @@ public class StatisticChartEndpoint extends BaseController {
                 data.put("timestamp",time);
             }
         }
-
-
         return SuccessTip.create(data);
     }
 

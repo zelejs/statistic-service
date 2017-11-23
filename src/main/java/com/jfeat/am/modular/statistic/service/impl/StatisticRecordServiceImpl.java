@@ -3,13 +3,12 @@ package com.jfeat.am.modular.statistic.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
-import com.jfeat.am.common.persistence.dao.StatisticFieldMapper;
-import com.jfeat.am.common.persistence.dao.StatisticRecordMapper;
-import com.jfeat.am.common.persistence.dao.TypeDefinitionMapper;
-import com.jfeat.am.common.persistence.model.StatisticField;
-import com.jfeat.am.common.persistence.model.StatisticRecord;
-import com.jfeat.am.common.persistence.model.TypeDefinition;
-import com.jfeat.am.core.support.BeanKit;
+import com.jfeat.am.modular.statistic.persistence.dao.StatisticFieldMapper;
+import com.jfeat.am.modular.statistic.persistence.dao.StatisticRecordMapper;
+import com.jfeat.am.modular.statistic.persistence.dao.TypeDefinitionMapper;
+import com.jfeat.am.modular.statistic.persistence.model.StatisticField;
+import com.jfeat.am.modular.statistic.persistence.model.StatisticRecord;
+import com.jfeat.am.modular.statistic.persistence.model.TypeDefinition;
 import com.jfeat.am.core.support.DateTimeKit;
 import com.jfeat.am.core.support.StrKit;
 import com.jfeat.am.modular.statistic.dao.StatisticRecordDao;
@@ -23,7 +22,6 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Created by Silent-Y on 2017/8/31.

@@ -2,8 +2,8 @@ package com.jfeat.am.modular.statistic.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.jfeat.am.common.persistence.dao.TypeDefinitionMapper;
-import com.jfeat.am.common.persistence.model.TypeDefinition;
+import com.jfeat.am.modular.statistic.persistence.dao.TypeDefinitionMapper;
+import com.jfeat.am.modular.statistic.persistence.model.TypeDefinition;
 import com.jfeat.am.modular.statistic.service.TypeDefinitionService;
 import com.jfeat.am.modular.statistic.wrapper.TypeDefinitionWrapper;
 import org.springframework.stereotype.Service;

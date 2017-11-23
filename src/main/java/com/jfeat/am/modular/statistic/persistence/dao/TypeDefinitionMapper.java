@@ -1,6 +1,6 @@
-package com.jfeat.am.common.persistence.dao;
+package com.jfeat.am.modular.statistic.persistence.dao;
 
-import com.jfeat.am.common.persistence.model.TypeDefinition;
+import com.jfeat.am.modular.statistic.persistence.model.TypeDefinition;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

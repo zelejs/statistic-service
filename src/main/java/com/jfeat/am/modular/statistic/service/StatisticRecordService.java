@@ -1,9 +1,7 @@
 package com.jfeat.am.modular.statistic.service;
 
-import com.jfeat.am.common.persistence.model.StatisticRecord;
 import com.jfeat.am.modular.statistic.mq.StatisticNotifyData;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 

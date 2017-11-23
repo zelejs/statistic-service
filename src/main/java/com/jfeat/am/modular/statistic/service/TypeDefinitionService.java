@@ -1,6 +1,6 @@
 package com.jfeat.am.modular.statistic.service;
 
-import com.jfeat.am.common.persistence.model.TypeDefinition;
+import com.jfeat.am.modular.statistic.persistence.model.TypeDefinition;
 import com.jfeat.am.modular.statistic.wrapper.TypeDefinitionWrapper;
 
 import java.util.List;

@@ -4,7 +4,7 @@ import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
-import com.jfeat.am.common.persistence.model.StatisticField;
+import com.jfeat.am.modular.statistic.persistence.model.StatisticField;
 import com.jfeat.am.modular.statistic.constant.StatisticPermission;
 import com.jfeat.am.modular.statistic.service.StatisticFieldService;
 import com.jfeat.am.modular.statistic.wrapper.StatisticFieldWrapper;

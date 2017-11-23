@@ -1,10 +1,9 @@
-package com.jfeat.am.common.persistence.model;
+package com.jfeat.am.modular.statistic.persistence.model;
 
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 
 /**
  * <p>

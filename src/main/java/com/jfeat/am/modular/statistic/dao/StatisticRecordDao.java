@@ -1,7 +1,7 @@
 package com.jfeat.am.modular.statistic.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.jfeat.am.common.persistence.model.StatisticRecord;
+import com.jfeat.am.modular.statistic.persistence.model.StatisticRecord;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

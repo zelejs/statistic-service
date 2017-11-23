@@ -2,19 +2,15 @@ package com.jfeat.am.modular.statistic.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.jfeat.am.common.persistence.dao.StatisticFieldMapper;
-import com.jfeat.am.common.persistence.model.StatisticField;
+import com.jfeat.am.modular.statistic.persistence.dao.StatisticFieldMapper;
+import com.jfeat.am.modular.statistic.persistence.model.StatisticField;
 import com.jfeat.am.core.support.BeanKit;
 import com.jfeat.am.modular.statistic.service.StatisticFieldService;
 import com.jfeat.am.modular.statistic.wrapper.StatisticFieldWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

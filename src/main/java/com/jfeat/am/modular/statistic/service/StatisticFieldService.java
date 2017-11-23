@@ -1,6 +1,6 @@
 package com.jfeat.am.modular.statistic.service;
 
-import com.jfeat.am.common.persistence.model.StatisticField;
+import com.jfeat.am.modular.statistic.persistence.model.StatisticField;
 import com.jfeat.am.modular.statistic.wrapper.StatisticFieldWrapper;
 
 import java.util.List;

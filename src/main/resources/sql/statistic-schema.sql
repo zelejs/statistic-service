@@ -3,8 +3,8 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for st_statistic_group
 -- ----------------------------
-DROP TABLE IF EXISTS `st_statistic_group`;
-CREATE TABLE `st_statistic_group` (
+DROP TABLE IF EXISTS `st_statistics_group`;
+CREATE TABLE `st_statistics_group` (
   `id` bigint(20) NOT NULL,
   `name` varchar(50) NOT NULL COMMENT '组名称',
   `pid` bigint(20) DEFAULT NULL COMMENT '上级分组',
@@ -16,8 +16,8 @@ CREATE TABLE `st_statistic_group` (
 -- ----------------------------
 -- Table structure for st_statistic_entry
 -- ----------------------------
-DROP TABLE IF EXISTS `st_statistic_chart`;
-CREATE TABLE `st_statistic_chart` (
+DROP TABLE IF EXISTS `st_statistics_field`;
+CREATE TABLE `st_statistics_field` (
   `id` bigint(20) NOT NULL,
   `name` varchar(50) NOT NULL COMMENT '统计名称',
   `field` varchar(100) NOT NULL COMMENT '数据域标识符',
@@ -31,8 +31,8 @@ CREATE TABLE `st_statistic_chart` (
 -- ----------------------------
 -- Table structure for st_statistic_record
 -- ----------------------------
-DROP TABLE IF EXISTS `st_statistic_legend`;
-CREATE TABLE `st_statistic_legend` (
+DROP TABLE IF EXISTS `st_statistics_record`;
+CREATE TABLE `st_statistics_record` (
   `id` bigint(20) NOT NULL,
   `field` varchar(100) NOT NULL COMMENT '数据域标识符',
   `legend` varchar(50) NOT NULL COMMENT '记录名称（已完成）',

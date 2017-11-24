@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.statistics.services.domain.dao.QueryStatisticsRecordDao">
+    <sql id="Base_Column_List">
+            st_statistics_record.*
+        </sql>
+        <select id="findStatisticsRecordPage" resultType="StatisticsRecord" parameterType="StatisticsRecord">
+      SELECT st_statistics_record.*
+            FROM st_statistics_record
+            WHERE 1=1
+                             <if test="statisticsRecord.id != null and statisticsRecord.id>0 ">
+                 AND st_statistics_record.id LIKE CONCAT('%',#{statisticsRecord.id},'%')
+            </if>
+                             <if test="statisticsRecord.field != null and statisticsRecord.field!= ''">
+                 AND st_statistics_record.field LIKE CONCAT('%',#{statisticsRecord.field},'%')
+            </if>
+                             <if test="statisticsRecord.legend != null and statisticsRecord.legend!= ''">
+                 AND st_statistics_record.legend LIKE CONCAT('%',#{statisticsRecord.legend},'%')
+            </if>
+                                             <if test="statisticsRecord.legendKey != null and statisticsRecord.legendKey!= ''">
+                 AND st_statistics_record.legend_key LIKE CONCAT('%',#{statisticsRecord.legendKey},'%')
+            </if>
+                                             <if test="statisticsRecord.legendValue != null and statisticsRecord.legendValue!= ''">
+                 AND st_statistics_record.legend_value LIKE CONCAT('%',#{statisticsRecord.legendValue},'%')
+            </if>
+                             <if test="statisticsRecord.index != null and statisticsRecord.index>0 ">
+                 AND st_statistics_record.index LIKE CONCAT('%',#{statisticsRecord.index},'%')
+            </if>
+                                             <if test="statisticsRecord.recordTime != null and statisticsRecord.recordTime>0 ">
+                 AND st_statistics_record.record_time LIKE CONCAT('%',#{statisticsRecord.recordTime},'%')
+            </if>
+                                             <if test="statisticsRecord.monthName != null and statisticsRecord.monthName!= ''">
+                 AND st_statistics_record.month_name LIKE CONCAT('%',#{statisticsRecord.monthName},'%')
+            </if>
+                    </select>
+</mapper>

@@ -5,7 +5,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for st_statistic_field
 -- ----------------------------
-DROP TABLE IF EXISTS `st_statistic_field_attr`;
+DROP TABLE IF EXISTS `st_statistic_field`;
 CREATE TABLE `st_statistic_field` (
   `id` bigint(20) NOT NULL,
   `type_id` bigint(20) NOT NULL,

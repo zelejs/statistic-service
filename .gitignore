@@ -9,3 +9,4 @@ build/*
 *.db
 logs/*
 LOG**
+.DS_Store

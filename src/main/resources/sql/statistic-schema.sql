@@ -1,43 +1,46 @@
-
-
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for st_statistic_field
+-- Table structure for st_statistic_group
 -- ----------------------------
-DROP TABLE IF EXISTS `st_statistic_field_attr`;
-CREATE TABLE `st_statistic_field` (
+DROP TABLE IF EXISTS `st_statistic_group`;
+CREATE TABLE `st_statistic_group` (
   `id` bigint(20) NOT NULL,
-  `type_id` bigint(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `display_name` varchar(255) NOT NULL,
-  `sort_order` int(11) DEFAULT 0,
-  `visible` int(11) DEFAULT 1,
+  `name` varchar(50) NOT NULL COMMENT '组名称',
+  `pid` bigint(20) DEFAULT NULL COMMENT '上级分组',
+  `desc` text DEFAULT NULL COMMENT '分组描述',
+  `chart` varchar(26) NOT NULL COMMENT '图表名称[Pie,Chain]环比',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for st_statistic_entry
+-- ----------------------------
+DROP TABLE IF EXISTS `st_statistic_chart`;
+CREATE TABLE `st_statistic_chart` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(50) NOT NULL COMMENT '统计名称',
+  `field` varchar(100) NOT NULL COMMENT '数据域标识符',
+  `index` smallint(5) DEFAULT 0 COMMENT '排序号',
+  `invisible` smallint(5) DEFAULT 0 COMMENT '是否不可见',
+  `group_id` bigint(20) NOT NULL COMMENT '统计所属分组',
+  `chart` varchar(26) NOT NULL COMMENT '图表名称[Pie,Chain]环比',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for st_statistic_record
 -- ----------------------------
-DROP TABLE IF EXISTS `st_statistic_record`;
-CREATE TABLE `st_statistic_record` (
+DROP TABLE IF EXISTS `st_statistic_legend`;
+CREATE TABLE `st_statistic_legend` (
   `id` bigint(20) NOT NULL,
-  `type_id` bigint(20) NOT NULL,
-  `record_time` datetime NOT NULL,
-  `field_name` varchar(255) NOT NULL,
-  `group` bigint(20) NOT NULL COMMENT '数据分组，用于同一次统计有多种统计项，比如文章排行榜',
-  `value` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for st_type_definition
--- ----------------------------
-DROP TABLE IF EXISTS `st_type_definition`;
-CREATE TABLE `st_type_definition` (
-  `id` bigint(20) NOT NULL COMMENT 'ID',
-  `name` varchar(255) NOT NULL COMMENT '统计名称',
-  `identifier` varchar(255) NOT NULL COMMENT '标识符',
+  `field` varchar(100) NOT NULL COMMENT '数据域标识符',
+  `legend` varchar(50) NOT NULL COMMENT '记录名称（已完成）',
+  `legend_key` varchar(50) NOT NULL COMMENT '记录标记',
+  `legend_value` varchar(50) NOT NULL COMMENT '图例值',
+  `index` smallint(5) DEFAULT 0 COMMENT '排序号',
+  `record_time` datetime NOT NULL COMMENT '记录时间',
+  `month_name` varchar(26) DEFAULT NULL COMMENT '所属月份简称 [Mar,Jan,Q1,Q2]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

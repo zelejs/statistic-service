@@ -248,9 +248,9 @@
                     <username>root</username>
                     <password>root</password>
                     <tables>
-                        <table>t_ad</table>
-                        <table>t_ad_group</table>
-                        <table>t_ad_link_definition</table>
+                        <table>st_statistic_group</table>
+                        <table>st_statistic_chart</table>
+                        <table>st_statistic_legend</table>
                     </tables>
                     <initialize>true</initialize>
                 </configuration>

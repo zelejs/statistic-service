@@ -51,8 +51,5 @@ public class BaseJunit {
         String endTimeNew = DateTimeKit.formatDateTime(new Date());
 
         System.out.println("==================================================================================================="+endTimeNew);
-
-
-
     }
 }

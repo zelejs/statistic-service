@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.statistics.services.domain.dao.QueryStatisticChartDao">
+    <sql id="Base_Column_List">
+            st_statistic_chart.*
+        </sql>
+        <select id="findStatisticChartPage" resultType="StatisticChart" parameterType="StatisticChart">
+      SELECT st_statistic_chart.*
+            FROM st_statistic_chart
+            WHERE 1=1
+                             <if test="statisticChart.id != null and statisticChart.id>0 ">
+                 AND st_statistic_chart.id LIKE CONCAT('%',#{statisticChart.id},'%')
+            </if>
+                             <if test="statisticChart.name != null and statisticChart.name!= ''">
+                 AND st_statistic_chart.name LIKE CONCAT('%',#{statisticChart.name},'%')
+            </if>
+                             <if test="statisticChart.field != null and statisticChart.field!= ''">
+                 AND st_statistic_chart.field LIKE CONCAT('%',#{statisticChart.field},'%')
+            </if>
+                             <if test="statisticChart.index != null and statisticChart.index>0 ">
+                 AND st_statistic_chart.index LIKE CONCAT('%',#{statisticChart.index},'%')
+            </if>
+                             <if test="statisticChart.invisible != null and statisticChart.invisible>0 ">
+                 AND st_statistic_chart.invisible LIKE CONCAT('%',#{statisticChart.invisible},'%')
+            </if>
+                                             <if test="statisticChart.groupId != null and statisticChart.groupId>0 ">
+                 AND st_statistic_chart.group_id LIKE CONCAT('%',#{statisticChart.groupId},'%')
+            </if>
+                             <if test="statisticChart.chart != null and statisticChart.chart!= ''">
+                 AND st_statistic_chart.chart LIKE CONCAT('%',#{statisticChart.chart},'%')
+            </if>
+                    </select>
+</mapper>

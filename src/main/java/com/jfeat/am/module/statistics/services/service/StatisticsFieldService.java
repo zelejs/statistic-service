@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services.crud.service;
+package com.jfeat.am.module.statistics.services.service;
             
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 
@@ -14,7 +14,6 @@ import com.jfeat.am.common.crud.CRUDServiceOnly;
  * @since 2017-11-25
  */
 
-@Deprecated
 public interface StatisticsFieldService  extends CRUDServiceOnly<StatisticsField> {
 
 }

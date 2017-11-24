@@ -1,14 +1,14 @@
-package com.jfeat.am.module.statistics.services.crud.service.impl;
+package com.jfeat.am.module.statistics.services.service.impl;
             
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsFieldMapper;
-import com.jfeat.am.module.statistics.services.crud.service.StatisticsFieldService;
+import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import com.jfeat.am.common.crud.impl.CRUDServiceOnlyImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import com.jfeat.am.common.crud.impl.CRUDServiceOnlyImpl;
+
 /**
  * <p>
  *  implementation

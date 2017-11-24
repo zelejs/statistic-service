@@ -1,5 +1,6 @@
-package com.jfeat.am.module.statistics.services.crud.service;
+package com.jfeat.am.module.statistics.services.service;
             
+import com.jfeat.am.common.crud.CRUDServiceGroup;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 
 import com.jfeat.am.common.crud.CRUDServiceOnly;
@@ -14,7 +15,6 @@ import com.jfeat.am.common.crud.CRUDServiceOnly;
  * @since 2017-11-25
  */
 
-@Deprecated
-public interface StatisticsGroupService  extends CRUDServiceOnly<StatisticsGroup> {
+public interface StatisticsGroupService  extends CRUDServiceGroup<StatisticsGroup> {
 
 }

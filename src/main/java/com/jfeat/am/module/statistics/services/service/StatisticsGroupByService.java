@@ -1,9 +1,8 @@
 package com.jfeat.am.module.statistics.services.service;
 
-import com.jfeat.am.common.crud.CRUDServiceOnly;
+import com.jfeat.am.common.crud.CRUDServiceGroupBy;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
-
-import java.util.List;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 
 
 /**
@@ -15,6 +14,6 @@ import java.util.List;
  * @since 2017-11-25
  */
 
-public interface StatisticsFieldService  extends CRUDServiceOnly<StatisticsField> {
-    List<StatisticsField> getFieldListByChart(String chart);
+public interface StatisticsGroupByService extends CRUDServiceGroupBy<StatisticsGroup, StatisticsField> {
+
 }

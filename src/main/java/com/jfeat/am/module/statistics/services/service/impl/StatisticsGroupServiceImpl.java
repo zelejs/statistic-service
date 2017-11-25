@@ -1,5 +1,5 @@
 package com.jfeat.am.module.statistics.services.service.impl;
-            
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.jfeat.am.common.crud.impl.CRUDServiceGroupImpl;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
@@ -17,7 +17,6 @@ import javax.annotation.Resource;
  * @author Code Generator
  * @since 2017-11-25
  */
-@Deprecated
 @Service
 public class StatisticsGroupServiceImpl  extends CRUDServiceGroupImpl<StatisticsGroup> implements StatisticsGroupService {
 

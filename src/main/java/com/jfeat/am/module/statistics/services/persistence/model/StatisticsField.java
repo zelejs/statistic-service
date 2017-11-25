@@ -46,6 +46,10 @@ public class StatisticsField extends Model<StatisticsField> {
      * 图表名称[Pie,Chain]环比
      */
 	private String chart;
+    /**
+     * 是否显示为百分比
+     */
+	private Integer percent;
 
 
 	public Long getId() {
@@ -111,6 +115,15 @@ public class StatisticsField extends Model<StatisticsField> {
 		return this;
 	}
 
+	public Integer getPercent() {
+		return percent;
+	}
+
+	public StatisticsField setPercent(Integer percent) {
+		this.percent = percent;
+		return this;
+	}
+
 	public static final String ID = "id";
 
 	public static final String NAME = "name";
@@ -124,6 +137,8 @@ public class StatisticsField extends Model<StatisticsField> {
 	public static final String GROUP_ID = "group_id";
 
 	public static final String CHART = "chart";
+
+	public static final String PERCENT = "percent";
 
 	@Override
 	protected Serializable pkVal() {
@@ -140,6 +155,7 @@ public class StatisticsField extends Model<StatisticsField> {
 			", invisible=" + invisible +
 			", groupId=" + groupId +
 			", chart=" + chart +
+			", percent=" + percent +
 			"}";
 	}
 }

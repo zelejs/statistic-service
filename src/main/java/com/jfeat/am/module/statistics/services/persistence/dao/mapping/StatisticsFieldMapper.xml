@@ -11,11 +11,12 @@
 		<result column="invisible" property="invisible" />
 		<result column="group_id" property="groupId" />
 		<result column="chart" property="chart" />
+		<result column="percent" property="percent" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, field, index, invisible, group_id AS groupId, chart
+        id, name, field, index, invisible, group_id AS groupId, chart, percent
     </sql>
 
 </mapper>

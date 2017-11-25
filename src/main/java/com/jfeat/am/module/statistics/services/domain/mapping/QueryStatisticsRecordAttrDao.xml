@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.statistics.services.domain.dao.QueryStatisticsRecordAttrDao">
+    <sql id="Base_Column_List">
+            st_statistics_record_attr.*
+        </sql>
+        <select id="findStatisticsRecordAttrPage" resultType="StatisticsRecordAttr" parameterType="StatisticsRecordAttr">
+      SELECT st_statistics_record_attr.*
+            FROM st_statistics_record_attr
+            WHERE 1=1
+                             <if test="statisticsRecordAttr.id != null and statisticsRecordAttr.id>0 ">
+                 AND st_statistics_record_attr.id LIKE CONCAT('%',#{statisticsRecordAttr.id},'%')
+            </if>
+                                             <if test="statisticsRecordAttr.recordId != null and statisticsRecordAttr.recordId>0 ">
+                 AND st_statistics_record_attr.record_id LIKE CONCAT('%',#{statisticsRecordAttr.recordId},'%')
+            </if>
+                             <if test="statisticsRecordAttr.legend != null and statisticsRecordAttr.legend!= ''">
+                 AND st_statistics_record_attr.legend LIKE CONCAT('%',#{statisticsRecordAttr.legend},'%')
+            </if>
+                             <if test="statisticsRecordAttr.index != null and statisticsRecordAttr.index>0 ">
+                 AND st_statistics_record_attr.index LIKE CONCAT('%',#{statisticsRecordAttr.index},'%')
+            </if>
+                    </select>
+</mapper>

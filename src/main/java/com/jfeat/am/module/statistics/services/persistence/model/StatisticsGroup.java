@@ -33,7 +33,11 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
      */
 	private String desc;
     /**
-     * 图表名称[Pie,Chain]环比
+     * 排序号
+     */
+	private Integer sort;
+    /**
+     * 图表类型[Pie,Chain]环比
      */
 	private String chart;
 
@@ -74,6 +78,15 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 		return this;
 	}
 
+	public Integer getSort() {
+		return sort;
+	}
+
+	public StatisticsGroup setSort(Integer sort) {
+		this.sort = sort;
+		return this;
+	}
+
 	public String getChart() {
 		return chart;
 	}
@@ -91,6 +104,8 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 
 	public static final String DESC = "desc";
 
+	public static final String SORT = "sort";
+
 	public static final String CHART = "chart";
 
 	@Override
@@ -105,6 +120,7 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 			", name=" + name +
 			", pid=" + pid +
 			", desc=" + desc +
+			", sort=" + sort +
 			", chart=" + chart +
 			"}";
 	}

@@ -5,18 +5,19 @@
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord">
 		<id column="id" property="id" />
+		<result column="field_id" property="fieldId" />
 		<result column="field" property="field" />
-		<result column="legend" property="legend" />
-		<result column="legend_key" property="legendKey" />
-		<result column="legend_value" property="legendValue" />
-		<result column="index" property="index" />
+		<result column="record_name" property="recordName" />
+		<result column="record_value" property="recordValue" />
 		<result column="record_time" property="recordTime" />
 		<result column="month_name" property="monthName" />
+		<result column="attr_id" property="attrId" />
+		<result column="legend" property="legend" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, field, legend, legend_key AS legendKey, legend_value AS legendValue, index, record_time AS recordTime, month_name AS monthName
+        id, field_id AS fieldId, field, record_name AS recordName, record_value AS recordValue, record_time AS recordTime, month_name AS monthName, attr_id AS attrId, legend
     </sql>
 
 </mapper>

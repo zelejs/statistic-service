@@ -23,27 +23,24 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	private Long id;
     /**
+     * 所属数据域
+     */
+	@TableField("field_id")
+	private Long fieldId;
+    /**
      * 数据域标识符
      */
 	private String field;
     /**
-     * 记录名称（已完成）
-     */
-	private String legend;
-    /**
      * 记录标记
      */
-	@TableField("legend_key")
-	private String legendKey;
+	@TableField("record_name")
+	private String recordName;
     /**
-     * 图例值
+     * 记录值
      */
-	@TableField("legend_value")
-	private String legendValue;
-    /**
-     * 排序号
-     */
-	private Integer index;
+	@TableField("record_value")
+	private String recordValue;
     /**
      * 记录时间
      */
@@ -54,6 +51,15 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
      */
 	@TableField("month_name")
 	private String monthName;
+    /**
+     * 记录属性
+     */
+	@TableField("attr_id")
+	private Long attrId;
+    /**
+     * 图例名称（中文）
+     */
+	private String legend;
 
 
 	public Long getId() {
@@ -62,6 +68,15 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	public StatisticsRecord setId(Long id) {
 		this.id = id;
+		return this;
+	}
+
+	public Long getFieldId() {
+		return fieldId;
+	}
+
+	public StatisticsRecord setFieldId(Long fieldId) {
+		this.fieldId = fieldId;
 		return this;
 	}
 
@@ -74,39 +89,21 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 		return this;
 	}
 
-	public String getLegend() {
-		return legend;
+	public String getRecordName() {
+		return recordName;
 	}
 
-	public StatisticsRecord setLegend(String legend) {
-		this.legend = legend;
+	public StatisticsRecord setRecordName(String recordName) {
+		this.recordName = recordName;
 		return this;
 	}
 
-	public String getLegendKey() {
-		return legendKey;
+	public String getRecordValue() {
+		return recordValue;
 	}
 
-	public StatisticsRecord setLegendKey(String legendKey) {
-		this.legendKey = legendKey;
-		return this;
-	}
-
-	public String getLegendValue() {
-		return legendValue;
-	}
-
-	public StatisticsRecord setLegendValue(String legendValue) {
-		this.legendValue = legendValue;
-		return this;
-	}
-
-	public Integer getIndex() {
-		return index;
-	}
-
-	public StatisticsRecord setIndex(Integer index) {
-		this.index = index;
+	public StatisticsRecord setRecordValue(String recordValue) {
+		this.recordValue = recordValue;
 		return this;
 	}
 
@@ -128,21 +125,41 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 		return this;
 	}
 
+	public Long getAttrId() {
+		return attrId;
+	}
+
+	public StatisticsRecord setAttrId(Long attrId) {
+		this.attrId = attrId;
+		return this;
+	}
+
+	public String getLegend() {
+		return legend;
+	}
+
+	public StatisticsRecord setLegend(String legend) {
+		this.legend = legend;
+		return this;
+	}
+
 	public static final String ID = "id";
+
+	public static final String FIELD_ID = "field_id";
 
 	public static final String FIELD = "field";
 
-	public static final String LEGEND = "legend";
+	public static final String RECORD_NAME = "record_name";
 
-	public static final String LEGEND_KEY = "legend_key";
-
-	public static final String LEGEND_VALUE = "legend_value";
-
-	public static final String INDEX = "index";
+	public static final String RECORD_VALUE = "record_value";
 
 	public static final String RECORD_TIME = "record_time";
 
 	public static final String MONTH_NAME = "month_name";
+
+	public static final String ATTR_ID = "attr_id";
+
+	public static final String LEGEND = "legend";
 
 	@Override
 	protected Serializable pkVal() {
@@ -153,13 +170,14 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 	public String toString() {
 		return "StatisticsRecord{" +
 			"id=" + id +
+			", fieldId=" + fieldId +
 			", field=" + field +
-			", legend=" + legend +
-			", legendKey=" + legendKey +
-			", legendValue=" + legendValue +
-			", index=" + index +
+			", recordName=" + recordName +
+			", recordValue=" + recordValue +
 			", recordTime=" + recordTime +
 			", monthName=" + monthName +
+			", attrId=" + attrId +
+			", legend=" + legend +
 			"}";
 	}
 }

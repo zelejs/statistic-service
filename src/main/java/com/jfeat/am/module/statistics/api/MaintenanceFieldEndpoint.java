@@ -5,7 +5,6 @@ import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
-import com.jfeat.am.module.statistics.services.service.StatisticsGroupByService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,10 +24,6 @@ public class MaintenanceFieldEndpoint extends BaseController {
 
     @Resource
     private StatisticsFieldService statisticsFieldService;
-
-    @Resource
-    private StatisticsGroupByService statisticsGroupByService;
-
 
     @ApiOperation("返回所有图表数据域")
     @GetMapping
@@ -64,25 +59,12 @@ public class MaintenanceFieldEndpoint extends BaseController {
     @ApiOperation("使数据域可见")
     @PostMapping("/{id}/visible")
     public Tip setFieldVisible(@PathVariable Long id) {
-        StatisticsField entity = new StatisticsField();
-        entity.setId(id);
-        entity.setInvisible(0);
-        return SuccessTip.create(statisticsFieldService.updateMaster(entity));
+        return SuccessTip.create(statisticsFieldService.deleteMaster(id));
     }
 
     @ApiOperation("使数据域不可见")
     @PostMapping("/{id}/invisible")
-    public Tip setFieldInvisible(@PathVariable Long id) {
-        StatisticsField entity = new StatisticsField();
-        entity.setId(id);
-        entity.setInvisible(1);
-        return SuccessTip.create(statisticsFieldService.updateMaster(entity));
-    }
-
-
-    @ApiOperation("返回数据域分组信息")
-    @GetMapping("/groups/data")
-    public Tip getFieldGroupData() {
-        return SuccessTip.create(statisticsGroupByService.groupBy("group_id"));
+    public Tip setFieldInVisible(@PathVariable Long id) {
+        return SuccessTip.create(statisticsFieldService.deleteMaster(id));
     }
 }

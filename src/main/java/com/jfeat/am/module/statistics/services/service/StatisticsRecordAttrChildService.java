@@ -1,6 +1,6 @@
 package com.jfeat.am.module.statistics.services.service;
 
-import com.jfeat.am.common.crud.CRUDServiceOnly;
+import com.jfeat.am.common.crud.CRUDServiceChild;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 
 
@@ -12,6 +12,6 @@ import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecor
  * @author Code Generator
  * @since 2017-11-25
  */
-public interface StatisticsRecordAttrService extends CRUDServiceOnly<StatisticsRecordAttr> {
+public interface StatisticsRecordAttrChildService extends CRUDServiceChild<StatisticsRecordAttr> {
 
 }

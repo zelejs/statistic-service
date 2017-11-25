@@ -1,13 +1,17 @@
 package com.jfeat.am.module.statistics.services.service.impl;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.jfeat.am.common.crud.error.CRUDCode;
+import com.jfeat.am.common.crud.error.CRUDException;
 import com.jfeat.am.common.crud.impl.CRUDServiceGroupImpl;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsGroupMapper;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -26,6 +30,20 @@ public class StatisticsGroupServiceImpl  extends CRUDServiceGroupImpl<Statistics
     @Override
     protected BaseMapper<StatisticsGroup> getGroupMapper() {
         return statisticsGroupMapper;
+    }
+
+    @Override
+    public StatisticsGroup getGroupByIdentifier(String identifier) {
+        List<StatisticsGroup> list = statisticsGroupMapper.selectList(
+                new EntityWrapper<StatisticsGroup>()
+                .eq("identifier", identifier));
+        if(list==null || list.size()==0){
+            return null;
+        }
+        if(list.size()>1){
+            throw CRUDException.newException(CRUDCode.CRUD_SLAVE_KEY_NOT_PROVIDED);
+        }
+        return list.get(0);
     }
 }
 

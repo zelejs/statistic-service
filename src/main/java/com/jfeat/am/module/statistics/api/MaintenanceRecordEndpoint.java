@@ -41,16 +41,16 @@ public class MaintenanceRecordEndpoint extends BaseController {
     }
 
     @ApiOperation("修改记录属性")
-    @PutMapping("/{id}/attr")
-    public Tip updateRecordAttribute(@PathVariable Long recordId, StatisticsRecordAttr attr){
+    @PutMapping("/{recordId}/attr")
+    public Tip updateRecordAttribute(@PathVariable Long recordId, @RequestBody StatisticsRecordAttr attr){
         return SuccessTip.create(statisticsRecordAttrChildService.updateChild(recordId, attr));
     }
 
     //TODO, 批量修改记录属性
 
     @ApiOperation("获取记录及其属性")
-    @GetMapping("/{id}")
-    public Tip getRecordAttribute(@PathVariable Long recordId, StatisticsRecordAttr attr){
+    @GetMapping("/{recordId}")
+    public Tip getRecordAttribute(@PathVariable Long recordId){
         return SuccessTip.create(statisticsRecordAttrChildService.getChild(recordId));
     }
 

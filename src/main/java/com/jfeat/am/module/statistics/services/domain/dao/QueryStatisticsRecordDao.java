@@ -11,5 +11,5 @@ import java.util.List;
  * Created by Code Generator on 2017-11-25
  */
 public interface QueryStatisticsRecordDao extends BaseMapper<StatisticsRecord> {
-    List<StatisticsRecord> findStatisticsRecordPage(Page<StatisticsRecord> page,@Param("statisticsrecord") StatisticsRecord statisticsrecord);
+    List<StatisticsRecord> findStatisticsRecordPage(Page<StatisticsRecord> page,@Param("statisticsRecord") StatisticsRecord statisticsRecord);
 }

@@ -17,15 +17,6 @@
                              <if test="statisticsRecord.legend != null and statisticsRecord.legend!= ''">
                  AND st_statistics_record.legend LIKE CONCAT('%',#{statisticsRecord.legend},'%')
             </if>
-                                             <if test="statisticsRecord.legendKey != null and statisticsRecord.legendKey!= ''">
-                 AND st_statistics_record.legend_key LIKE CONCAT('%',#{statisticsRecord.legendKey},'%')
-            </if>
-                                             <if test="statisticsRecord.legendValue != null and statisticsRecord.legendValue!= ''">
-                 AND st_statistics_record.legend_value LIKE CONCAT('%',#{statisticsRecord.legendValue},'%')
-            </if>
-                             <if test="statisticsRecord.index != null and statisticsRecord.index>0 ">
-                 AND st_statistics_record.index LIKE CONCAT('%',#{statisticsRecord.index},'%')
-            </if>
                                              <if test="statisticsRecord.recordTime != null and statisticsRecord.recordTime>0 ">
                  AND st_statistics_record.record_time LIKE CONCAT('%',#{statisticsRecord.recordTime},'%')
             </if>

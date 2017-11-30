@@ -8,6 +8,7 @@ import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.module.statistics.api.bean.StatisticsGroupParentBean;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
+import com.jfeat.am.module.statistics.services.service.StatisticsFieldFilter;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
 import io.swagger.annotations.ApiOperation;
@@ -43,7 +44,7 @@ public class StatisticsFieldEndpoint extends BaseController {
     public Tip getStatisticField(@PathVariable String field) {
         StatisticsField statisticsField = statisticsFieldService.getFieldOfField(field);
         if(statisticsField!=null){
-            SuccessTip.create(statisticsFieldService.retrieveMaster(statisticsField.getId(), null, null, null));
+            SuccessTip.create(statisticsFieldService.retrieveMaster(statisticsField.getId(), new StatisticsFieldFilter(), null, null));
         }
         throw new BusinessException(BizExceptionEnum.REQUEST_INVALIDATE);
     }

@@ -48,7 +48,7 @@ public class DemoTest extends BaseJunit {
         statisticsGroup.setId(1l);
         statisticsGroup.setName("asdfasdf");
         statisticsGroup.setChart("adfasdfsd");
-        statisticsGroup.setDesc("adsfasdf");
+        statisticsGroup.setDescription("adsfasdf");
         statisticsGroup.setIdentifier("adfasdfas");
         statisticsGroup.setPid(1l);
         statisticsGroup.setSort(1);

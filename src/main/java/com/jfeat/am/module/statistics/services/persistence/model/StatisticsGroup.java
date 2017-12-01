@@ -34,7 +34,7 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
     /**
      * 分组描述
      */
-    private String desc;
+    private String description;
     /**
      * 排序号
      */
@@ -72,13 +72,12 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
         return this;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public StatisticsGroup setDesc(String desc) {
-        this.desc = desc;
-        return this;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getSort() {
@@ -107,7 +106,7 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 
     public static final String PID = "pid";
 
-    public static final String DESC = "desc";
+    public static final String DESCRIPTION = "description";
 
     public static final String SORT = "sort";
 
@@ -125,7 +124,7 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
                 ", name=" + name +
                 ", identifier=" + identifier +
                 ", pid=" + pid +
-                ", desc=" + desc +
+                ", description=" + description +
                 ", sort=" + sort +
                 ", chart=" + chart +
                 "}";

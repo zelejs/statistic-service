@@ -9,7 +9,7 @@ CREATE TABLE `st_statistics_group` (
   `name` varchar(50) NOT NULL COMMENT '组显示名称',
   `identifier` varchar(50) NOT NULL COMMENT '组标识',
   `pid` bigint(20) DEFAULT NULL COMMENT '上级分组',
-  `desc` text DEFAULT NULL COMMENT '分组描述',
+  `description` text DEFAULT NULL COMMENT '分组描述',
   `sort` smallint(5) DEFAULT 0 COMMENT '排序号',
   `chart` varchar(26) NOT NULL COMMENT '图表类型[Pie,Chain]环比',
   PRIMARY KEY (`id`)

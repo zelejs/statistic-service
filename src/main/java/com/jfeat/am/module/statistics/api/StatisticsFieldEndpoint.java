@@ -44,7 +44,7 @@ public class StatisticsFieldEndpoint extends BaseController {
     public Tip getStatisticField(@PathVariable String field) {
         StatisticsField statisticsField = statisticsFieldService.getFieldOfField(field);
         if(statisticsField!=null){
-            SuccessTip.create(statisticsFieldService.retrieveMaster(statisticsField.getId(), new StatisticsFieldFilter(), null, null));
+            return SuccessTip.create(statisticsFieldService.retrieveMaster(statisticsField.getId(), new StatisticsFieldFilter(), null, null));
         }
         throw new BusinessException(BizExceptionEnum.REQUEST_INVALIDATE);
     }

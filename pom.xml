@@ -11,7 +11,6 @@
         <module>sb-statistic</module>
         <module>sb-statistic-mq</module>
     </modules>
-
     <distributionManagement>
         <repository>
             <id>archiva-internal</id>

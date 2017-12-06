@@ -25,7 +25,7 @@ import java.util.Date;
  * @author Admin
  * @Date 2017/5/21 16:10
  */
-@ActiveProfiles(profiles = "test")
+@ActiveProfiles(profiles = "dev")
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AmApplication.class)
 @WebAppConfiguration

@@ -30,4 +30,16 @@
                  AND st_statistics_field.chart LIKE CONCAT('%',#{statisticsField.chart},'%')
             </if>
                     </select>
+    
+    <select id="getStatisticsRecordByFieldIdAndStartTimeAndEndTime" resultType="map">
+        SELECT st_statistics_record.field_id as fieldId,st_statistics_record.field,st_statistics_record.month_name AS monthName,st_statistics_record.attr_id,st_statistics_record.legend,st_statistics_record.record_time as recordTime
+        <foreach collection="fields" index="index" item="field">
+            ,(case when st_statistics_record.attr_id=${field.getId()} then st_statistics_record.record_value else 0 end) as ${field.getLegend()}
+        </foreach>
+        FROM st_statistics_record
+        WHERE (st_statistics_record.record_time BETWEEN #{startTime} AND #{endTime})
+        AND st_statistics_record.field = #{field}
+        GROUP BY st_statistics_record.field_id
+        ORDER BY st_statistics_record.record_time ASC
+    </select>
 </mapper>

@@ -3,6 +3,8 @@ package com.jfeat.am.module.statistics.services.service;
 import com.jfeat.am.common.crud.CRUDServiceOnly;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 
+import java.util.List;
+
 
 /**
  * <p>
@@ -14,4 +16,5 @@ import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecor
  */
 public interface StatisticsRecordAttrService extends CRUDServiceOnly<StatisticsRecordAttr> {
 
+    List<StatisticsRecordAttr> getStatisticsRecordAttrByFieldId(Long fieldId);
 }

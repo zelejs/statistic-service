@@ -6,9 +6,11 @@ package com.jfeat.am.module.statistics.api.ut;
 
 import com.jfeat.am.base.BaseJunit;
 import com.jfeat.am.core.util.JsonKit;
-import com.jfeat.am.modular.statistic.persistence.dao.StatisticFieldMapper;
-import com.jfeat.am.modular.statistic.persistence.model.StatisticField;
+import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsFieldMapper;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,20 +30,22 @@ public class DemoTest extends BaseJunit {
     @Autowired
     StatisticsFieldService statisticsFieldService;
     @Autowired
-    StatisticFieldMapper statisticFieldMapper;
+    StatisticsFieldMapper statisticsFieldMapper;
 
 //    数据域api
-    StatisticField statisticField = new StatisticField();
+    StatisticsField statisticsField = new StatisticsField();
     StatisticsGroup statisticsGroup = new StatisticsGroup();
+    StatisticsRecord statisticsRecord = new StatisticsRecord();
+    StatisticsRecordAttr statisticsRecordAttr = new StatisticsRecordAttr();
     @Before
     public void initData() {
-        statisticField.setId(1l);
-        statisticField.setName("werqer");
-        statisticField.setDisplayName("asdfasdfa");
-        statisticField.setSortOrder(1);
-        statisticField.setTypeId(1l);
-        statisticField.setVisible(1);
-        statisticFieldMapper.insert(statisticField);
+   /*     statisticsField.setId(1l);
+        statisticsField.setName("werqer");
+        statisticsField.setInvisible(1);
+        statisticsField.setPercent(1);
+        statisticsField.setIndex(1);
+        statisticsField.setChart("asdfad");
+        statisticsFieldMapper.insert(statisticsField);
 
         statisticsGroup.setId(1l);
         statisticsGroup.setName("asdfasdf");
@@ -50,7 +54,7 @@ public class DemoTest extends BaseJunit {
         statisticsGroup.setIdentifier("adfasdfas");
         statisticsGroup.setPid(1l);
         statisticsGroup.setSort(1);
-
+*/
     }
 
     @Test
@@ -70,14 +74,14 @@ public class DemoTest extends BaseJunit {
     @Test
     public void testGetField()  throws Exception {
         String json = "";
-        RequestBuilder request = get("/api/adm/statistics/fields/1");
+        RequestBuilder request = get("/api/statistics/fields/line?startTime=2016-12-05&endTime=2018-12-05");
         MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
     }
 
     @Test
     public void testPutField()  throws Exception {
         String json = "";
-        RequestBuilder request = get("/api/adm/statistics/fields").content(JsonKit.toJson(statisticField));
+        RequestBuilder request = get("/api/adm/statistics/fields").content(JsonKit.toJson(statisticsField));
         MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
     }
 

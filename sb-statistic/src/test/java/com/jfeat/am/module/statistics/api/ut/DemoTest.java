@@ -71,12 +71,12 @@ public class DemoTest extends BaseJunit {
         MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
     }
 
-    @Test
+    /*@Test
     public void testGetField()  throws Exception {
         String json = "";
         RequestBuilder request = get("/api/statistics/fields/plan/planFinishRate");
         MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
-    }
+    }*/
 
     @Test
     public void testPutField()  throws Exception {

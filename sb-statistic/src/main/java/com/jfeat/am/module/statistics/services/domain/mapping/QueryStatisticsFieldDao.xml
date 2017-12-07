@@ -34,7 +34,7 @@
     <select id="getStatisticsRecordByFieldIdAndStartTimeAndEndTime" resultType="map">
         SELECT st_statistics_record.record_time AS recordTime,
         <foreach collection="fields" index="index" item="field" separator=",">
-            max(case when st_statistics_record.field='${field}' then st_statistics_record.record_value else 0 end) as '${field}'
+            max(case when st_statistics_record.field='${field}'then st_statistics_record.record_value else 0 end) as '${field}'
         </foreach>
         FROM st_statistics_record
         WHERE (st_statistics_record.record_time BETWEEN #{startTime} AND #{endTime})

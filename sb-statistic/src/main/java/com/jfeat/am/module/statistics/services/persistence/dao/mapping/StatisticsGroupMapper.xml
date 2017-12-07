@@ -6,15 +6,11 @@
 	<resultMap id="BaseResultMap" type="com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup">
 		<id column="id" property="id" />
 		<result column="name" property="name" />
+		<result column="identifier" property="identifier" />
 		<result column="pid" property="pid" />
 		<result column="description" property="description" />
 		<result column="sort" property="sort" />
 		<result column="chart" property="chart" />
 	</resultMap>
-
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, name, pid, description, sort, chart
-    </sql>
 
 </mapper>

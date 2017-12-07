@@ -60,8 +60,10 @@ public class StatisticServiceImpl implements StatisticService {
             statisticsRecordAttr = statisticsRecordAttrMapper.selectOne(statisticsRecordAttr);
             if (statisticsRecordAttr == null){
                 statisticsRecordAttr = new StatisticsRecordAttr();
+                statisticsRecordAttr.setFieldId(statisticsField.getId());
+                statisticsRecordAttr.setField(statisticsRecord.getField());
                 statisticsRecordAttr.setRecordId(statisticsRecord.getId());
-                statisticsRecordAttr.setLegend(statisticsRecord.getLegend());
+                statisticsRecordAttr.setLegend(statisticsRecord.getRecordName());
                 statisticsRecordAttrMapper.insert(statisticsRecordAttr);
             }
         }

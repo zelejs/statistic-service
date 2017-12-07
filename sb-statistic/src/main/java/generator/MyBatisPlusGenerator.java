@@ -50,7 +50,7 @@ public class MyBatisPlusGenerator {
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/sbstatistic?characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/test?characterEncoding=utf8");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -58,6 +58,7 @@ public class MyBatisPlusGenerator {
         strategy.setTablePrefix(new String[]{"st_"});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
         strategy.setLogicDeleteFieldName("delete_flag"); //逻辑删除字段
+        strategy.setEntityColumnConstant(true);
         mpg.setStrategy(strategy);
 
         // 包配置

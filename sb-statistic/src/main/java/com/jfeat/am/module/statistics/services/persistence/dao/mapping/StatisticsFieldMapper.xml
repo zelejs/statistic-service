@@ -14,9 +14,4 @@
 		<result column="percent" property="percent" />
 	</resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, name, field, index, invisible, group_id AS groupId, chart, percent
-    </sql>
-
 </mapper>

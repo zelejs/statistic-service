@@ -13,8 +13,8 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author Code Generator
- * @since 2017-11-25
+ * @author admin
+ * @since 2017-12-06
  */
 @TableName("st_statistics_record")
 public class StatisticsRecord extends Model<StatisticsRecord> {
@@ -66,81 +66,72 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 		return id;
 	}
 
-	public StatisticsRecord setId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
-		return this;
 	}
 
 	public Long getFieldId() {
 		return fieldId;
 	}
 
-	public StatisticsRecord setFieldId(Long fieldId) {
+	public void setFieldId(Long fieldId) {
 		this.fieldId = fieldId;
-		return this;
 	}
 
 	public String getField() {
 		return field;
 	}
 
-	public StatisticsRecord setField(String field) {
+	public void setField(String field) {
 		this.field = field;
-		return this;
 	}
 
 	public String getRecordName() {
 		return recordName;
 	}
 
-	public StatisticsRecord setRecordName(String recordName) {
+	public void setRecordName(String recordName) {
 		this.recordName = recordName;
-		return this;
 	}
 
 	public String getRecordValue() {
 		return recordValue;
 	}
 
-	public StatisticsRecord setRecordValue(String recordValue) {
+	public void setRecordValue(String recordValue) {
 		this.recordValue = recordValue;
-		return this;
 	}
 
 	public Date getRecordTime() {
 		return recordTime;
 	}
 
-	public StatisticsRecord setRecordTime(Date recordTime) {
+	public void setRecordTime(Date recordTime) {
 		this.recordTime = recordTime;
-		return this;
 	}
 
 	public String getMonthName() {
 		return monthName;
 	}
 
-	public StatisticsRecord setMonthName(String monthName) {
+	public void setMonthName(String monthName) {
 		this.monthName = monthName;
-		return this;
 	}
 
 	public Long getAttrId() {
 		return attrId;
 	}
 
-	public StatisticsRecord setAttrId(Long attrId) {
+	public void setAttrId(Long attrId) {
 		this.attrId = attrId;
-		return this;
 	}
 
 	public String getLegend() {
 		return legend;
 	}
 
-	public StatisticsRecord setLegend(String legend) {
+	public void setLegend(String legend) {
 		this.legend = legend;
-		return this;
 	}
 
 	public static final String ID = "id";

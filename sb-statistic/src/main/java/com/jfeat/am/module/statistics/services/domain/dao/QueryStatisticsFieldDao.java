@@ -16,5 +16,5 @@ import java.util.Map;
 public interface QueryStatisticsFieldDao extends BaseMapper<StatisticsField> {
     List<StatisticsField> findStatisticsFieldPage(Page<StatisticsField> page,@Param("statisticsfield") StatisticsField statisticsfield);
 
-    List<Map<String,Object>> getStatisticsRecordByFieldIdAndStartTimeAndEndTime(@Param("field") String field,@Param("fields")List<StatisticsRecordAttr> fields,@Param("startTime")String startTime,@Param("endTime")String endTime);
+    List<Map<String,Object>> getStatisticsRecordByFieldIdAndStartTimeAndEndTime(@Param("field") String field,@Param("fields")List<String> fields,@Param("startTime")String startTime,@Param("endTime")String endTime);
 }

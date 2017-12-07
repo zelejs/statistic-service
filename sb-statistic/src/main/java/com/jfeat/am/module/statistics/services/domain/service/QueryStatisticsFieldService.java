@@ -12,5 +12,5 @@ import java.util.Map;
  */
 public interface QueryStatisticsFieldService {
     List<StatisticsField> findStatisticsFieldPage(Page<StatisticsField> page, StatisticsField statisticsfield );
-    List<Map<String,Object>> getStatisticsRecordByFieldIdAndStartTimeAndEndTime(String field,List<StatisticsRecordAttr> fields,String startTime,String endTime);
+    List<Map<String,Object>> getStatisticsRecordByFieldIdAndStartTimeAndEndTime(String field,List<String> fields,String startTime,String endTime);
 }

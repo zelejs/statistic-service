@@ -5,15 +5,14 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 
 /**
  * <p>
  * 
  * </p>
  *
- * @author Code Generator
- * @since 2017-11-25
+ * @author admin
+ * @since 2017-12-06
  */
 @TableName("st_statistics_field")
 public class StatisticsField extends Model<StatisticsField> {
@@ -56,72 +55,64 @@ public class StatisticsField extends Model<StatisticsField> {
 		return id;
 	}
 
-	public StatisticsField setId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
-		return this;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public StatisticsField setName(String name) {
+	public void setName(String name) {
 		this.name = name;
-		return this;
 	}
 
 	public String getField() {
 		return field;
 	}
 
-	public StatisticsField setField(String field) {
+	public void setField(String field) {
 		this.field = field;
-		return this;
 	}
 
 	public Integer getIndex() {
 		return index;
 	}
 
-	public StatisticsField setIndex(Integer index) {
+	public void setIndex(Integer index) {
 		this.index = index;
-		return this;
 	}
 
 	public Integer getInvisible() {
 		return invisible;
 	}
 
-	public StatisticsField setInvisible(Integer invisible) {
+	public void setInvisible(Integer invisible) {
 		this.invisible = invisible;
-		return this;
 	}
 
 	public Long getGroupId() {
 		return groupId;
 	}
 
-	public StatisticsField setGroupId(Long groupId) {
+	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
-		return this;
 	}
 
 	public String getChart() {
 		return chart;
 	}
 
-	public StatisticsField setChart(String chart) {
+	public void setChart(String chart) {
 		this.chart = chart;
-		return this;
 	}
 
 	public Integer getPercent() {
 		return percent;
 	}
 
-	public StatisticsField setPercent(Integer percent) {
+	public void setPercent(Integer percent) {
 		this.percent = percent;
-		return this;
 	}
 
 	public static final String ID = "id";

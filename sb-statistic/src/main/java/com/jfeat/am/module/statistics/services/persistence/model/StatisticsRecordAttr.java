@@ -12,8 +12,8 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author Code Generator
- * @since 2017-11-25
+ * @author admin
+ * @since 2017-12-06
  */
 @TableName("st_statistics_record_attr")
 public class StatisticsRecordAttr extends Model<StatisticsRecordAttr> {
@@ -21,11 +21,17 @@ public class StatisticsRecordAttr extends Model<StatisticsRecordAttr> {
     private static final long serialVersionUID = 1L;
 
 	private Long id;
+	@TableField("record_id")
+	private Long recordId;
     /**
      * 所属数据域
      */
-	@TableField("record_id")
-	private Long recordId;
+	@TableField("field_id")
+	private Long fieldId;
+    /**
+     * 数据域标识符
+     */
+	private String field;
     /**
      * 记录名称
      */
@@ -40,41 +46,57 @@ public class StatisticsRecordAttr extends Model<StatisticsRecordAttr> {
 		return id;
 	}
 
-	public StatisticsRecordAttr setId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
-		return this;
 	}
 
 	public Long getRecordId() {
 		return recordId;
 	}
 
-	public StatisticsRecordAttr setRecordId(Long recordId) {
+	public void setRecordId(Long recordId) {
 		this.recordId = recordId;
-		return this;
+	}
+
+	public Long getFieldId() {
+		return fieldId;
+	}
+
+	public void setFieldId(Long fieldId) {
+		this.fieldId = fieldId;
+	}
+
+	public String getField() {
+		return field;
+	}
+
+	public void setField(String field) {
+		this.field = field;
 	}
 
 	public String getLegend() {
 		return legend;
 	}
 
-	public StatisticsRecordAttr setLegend(String legend) {
+	public void setLegend(String legend) {
 		this.legend = legend;
-		return this;
 	}
 
 	public Integer getIndex() {
 		return index;
 	}
 
-	public StatisticsRecordAttr setIndex(Integer index) {
+	public void setIndex(Integer index) {
 		this.index = index;
-		return this;
 	}
 
 	public static final String ID = "id";
 
 	public static final String RECORD_ID = "record_id";
+
+	public static final String FIELD_ID = "field_id";
+
+	public static final String FIELD = "field";
 
 	public static final String LEGEND = "legend";
 
@@ -90,6 +112,8 @@ public class StatisticsRecordAttr extends Model<StatisticsRecordAttr> {
 		return "StatisticsRecordAttr{" +
 			"id=" + id +
 			", recordId=" + recordId +
+			", fieldId=" + fieldId +
+			", field=" + field +
 			", legend=" + legend +
 			", index=" + index +
 			"}";

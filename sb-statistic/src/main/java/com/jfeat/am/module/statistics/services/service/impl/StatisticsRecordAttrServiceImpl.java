@@ -33,7 +33,7 @@ public class StatisticsRecordAttrServiceImpl extends CRUDServiceOnlyImpl<Statist
     @Override
     public List<StatisticsRecordAttr> getStatisticsRecordAttrByFieldId(Long fieldId) {
         StatisticsRecordAttr statisticsRecordAttr = new StatisticsRecordAttr();
-        return statisticsRecordAttrMapper.selectList(new EntityWrapper<StatisticsRecordAttr>().eq(StatisticsRecordAttr.RECORD_ID,fieldId));
+        return statisticsRecordAttrMapper.selectList(new EntityWrapper<StatisticsRecordAttr>().eq(StatisticsRecordAttr.FIELD_ID,fieldId));
     }
 }
 

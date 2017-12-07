@@ -1,140 +1,136 @@
 package com.jfeat.am.module.statistics.services.persistence.model;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
  * <p>
- * <p>
+ * 
  * </p>
  *
- * @author Code Generator
- * @since 2017-11-25
+ * @author admin
+ * @since 2017-12-06
  */
 @TableName("st_statistics_group")
 public class StatisticsGroup extends Model<StatisticsGroup> {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+	private Long id;
     /**
-     * 组名称
+     * 组显示名称
      */
-    private String name;
+	private String name;
     /**
      * 组标识
      */
-    private String identifier;
+	private String identifier;
     /**
      * 上级分组
      */
-    private Long pid;
+	private Long pid;
     /**
      * 分组描述
      */
-    private String description;
+	private String description;
     /**
      * 排序号
      */
-    private Integer sort;
+	private Integer sort;
     /**
      * 图表类型[Pie,Chain]环比
      */
-    private String chart;
+	private String chart;
 
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public StatisticsGroup setId(Long id) {
-        this.id = id;
-        return this;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public StatisticsGroup setName(String name) {
-        this.name = name;
-        return this;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Long getPid() {
-        return pid;
-    }
+	public String getIdentifier() {
+		return identifier;
+	}
 
-    public StatisticsGroup setPid(Long pid) {
-        this.pid = pid;
-        return this;
-    }
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public Long getPid() {
+		return pid;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setPid(Long pid) {
+		this.pid = pid;
+	}
 
-    public Integer getSort() {
-        return sort;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public StatisticsGroup setSort(Integer sort) {
-        this.sort = sort;
-        return this;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public String getChart() {
-        return chart;
-    }
+	public Integer getSort() {
+		return sort;
+	}
 
-    public StatisticsGroup setChart(String chart) {
-        this.chart = chart;
-        return this;
-    }
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 
-    public static final String ID = "id";
+	public String getChart() {
+		return chart;
+	}
 
-    public static final String NAME = "name";
+	public void setChart(String chart) {
+		this.chart = chart;
+	}
 
-    public static final String IDENTIFIER = "identifier";
+	public static final String ID = "id";
 
-    public static final String PID = "pid";
+	public static final String NAME = "name";
 
-    public static final String DESCRIPTION = "description";
+	public static final String IDENTIFIER = "identifier";
 
-    public static final String SORT = "sort";
+	public static final String PID = "pid";
 
-    public static final String CHART = "chart";
+	public static final String DESCRIPTION = "description";
 
-    @Override
-    protected Serializable pkVal() {
-        return this.id;
-    }
+	public static final String SORT = "sort";
 
-    @Override
-    public String toString() {
-        return "StatisticsGroup{" +
-                "id=" + id +
-                ", name=" + name +
-                ", identifier=" + identifier +
-                ", pid=" + pid +
-                ", description=" + description +
-                ", sort=" + sort +
-                ", chart=" + chart +
-                "}";
-    }
+	public static final String CHART = "chart";
 
-    public String getIdentifier() {
-        return identifier;
-    }
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
+	}
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
+	@Override
+	public String toString() {
+		return "StatisticsGroup{" +
+			"id=" + id +
+			", name=" + name +
+			", identifier=" + identifier +
+			", pid=" + pid +
+			", description=" + description +
+			", sort=" + sort +
+			", chart=" + chart +
+			"}";
+	}
 }

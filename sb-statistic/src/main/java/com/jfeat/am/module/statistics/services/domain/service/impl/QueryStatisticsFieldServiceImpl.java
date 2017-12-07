@@ -34,7 +34,7 @@ public class QueryStatisticsFieldServiceImpl implements QueryStatisticsFieldServ
     }
 
     @Override
-    public List<Map<String, Object>> getStatisticsRecordByFieldIdAndStartTimeAndEndTime(String field, List<StatisticsRecordAttr> fields, String startTime, String endTime) {
+    public List<Map<String, Object>> getStatisticsRecordByFieldIdAndStartTimeAndEndTime(String field, List<String> fields, String startTime, String endTime) {
         return queryStatisticsFieldDao.getStatisticsRecordByFieldIdAndStartTimeAndEndTime(field,fields,startTime,endTime);
     }
 }

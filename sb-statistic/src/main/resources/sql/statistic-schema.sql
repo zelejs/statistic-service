@@ -54,7 +54,9 @@ CREATE TABLE `st_statistics_record` (
 DROP TABLE IF EXISTS `st_statistics_record_attr`;
 CREATE TABLE `st_statistics_record_attr` (
   `id` bigint(20) NOT NULL,
-  `record_id` bigint(20) NOT NULL COMMENT '所属数据域',
+  `record_id` bigint(20) NOT NULL,
+  `field_id` bigint(20) NOT NULL COMMENT '所属数据域',
+  `field` varchar(100) NOT NULL COMMENT '数据域标识符',
   `legend` varchar(50) NOT NULL COMMENT '记录名称',
   `index` smallint(5) DEFAULT 0 COMMENT '排序号',
   PRIMARY KEY (`id`)

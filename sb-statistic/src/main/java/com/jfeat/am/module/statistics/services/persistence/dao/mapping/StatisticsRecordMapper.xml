@@ -15,9 +15,4 @@
 		<result column="legend" property="legend" />
 	</resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, field_id AS fieldId, field, record_name AS recordName, record_value AS recordValue, record_time AS recordTime, month_name AS monthName, attr_id AS attrId, legend
-    </sql>
-
 </mapper>

@@ -74,7 +74,7 @@ public class DemoTest extends BaseJunit {
     @Test
     public void testGetField()  throws Exception {
         String json = "";
-        RequestBuilder request = get("/api/statistics/fields/planFinishRate/planFinishRate?startTime=2016-12-05&endTime=2018-12-05");
+        RequestBuilder request = get("/api/statistics/fields/plan/planFinishRate");
         MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
     }
 

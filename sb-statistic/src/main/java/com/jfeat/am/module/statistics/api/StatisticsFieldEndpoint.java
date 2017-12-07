@@ -78,7 +78,7 @@ public class StatisticsFieldEndpoint extends BaseController {
     }
 
     @ApiOperation("获取指定数据域数据")
-    @GetMapping("/planFinishRate/{field}")
+    @GetMapping("/plan/{field}")
     public Tip getStatisticFieldData(@PathVariable String field,
                                      @RequestParam(required = false) String startTime,
                                      @RequestParam(required = false) String endTime) {

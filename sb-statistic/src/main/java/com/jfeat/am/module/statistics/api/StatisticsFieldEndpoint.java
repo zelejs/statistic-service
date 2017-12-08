@@ -99,9 +99,9 @@ public class StatisticsFieldEndpoint extends BaseController {
             List<String> data = Lists.newArrayList();
             for (Map map:maps){
                 dataAxis.add(map.get("recordTime").toString());
-                data.add(map.get("planFinishRate").toString());
+                data.add(map.get(field).toString());
             }
-            result.put("title","计划完成率");
+            result.put("title",field);
             result.put("timestamp", DateTimeKit.formatDateTime(new Date()));
             result.put("type","line");
             result.put("dataAxis",dataAxis);

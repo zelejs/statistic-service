@@ -32,9 +32,9 @@
                     </select>
     
     <select id="getStatisticsRecordByFieldIdAndStartTimeAndEndTime" resultType="map">
-        SELECT st_statistics_record.record_time AS recordTime,
-        <foreach collection="fields" index="index" item="fielda" separator=",">
-            max(case when st_statistics_record.field='${fielda}'then st_statistics_record.record_value else 0 end) as '${fielda}'
+        SELECT st_statistics_record.record_time AS recordTime
+        <foreach collection="fields" index="index" item="fielda">
+            ,max(case when st_statistics_record.field='${fielda}'then st_statistics_record.record_value else 0 end) as '${fielda}'
         </foreach>
         FROM st_statistics_record
         WHERE st_statistics_record.field = #{field}

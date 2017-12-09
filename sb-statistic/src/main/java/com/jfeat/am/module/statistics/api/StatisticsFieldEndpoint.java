@@ -2,6 +2,7 @@ package com.jfeat.am.module.statistics.api;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.jfeat.am.common.constant.tips.ErrorTip;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
@@ -109,6 +110,6 @@ public class StatisticsFieldEndpoint extends BaseController {
             System.out.print(JsonKit.toJson(result));
             return SuccessTip.create(result);
         }
-        throw new BusinessException(BizExceptionEnum.REQUEST_INVALIDATE);
+        throw new BusinessException(1017,"查不到该数据域！");
     }
 }

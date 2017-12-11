@@ -10,15 +10,13 @@ import com.jfeat.am.common.exception.BizExceptionEnum;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.core.support.DateTimeKit;
 import com.jfeat.am.core.util.JsonKit;
+import com.jfeat.am.modular.statistic.bean.Statistic;
 import com.jfeat.am.module.statistics.api.bean.StatisticsGroupParentBean;
 import com.jfeat.am.module.statistics.services.domain.service.QueryStatisticsFieldService;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
-import com.jfeat.am.module.statistics.services.service.StatisticsFieldFilter;
-import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
-import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
-import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrService;
+import com.jfeat.am.module.statistics.services.service.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +47,8 @@ public class StatisticsFieldEndpoint extends BaseController {
     StatisticsRecordAttrService statisticsRecordAttrService;
     @Resource
     QueryStatisticsFieldService queryStatisticsFieldService;
+    @Resource
+    StatisticService statisticService;
 
     ///TODO， 考虑如何转换为图形数据，增加 API
 
@@ -56,7 +56,7 @@ public class StatisticsFieldEndpoint extends BaseController {
     @GetMapping("/{field}")
     public Tip getStatisticField(@PathVariable String field) {
         StatisticsField statisticsField = statisticsFieldService.getFieldOfField(field);
-        if(statisticsField!=null){
+        if (statisticsField != null) {
             return SuccessTip.create(statisticsFieldService.retrieveMaster(statisticsField.getId(), new StatisticsFieldFilter(), null, null));
         }
         throw new BusinessException(BizExceptionEnum.REQUEST_INVALIDATE);
@@ -66,7 +66,7 @@ public class StatisticsFieldEndpoint extends BaseController {
     @GetMapping("/groups/{identifier}/data")
     public Tip getStatisticFieldByGroup(@PathVariable String identifier) {
         StatisticsGroup group = statisticsGroupService.getGroupByIdentifier(identifier);
-        if(group==null){
+        if (group == null) {
             throw new BusinessException(BizExceptionEnum.REQUEST_INVALIDATE);
         }
         StatisticsGroupParentBean parentGroupBean = new StatisticsGroupParentBean();
@@ -79,8 +79,9 @@ public class StatisticsFieldEndpoint extends BaseController {
     }
 
     @ApiOperation("获取指定数据域数据")
-    @GetMapping("/plan/{field}")
+    @GetMapping("/plan/{field}/{echart}")
     public Tip getStatisticFieldData(@PathVariable String field,
+                                     @PathVariable String echart,
                                      @RequestParam(required = false) String startTime,
                                      @RequestParam(required = false) String endTime) {
         /*折线图数据结构
@@ -90,7 +91,7 @@ public class StatisticsFieldEndpoint extends BaseController {
     "dataAxis":['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
     "data":[220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];*/
 
-        StatisticsField statisticsField = statisticsFieldService.getFieldOfField(field);
+        /*StatisticsField statisticsField = statisticsFieldService.getFieldOfField(field);
         if(statisticsField!=null){
             List<StatisticsRecordAttr> statisticsRecordAttrs = statisticsRecordAttrService.getStatisticsRecordAttrByFieldId(statisticsField.getId());
             List<String> fields = statisticsRecordAttrs.stream().map(StatisticsRecordAttr::getField).collect(Collectors.toList());
@@ -98,11 +99,15 @@ public class StatisticsFieldEndpoint extends BaseController {
             Map<String,Object> result = Maps.newHashMap();
             List<String> dataAxis = Lists.newArrayList();
             List<String> data = Lists.newArrayList();
+            String legend = "";
             for (Map map:maps){
+                if (map != null){
+                    legend = map.get("legend").toString();
+                }
                 dataAxis.add(map.get("recordTime").toString());
                 data.add(map.get(field).toString());
             }
-            result.put("title",field);
+            result.put("title",legend);
             result.put("timestamp", DateTimeKit.formatDateTime(new Date()));
             result.put("type","line");
             result.put("dataAxis",dataAxis);
@@ -111,5 +116,7 @@ public class StatisticsFieldEndpoint extends BaseController {
             return SuccessTip.create(result);
         }
         throw new BusinessException(1017,"查不到该数据域！");
+    }*/
+        return SuccessTip.create(statisticService.getEchartData(field, echart, startTime, endTime));
     }
 }

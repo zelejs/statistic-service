@@ -2,11 +2,9 @@ package com.jfeat.am.module.statistics.services.service.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.jfeat.am.common.constant.tips.SuccessTip;
-import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.core.support.DateTimeKit;
 import com.jfeat.am.core.util.JsonKit;
-import com.jfeat.am.module.statistics.services.domain.model.DataModel;
+import com.jfeat.am.module.statistics.services.domain.model.StatisticsDataModel;
 import com.jfeat.am.module.statistics.services.domain.service.QueryStatisticsFieldService;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsFieldMapper;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsGroupMapper;
@@ -54,25 +52,25 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     @Transactional
-    public Boolean insertStatisticRecord(DataModel dataModel) {
-        String field = dataModel.getField().getField();
+    public Boolean insertStatisticRecord(StatisticsDataModel statisticsDataModel) {
+        String field = statisticsDataModel.getField().getField();
         StatisticsField statisticsField = new StatisticsField();
         statisticsField.setField(field);
         statisticsField = statisticsFieldMapper.selectOne(statisticsField);
-        String identifier = dataModel.getGroup().getIdentifier();
+        String identifier = statisticsDataModel.getGroup().getIdentifier();
         StatisticsGroup statisticsGroup = new StatisticsGroup();
         statisticsGroup.setIdentifier(identifier);
         statisticsGroup = statisticsGroupMapper.selectOne(statisticsGroup);
         if (statisticsGroup == null){
-            statisticsGroup = dataModel.getGroup();
+            statisticsGroup = statisticsDataModel.getGroup();
             statisticsGroupMapper.insert(statisticsGroup);
         }
         if (statisticsField == null) {
-            statisticsField = dataModel.getField();
+            statisticsField = statisticsDataModel.getField();
             statisticsField.setGroupId(statisticsGroup.getId());
             statisticsFieldMapper.insert(statisticsField);
         }
-        for (StatisticsRecord statisticsRecord : dataModel.getRecords()) {
+        for (StatisticsRecord statisticsRecord : statisticsDataModel.getRecords()) {
             statisticsRecord.setFieldId(statisticsField.getId());
             statisticsRecord.setField(statisticsField.getField());
             statisticsRecordMapper.insert(statisticsRecord);

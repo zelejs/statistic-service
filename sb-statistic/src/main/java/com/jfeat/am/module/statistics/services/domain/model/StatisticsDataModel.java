@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Silent-Y on 2017/12/4.
  */
-public class DataModel {
+public class StatisticsDataModel {
 
     private StatisticsGroup group;
     private StatisticsField field;

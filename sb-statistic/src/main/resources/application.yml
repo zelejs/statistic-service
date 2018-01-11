@@ -19,7 +19,7 @@ jwt:
 
 ###################  项目启动端口  ###################
 server:
-  port: 8080
+  port: 8081
 
 ###################  beetl配置  ###################
 beetl:
@@ -90,7 +90,7 @@ am:
 spring:
   profiles: dev
   datasource:
-      url: jdbc:mysql://112.74.26.228:3306/amequipment?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+      url: jdbc:mysql://112.74.26.228:3306/ribsocial?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
       username: jfeat
       password: jfeat
       initialize: false

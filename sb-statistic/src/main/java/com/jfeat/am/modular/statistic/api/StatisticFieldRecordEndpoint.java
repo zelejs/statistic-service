@@ -32,14 +32,14 @@ public class StatisticFieldRecordEndpoint extends BaseController{
     StatisticFieldService statisticFieldService;
 
     @GetMapping("/statistic/fields/{typeId}")
-    @Permission(StatisticPermission.STATISTIC_VIEW)
+//    @Permission(StatisticPermission.STATISTIC_VIEW)
     public Tip getStatisticFieldByTypeId(@PathVariable long typeId){
         List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
         return SuccessTip.create(statisticFields);
     }
 
     @PutMapping("/statistic/fields/{typeId}")
-    @Permission(StatisticPermission.STATISTIC_UPDATE)
+//    @Permission(StatisticPermission.STATISTIC_UPDATE)
     public Tip updateStatisticFieldByTypeId(@PathVariable long typeId,@RequestBody List<StatisticFieldWrapper> statisticFieldWrappers){
         boolean result = statisticFieldService.updateStatisticFieldByTypeId(typeId,statisticFieldWrappers);
         return SuccessTip.create(result);
@@ -55,7 +55,7 @@ public class StatisticFieldRecordEndpoint extends BaseController{
     TypeDefinitionMapper typeDefinitionMapper;
 
     @GetMapping("/statistic_records")
-    @Permission(StatisticPermission.STATISTIC_VIEW)
+//    @Permission(StatisticPermission.STATISTIC_VIEW)
     public Tip getStatisticRecords(@RequestParam(name = "typeId", required = false) Long typeId,
                                    @RequestParam(name = "identifier", required = false) String identifier,
                                    @RequestParam(required = false) String startTime,

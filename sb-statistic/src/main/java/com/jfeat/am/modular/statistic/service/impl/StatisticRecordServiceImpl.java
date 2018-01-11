@@ -54,9 +54,9 @@ public class StatisticRecordServiceImpl extends ServiceImpl<StatisticRecordMappe
         }
 
         //插入field
-        Integer count = statisticFieldMapper.selectCount(new EntityWrapper<StatisticField>().eq("type_id", typeDefinition.getId()));
-        if (count < 1) {
-            for (Statistic statistic : statisticList) {
+        for (Statistic statistic : statisticList) {
+            Integer count = statisticFieldMapper.selectCount(new EntityWrapper<StatisticField>().eq("type_id", typeDefinition.getId()).eq("name", statistic.getKey()));
+            if (count < 1){
                 StatisticField statisticField = new StatisticField();
                 statisticField.setTypeId(typeDefinition.getId());
                 statisticField.setName(statistic.getKey());

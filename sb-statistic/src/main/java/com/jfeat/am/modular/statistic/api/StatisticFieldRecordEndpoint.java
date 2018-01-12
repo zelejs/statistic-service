@@ -5,6 +5,7 @@ import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.exception.BizExceptionEnum;
+import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.core.support.StrKit;
 import com.jfeat.am.modular.statistic.persistence.dao.TypeDefinitionMapper;
@@ -13,6 +14,7 @@ import com.jfeat.am.modular.statistic.constant.StatisticPermission;
 import com.jfeat.am.modular.statistic.persistence.model.TypeDefinition;
 import com.jfeat.am.modular.statistic.service.StatisticFieldService;
 import com.jfeat.am.modular.statistic.service.StatisticRecordService;
+import com.jfeat.am.modular.statistic.service.TypeDefinitionService;
 import com.jfeat.am.modular.statistic.wrapper.StatisticFieldWrapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +31,24 @@ import java.util.stream.Collectors;
 public class StatisticFieldRecordEndpoint extends BaseController{
 
     @Resource
+    TypeDefinitionMapper typeDefinitionMapper;
+
+    @Resource
     StatisticFieldService statisticFieldService;
+
+    @GetMapping("/statistic/fields")
+//    @Permission(StatisticPermission.STATISTIC_VIEW)
+    public Tip getStatisticFieldByIdentifier(@RequestParam String identifier){
+        TypeDefinition query = new TypeDefinition();
+        query.setIdentifier(identifier);
+        TypeDefinition typeDefinition = typeDefinitionMapper.selectOne(query);
+        if (typeDefinition == null) {
+            throw new BusinessException(BusinessCode.BadRequest);
+        }
+        Long typeId = typeDefinition.getId();
+        List<StatisticField> statisticFields = statisticFieldService.getStatisticFieldByTypeId(typeId);
+        return SuccessTip.create(statisticFields);
+    }
 
     @GetMapping("/statistic/fields/{typeId}")
 //    @Permission(StatisticPermission.STATISTIC_VIEW)
@@ -51,8 +70,7 @@ public class StatisticFieldRecordEndpoint extends BaseController{
      */
     @Resource
     StatisticRecordService statisticRecordService;
-    @Resource
-    TypeDefinitionMapper typeDefinitionMapper;
+
 
     @GetMapping("/statistic_records")
 //    @Permission(StatisticPermission.STATISTIC_VIEW)

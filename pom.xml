@@ -10,6 +10,7 @@
     <modules>
         <module>sb-statistic</module>
         <module>sb-statistic-mq</module>
+        <module>sb-statement</module>
     </modules>
     <distributionManagement>
         <repository>

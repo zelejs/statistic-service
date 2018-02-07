@@ -20,7 +20,7 @@
 
     <properties>
         <sb-base.version>1.0.0</sb-base.version>
-        <sb-statistic.version>1.0.1</sb-statistic.version>
+        <sb-statistic.version>1.1.0</sb-statistic.version>
         <skipStandalone>true</skipStandalone>
     </properties>
 
@@ -196,7 +196,6 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>

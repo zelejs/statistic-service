@@ -1,30 +1,20 @@
 package com.jfeat.am.module.statistics.api;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.jfeat.am.common.constant.tips.ErrorTip;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.exception.BizExceptionEnum;
 import com.jfeat.am.common.exception.BusinessException;
-import com.jfeat.am.core.support.DateTimeKit;
-import com.jfeat.am.core.util.JsonKit;
-import com.jfeat.am.modular.statistic.bean.Statistic;
 import com.jfeat.am.module.statistics.api.bean.StatisticsGroupParentBean;
 import com.jfeat.am.module.statistics.services.domain.service.QueryStatisticsFieldService;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 import com.jfeat.am.module.statistics.services.service.*;
+import com.jfeat.am.module.statistics.services.service.filter.StatisticsFieldFilter;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 
 /**

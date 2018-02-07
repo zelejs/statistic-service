@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>  
   <groupId>com.jfeat</groupId>  
   <artifactId>sb-statement</artifactId>
-  <version>1.0.0</version>  
+  <version>1.0.0</version>
   <packaging>jar</packaging>  
   <name>Statement</name>
   <description>Statement Component</description>
@@ -31,8 +31,7 @@
       <version>${sb-crud.version}</version> 
     </dependency>
 
-
-    <!--spring boot����-->  
+    <!--spring boot-->
     <dependency> 
       <groupId>org.springframework.boot</groupId>  
       <artifactId>spring-boot-starter-aop</artifactId> 
@@ -235,15 +234,15 @@
         <configuration> 
           <!-- change to your module name -->  
           <moduleName>statement</moduleName>
-          <tables> 
-            <table>t_statement</table>
-          </tables>  
           <dbUrl>jdbc:mysql://127.0.0.1:3306/sbstatement</dbUrl>
           <username>root</username>  
           <password>root</password>  
-          <outputDir>E:\mydocuments\idea\sb-infrastructure\sb-statement\src\main\java</outputDir>
-          <parentPackage>com.jfeat.am.module</parentPackage> 
-        </configuration> 
+          <outputDir>src\\main\\java</outputDir>
+          <parentPackage>com.jfeat.am.module</parentPackage>
+          <tables>
+            <table>t_statement</table>
+          </tables>
+        </configuration>
       </plugin> 
     </plugins>  
     <resources> 
@@ -268,7 +267,7 @@
       <url>http://114.215.187.140:8081/repository/internal</url> 
     </repository> 
   </distributionManagement>  
-  <repositories> 
+  <repositories>
     <repository> 
       <id>archiva-internal</id>  
       <name>Internal Repository</name>  

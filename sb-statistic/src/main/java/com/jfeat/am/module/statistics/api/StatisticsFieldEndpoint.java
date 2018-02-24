@@ -8,7 +8,7 @@ import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.module.statistics.api.bean.StatisticsGroupParentBean;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
-import com.jfeat.am.module.statistics.services.StatisticsAgentService;
+import com.jfeat.am.module.statistics.services.notify.StatisticsNotifyService;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
 import com.jfeat.am.module.statistics.services.service.filter.StatisticsFieldFilter;
@@ -35,7 +35,7 @@ public class StatisticsFieldEndpoint extends BaseController {
     @Resource
     StatisticsGroupService statisticsGroupService;
     @Resource
-    StatisticsAgentService statisticsAgentService;
+    StatisticsNotifyService statisticsNotifyService;
 
     ///TODO， 考虑如何转换为图形数据，增加 API
 
@@ -104,6 +104,6 @@ public class StatisticsFieldEndpoint extends BaseController {
         }
         throw new BusinessException(1017,"查不到该数据域！");
     }*/
-        return SuccessTip.create(statisticsAgentService.getEchartData(field, echart, startTime, endTime));
+        return SuccessTip.create(statisticsNotifyService.getEchartData(field, echart, startTime, endTime));
     }
 }

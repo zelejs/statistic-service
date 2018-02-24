@@ -2,7 +2,7 @@ package com.jfeat.am.module.statistic.mq;
 
 import com.jfeat.am.core.support.StrKit;
 import com.jfeat.am.core.util.JsonKit;
-import com.jfeat.am.module.statistics.services.service.StatisticsRecordService;
+import com.jfeat.am.module.statistics.services.notify.StatisticsNotifyService;
 import com.jfeat.am.module.statistics.services.service.model.StatisticNotifyData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ import javax.annotation.Resource;
 public class StatisticNotifyReceiver {
 
     @Resource
-    private StatisticsRecordService statisticsRecordService;
+    private StatisticsNotifyService statisticsNotifyService;
 
     private static final Logger logger = LoggerFactory.getLogger(StatisticNotifyReceiver.class);
 
@@ -32,8 +32,8 @@ public class StatisticNotifyReceiver {
         if (StrKit.isBlank(message)) {
             return;
         }
-        StatisticNotifyData memberAnalysisNotifyData = JsonKit.parseObject(message, StatisticNotifyData.class);
-        statisticsRecordService.insertStatisticRecord(memberAnalysisNotifyData);
-    }
 
+        StatisticNotifyData memberAnalysisNotifyData = JsonKit.parseObject(message, StatisticNotifyData.class);
+        statisticsNotifyService.insertStatisticRecord(memberAnalysisNotifyData);
+    }
 }

@@ -12,7 +12,6 @@ import java.util.Map;
 public interface StatisticsRecordService {
 
     List<Map<String,Object>> getStatisticsRecordByFieldIdAndStartTimeAndEndTime(String field,List<String> fields,String startTime,String endTime);
-    List<Map<String,Object>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(Long typeId,List<String> fields,String startTime,String endTime);
 
     /// get record attr
     List<StatisticsRecordAttr> getRecordAttrByFieldId(Long fieldId);

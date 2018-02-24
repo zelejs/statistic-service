@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services;
+package com.jfeat.am.module.statistics.services.notify;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * Created by Silent-Y on 2017/12/4.
  */
 @Service
-public class StatisticsAgentServiceImpl implements StatisticsAgentService {
+public class StatisticsNotifyServiceImpl implements StatisticsNotifyService {
 
     @Resource
     private StatisticsGroupMapper statisticsGroupMapper;

@@ -42,11 +42,6 @@ public class StatisticsRecordServiceImpl extends CRUDServiceOnlyImpl<StatisticsR
     }
 
     @Override
-    public List<Map<String, Object>> getStatisticRecordByTypeIdAndStartTimeAndEndTime(Long typeId, List<String> fields, String startTime, String endTime) {
-        return null;
-    }
-
-    @Override
     public List<StatisticsRecordAttr> getRecordAttrByFieldId(Long fieldId) {
         return statisticsRecordAttrMapper.selectList(new EntityWrapper<StatisticsRecordAttr>().eq(StatisticsRecordAttr.FIELD_ID,fieldId));
     }

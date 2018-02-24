@@ -9,7 +9,6 @@ public class Statistic {
     private String value;
 
     public Statistic() {
-
     }
 
     public Statistic(String key, String name) {

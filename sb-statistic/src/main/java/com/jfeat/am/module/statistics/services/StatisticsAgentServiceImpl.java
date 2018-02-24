@@ -1,11 +1,9 @@
-package com.jfeat.am.module.statistics.services.service.impl;
+package com.jfeat.am.module.statistics.services;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.jfeat.am.core.support.DateTimeKit;
 import com.jfeat.am.core.util.JsonKit;
-import com.jfeat.am.module.statistics.services.domain.model.StatisticsDataModel;
-import com.jfeat.am.module.statistics.services.domain.service.QueryStatisticsFieldService;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsFieldMapper;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsGroupMapper;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordAttrMapper;
@@ -14,14 +12,13 @@ import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
-import com.jfeat.am.module.statistics.services.service.StatisticService;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
-import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrService;
+import com.jfeat.am.module.statistics.services.service.StatisticsRecordService;
+import com.jfeat.am.module.statistics.services.service.model.StatisticsDataModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.lang.Boolean;import java.lang.Override;import java.lang.String;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +30,7 @@ import java.util.stream.Collectors;
  * Created by Silent-Y on 2017/12/4.
  */
 @Service
-public class StatisticServiceImpl implements StatisticService {
+public class StatisticsAgentServiceImpl implements StatisticsAgentService {
 
     @Resource
     private StatisticsGroupMapper statisticsGroupMapper;
@@ -43,12 +40,11 @@ public class StatisticServiceImpl implements StatisticService {
     private StatisticsRecordMapper statisticsRecordMapper;
     @Resource
     private StatisticsRecordAttrMapper statisticsRecordAttrMapper;
+
     @Resource
     private StatisticsFieldService statisticsFieldService;
     @Resource
-    private StatisticsRecordAttrService statisticsRecordAttrService;
-    @Resource
-    private QueryStatisticsFieldService queryStatisticsFieldService;
+    private StatisticsRecordService statisticsRecordService;
 
     @Override
     @Transactional
@@ -118,11 +114,11 @@ public class StatisticServiceImpl implements StatisticService {
             endTime = lastDay;
         }
         if (echart.equals("line")){
-            StatisticsField statisticsField = statisticsFieldService.getFieldOfField(field);
+            StatisticsField statisticsField = statisticsFieldService.getFieldByFieldName(field);
             if(statisticsField!=null){
-                List<StatisticsRecordAttr> statisticsRecordAttrs = statisticsRecordAttrService.getStatisticsRecordAttrByFieldId(statisticsField.getId());
+                List<StatisticsRecordAttr> statisticsRecordAttrs = statisticsRecordService.getRecordAttrByFieldId(statisticsField.getId());
                 List<String> fields = statisticsRecordAttrs.stream().map(StatisticsRecordAttr::getField).collect(Collectors.toList());
-                List<Map<String,Object>> maps = queryStatisticsFieldService.getStatisticsRecordByFieldIdAndStartTimeAndEndTime(field, fields, startTime, endTime);
+                List<Map<String,Object>> maps = statisticsRecordService.getStatisticsRecordByFieldIdAndStartTimeAndEndTime(field, fields, startTime, endTime);
                 Map<String,Object> result = Maps.newHashMap();
                 List<String> dataAxis = Lists.newArrayList();
                 List<String> data = Lists.newArrayList();

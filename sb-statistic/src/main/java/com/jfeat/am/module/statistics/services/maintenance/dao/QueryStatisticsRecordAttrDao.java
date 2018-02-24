@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services.domain.dao;
+package com.jfeat.am.module.statistics.services.maintenance.dao;
 
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 

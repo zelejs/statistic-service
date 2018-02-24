@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.statistics.services.maintenance.dao.QueryStatisticsFieldDao">
+    <sql id="Base_Column_List">
+        st_statistics_field.*
+    </sql>
+    <select id="getStatisticsRecordByFieldIdAndStartTimeAndEndTime" resultType="map">
+        SELECT st_statistics_record.legend,st_statistics_record.record_time AS recordTime
+        <foreach collection="fields" index="index" item="fielda">
+            ,max(case when st_statistics_record.field='${fielda}'then st_statistics_record.record_value else 0 end) as
+            '${fielda}'
+        </foreach>
+        FROM st_statistics_record
+        WHERE st_statistics_record.field = #{field}
+        <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+            AND (st_statistics_record.record_time BETWEEN #{startTime} AND #{endTime})
+        </if>
+        GROUP BY st_statistics_record.record_time
+        ORDER BY st_statistics_record.record_time ASC
+    </select>
+</mapper>

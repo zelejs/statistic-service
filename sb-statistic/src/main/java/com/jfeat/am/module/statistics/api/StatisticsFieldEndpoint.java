@@ -6,10 +6,11 @@ import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.exception.BizExceptionEnum;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.module.statistics.api.bean.StatisticsGroupParentBean;
-import com.jfeat.am.module.statistics.services.domain.service.QueryStatisticsFieldService;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
-import com.jfeat.am.module.statistics.services.service.*;
+import com.jfeat.am.module.statistics.services.StatisticsAgentService;
+import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
+import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
 import com.jfeat.am.module.statistics.services.service.filter.StatisticsFieldFilter;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -34,18 +35,14 @@ public class StatisticsFieldEndpoint extends BaseController {
     @Resource
     StatisticsGroupService statisticsGroupService;
     @Resource
-    StatisticsRecordAttrService statisticsRecordAttrService;
-    @Resource
-    QueryStatisticsFieldService queryStatisticsFieldService;
-    @Resource
-    StatisticService statisticService;
+    StatisticsAgentService statisticsAgentService;
 
     ///TODO， 考虑如何转换为图形数据，增加 API
 
     @ApiOperation("获取指定数据域数据")
     @GetMapping("/{field}")
     public Tip getStatisticField(@PathVariable String field) {
-        StatisticsField statisticsField = statisticsFieldService.getFieldOfField(field);
+        StatisticsField statisticsField = statisticsFieldService.getFieldByFieldName(field);
         if (statisticsField != null) {
             return SuccessTip.create(statisticsFieldService.retrieveMaster(statisticsField.getId(), new StatisticsFieldFilter(), null, null));
         }
@@ -62,7 +59,7 @@ public class StatisticsFieldEndpoint extends BaseController {
         StatisticsGroupParentBean parentGroupBean = new StatisticsGroupParentBean();
         StatisticsGroup parentGroup = statisticsGroupService.getParentGroup(group.getId());
         parentGroupBean.setFields(
-                statisticsFieldService.getFieldGroupByGroup(group.getId())
+                statisticsFieldService.getFieldListByByGroupId(group.getId())
         );
 
         return SuccessTip.create(parentGroupBean);
@@ -81,7 +78,7 @@ public class StatisticsFieldEndpoint extends BaseController {
     "dataAxis":['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
     "data":[220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];*/
 
-        /*StatisticsField statisticsField = statisticsFieldService.getFieldOfField(field);
+        /*StatisticsField statisticsField = statisticsFieldService.getFieldByFieldName(field);
         if(statisticsField!=null){
             List<StatisticsRecordAttr> statisticsRecordAttrs = statisticsRecordAttrService.getStatisticsRecordAttrByFieldId(statisticsField.getId());
             List<String> fields = statisticsRecordAttrs.stream().map(StatisticsRecordAttr::getField).collect(Collectors.toList());
@@ -107,6 +104,6 @@ public class StatisticsFieldEndpoint extends BaseController {
         }
         throw new BusinessException(1017,"查不到该数据域！");
     }*/
-        return SuccessTip.create(statisticService.getEchartData(field, echart, startTime, endTime));
+        return SuccessTip.create(statisticsAgentService.getEchartData(field, echart, startTime, endTime));
     }
 }

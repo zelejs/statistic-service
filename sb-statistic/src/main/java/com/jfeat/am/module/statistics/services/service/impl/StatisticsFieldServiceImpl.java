@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.jfeat.am.common.crud.error.CRUDCode;
 import com.jfeat.am.common.crud.error.CRUDException;
 import com.jfeat.am.common.crud.impl.CRUDServiceOverModelOneImpl;
-import com.jfeat.am.module.statistics.services.domain.model.StatisticsFieldModel;
+import com.jfeat.am.module.statistics.services.service.model.StatisticsFieldModel;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsFieldMapper;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
@@ -49,7 +49,7 @@ public class StatisticsFieldServiceImpl
     }
 
     @Override
-    public StatisticsField getFieldOfField(String field) {
+    public StatisticsField getFieldByFieldName(String field) {
         List<StatisticsField> list = statisticsFieldMapper.selectList(new EntityWrapper<StatisticsField>()
                 .eq("field", field));
         if(list==null || list.size()==0){
@@ -62,7 +62,7 @@ public class StatisticsFieldServiceImpl
     }
 
     @Override
-    public List<StatisticsField> getFieldGroupByGroup(Long groupId) {
+    public List<StatisticsField> getFieldListByByGroupId(Long groupId) {
         return statisticsFieldMapper.selectList(new EntityWrapper<StatisticsField>()
                 .eq("group_id", groupId));
     }

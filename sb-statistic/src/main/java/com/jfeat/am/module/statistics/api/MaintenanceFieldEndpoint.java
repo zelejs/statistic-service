@@ -6,6 +6,7 @@ import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.module.statistics.services.maintenance.dao.QueryStatisticsFieldDao;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,12 @@ public class MaintenanceFieldEndpoint extends BaseController {
         entity.setId(id);
         entity.setGroupId(groupId);
         return SuccessTip.create(statisticsFieldService.updateMaster(entity));
+    }
+
+    @ApiOperation("增加数据域")
+    @PostMapping("/{recordId}/attr")
+    public Tip createStatisticsField(@PathVariable Long recordId, @RequestBody StatisticsField entity){
+        return SuccessTip.create(statisticsFieldService.createMaster(entity));
     }
 
     @ApiOperation("获取数据域")

@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services.service.model;
+package com.jfeat.am.module.statistics.services.notify;
 
 import java.util.Date;
 import java.util.List;

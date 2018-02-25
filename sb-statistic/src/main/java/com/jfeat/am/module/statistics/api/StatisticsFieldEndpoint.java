@@ -5,13 +5,13 @@ import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.exception.BizExceptionEnum;
 import com.jfeat.am.common.exception.BusinessException;
-import com.jfeat.am.module.statistics.api.bean.StatisticsGroupParentBean;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 import com.jfeat.am.module.statistics.services.notify.StatisticsNotifyService;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
 import com.jfeat.am.module.statistics.services.service.filter.StatisticsFieldFilter;
+import com.jfeat.am.module.statistics.services.service.model.StatisticsGroupModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,7 +56,7 @@ public class StatisticsFieldEndpoint extends BaseController {
         if (group == null) {
             throw new BusinessException(BizExceptionEnum.REQUEST_INVALIDATE);
         }
-        StatisticsGroupParentBean parentGroupBean = new StatisticsGroupParentBean();
+        StatisticsGroupModel parentGroupBean = new StatisticsGroupModel();
         StatisticsGroup parentGroup = statisticsGroupService.getParentGroup(group.getId());
         parentGroupBean.setFields(
                 statisticsFieldService.getFieldListByByGroupId(group.getId())

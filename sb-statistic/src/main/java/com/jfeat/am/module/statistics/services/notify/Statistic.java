@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services.service.model;
+package com.jfeat.am.module.statistics.services.notify;
 
 /**
  * Created by jackyhuang on 2017/9/6.

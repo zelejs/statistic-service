@@ -1,7 +1,5 @@
 package com.jfeat.am.module.statistics.services.notify;
 
-import com.jfeat.am.module.statistics.services.service.model.StatisticsDataModel;
-
 import java.util.Map;
 
 /**
@@ -9,6 +7,8 @@ import java.util.Map;
  */
 public interface StatisticsNotifyService {
     Boolean insertStatisticRecord(StatisticsDataModel statisticsDataModel);
+
+    boolean insertStatisticRecord(StatisticNotifyData memberAnalysisNotifyData);
 
     Map<String,Object> getEchartData(String field, String echart, String startTime, String endTime);
 }

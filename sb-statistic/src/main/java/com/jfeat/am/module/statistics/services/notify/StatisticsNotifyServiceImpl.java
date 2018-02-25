@@ -1,5 +1,7 @@
 package com.jfeat.am.module.statistics.services.notify;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.toolkit.IdWorker;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.jfeat.am.core.support.DateTimeKit;
@@ -14,7 +16,6 @@ import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecor
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.service.StatisticsRecordService;
-import com.jfeat.am.module.statistics.services.service.model.StatisticsDataModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,23 +50,32 @@ public class StatisticsNotifyServiceImpl implements StatisticsNotifyService {
     @Override
     @Transactional
     public Boolean insertStatisticRecord(StatisticsDataModel statisticsDataModel) {
-        String field = statisticsDataModel.getField().getField();
+
+        /// field value is settle down before data notify,
+        /// below lines are not required
+
+        /*String field = statisticsDataModel.getField().getField();
         StatisticsField statisticsField = new StatisticsField();
         statisticsField.setField(field);
         statisticsField = statisticsFieldMapper.selectOne(statisticsField);
-        String identifier = statisticsDataModel.getGroup().getIdentifier();
-        StatisticsGroup statisticsGroup = new StatisticsGroup();
-        statisticsGroup.setIdentifier(identifier);
-        statisticsGroup = statisticsGroupMapper.selectOne(statisticsGroup);
-        if (statisticsGroup == null){
-            statisticsGroup = statisticsDataModel.getGroup();
-            statisticsGroupMapper.insert(statisticsGroup);
-        }
+
         if (statisticsField == null) {
             statisticsField = statisticsDataModel.getField();
             statisticsField.setGroupId(statisticsGroup.getId());
             statisticsFieldMapper.insert(statisticsField);
         }
+
+        String identifier = statisticsDataModel.getGroup().getIdentifier();
+        StatisticsGroup statisticsGroup = new StatisticsGroup();
+        statisticsGroup.setIdentifier(identifier);
+        statisticsGroup = statisticsGroupMapper.selectOne(statisticsGroup);
+
+        if (statisticsGroup == null){
+            statisticsGroup = statisticsDataModel.getGroup();
+            statisticsGroupMapper.insert(statisticsGroup);
+        }
+
+
         for (StatisticsRecord statisticsRecord : statisticsDataModel.getRecords()) {
             statisticsRecord.setFieldId(statisticsField.getId());
             statisticsRecord.setField(statisticsField.getField());
@@ -81,22 +91,75 @@ public class StatisticsNotifyServiceImpl implements StatisticsNotifyService {
                 statisticsRecordAttr.setLegend(statisticsRecord.getRecordName());
                 statisticsRecordAttrMapper.insert(statisticsRecordAttr);
             }
-        }
+        }*/
+
         return true;
     }
 
+
+    @Resource
+    StatisticRecordDao statisticRecordDao;
+    @Resource
+    StatisticsFieldMapper statisticFieldMapper;
+
+    @Transactional
+    public boolean insertStatisticRecord(StatisticNotifyData statisticNotifyData) {
+
+        List<Statistic> statisticList = statisticNotifyData.getValues();
+        Long group = IdWorker.getId();
+
+         /*
+
+        //插入type
+        TypeDefinition query = new TypeDefinition();
+        query.setIdentifier(statisticNotifyData.getIdentifier());
+        TypeDefinition typeDefinition = typeDefinitionMapper.selectOne(query);
+        if (typeDefinition == null) {
+            typeDefinition = new TypeDefinition();
+            typeDefinition.setName(statisticNotifyData.getDefaultName());
+            typeDefinition.setIdentifier(statisticNotifyData.getIdentifier());
+            typeDefinitionMapper.insert(typeDefinition);
+        }
+
+        //插入field
+        for (Statistic statistic : statisticList) {
+            Integer count = statisticFieldMapper.selectCount(new EntityWrapper<StatisticField>().eq("type_id", typeDefinition.getId()).eq("name", statistic.getKey()));
+            if (count < 1){
+                StatisticField statisticField = new StatisticField();
+                statisticField.setTypeId(typeDefinition.getId());
+                statisticField.setName(statistic.getKey());
+                statisticField.setDisplayName(statistic.getName());
+                statisticFieldMapper.insert(statisticField);
+            }
+        }
+
+        //插入record
+        for (Statistic statistic : statisticList) {
+            StatisticRecord statisticRecord = new StatisticRecord();
+            statisticRecord.setRecordTime(statisticNotifyData.getRecordTime());
+            statisticRecord.setTypeId(typeDefinition.getId());
+            statisticRecord.setFieldName(statistic.getKey());
+            statisticRecord.setValue(statistic.getValue());
+            statisticRecord.setGroup(group);
+            insert(statisticRecord);
+        }
+        */
+
+        return true;
+    }
+
+
     @Override
-    public Map<String, Object> getEchartData(String field, String echart,String startTime,String endTime) {
+    public Map<String, Object> getEchartData(String field, String echart, String startTime,String endTime) {
+        /*
+            折线图数据结构
+            "titile":"折线图数据结构",
+            "timestamp":"数据生成时间",
+            "type":"数据图描述类型",
+            "dataAxis":['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
+            "data":[220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];
+        */
 
-
-    /*
-    折线图数据结构
-    "titile":"折线图数据结构",
-    "timestamp":"数据生成时间",
-    "type":"数据图描述类型",
-    "dataAxis":['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
-    "data":[220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];
-    */
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         //获取前月的第一天
         Calendar cal_1=Calendar.getInstance();//获取当前日期
@@ -140,6 +203,7 @@ public class StatisticsNotifyServiceImpl implements StatisticsNotifyService {
             }
 //            throw new BusinessException(1017,"查不到该数据域！");
         }
+
 
     /*
     饼状图数据结构

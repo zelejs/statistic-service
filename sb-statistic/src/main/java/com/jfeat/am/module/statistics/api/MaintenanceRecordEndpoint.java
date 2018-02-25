@@ -14,7 +14,6 @@ import javax.annotation.Resource;
 import java.util.Date;
 
 /**
- *  -- 统计记录 --
  *  记录不能修改，仅提供其属性修改API
  *
  * @author Code Generator
@@ -30,26 +29,32 @@ public class MaintenanceRecordEndpoint extends BaseController {
     @Resource
     private QueryStatisticsRecordAttrDao queryStatisticsRecordAttrDao;
 
-    @ApiOperation("增加或修改记录属性")
-    @PutMapping("/{recordId}/attr")
-    public Tip createOrUpdateRecordAttr(@PathVariable Long recordId, @RequestBody StatisticsRecordAttr attr){
+    @ApiOperation("增加记录属性")
+    @PostMapping("/{recordId}/attr")
+    public Tip createRecordAttr(@PathVariable Long recordId, @RequestBody StatisticsRecordAttr attr){
         return SuccessTip.create(statisticsRecordAttrChildService.updateChild(recordId, attr));
     }
 
-    @ApiOperation("获取记录及其属性")
-    @GetMapping("/{recordId}")
+    @ApiOperation("修改记录属性")
+    @PutMapping("/{recordId}/attr")
+    public Tip updateRecordAttr(@PathVariable Long recordId, @RequestBody StatisticsRecordAttr attr){
+        return SuccessTip.create(statisticsRecordAttrChildService.updateChild(recordId, attr));
+    }
+
+    @ApiOperation("获取记录属性")
+    @GetMapping("/{recordId}/attr")
     public Tip getRecordAttr(@PathVariable Long recordId){
         return SuccessTip.create(statisticsRecordAttrChildService.getChild(recordId));
     }
 
     @ApiOperation("删除记录属性")
-    @DeleteMapping("/{recordId}")
+    @DeleteMapping("/{recordId}/attr")
     public Tip deleteRecordAttr(@PathVariable Long recordId){
         return SuccessTip.create(statisticsRecordAttrChildService.deleteChild(recordId));
     }
 
     @ApiOperation("分页返回记录属性")
-    @GetMapping
+    @GetMapping("/attr")
     public Tip queryStatisticsRecordAttrs(Page<StatisticsRecordAttr> page,
                                       @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                       @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,

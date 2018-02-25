@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services.service.model;
+package com.jfeat.am.module.statistics.services.notify;
 
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
@@ -12,11 +12,12 @@ import java.util.List;
  */
 public class StatisticsDataModel {
 
-    private StatisticsGroup group;
-    private StatisticsField field;
-    private List<StatisticsRecord> records;
-    private StatisticsRecordAttr attr;
+    //private StatisticsGroup group;  // 由运维决定分组
+    // private StatisticsField field;
+    private List<StatisticsRecord> records; // Record Only
+    //private StatisticsRecordAttr attr;   // 由运维决定属性
 
+    /*
     public StatisticsGroup getGroup() {
         return group;
     }
@@ -32,6 +33,14 @@ public class StatisticsDataModel {
     public void setField(StatisticsField field) {
         this.field = field;
     }
+    public StatisticsRecordAttr getAttr() {
+        return attr;
+    }
+
+    public void setAttr(StatisticsRecordAttr attr) {
+        this.attr = attr;
+    }
+    */
 
     public List<StatisticsRecord> getRecords() {
         return records;
@@ -39,13 +48,5 @@ public class StatisticsDataModel {
 
     public void setRecords(List<StatisticsRecord> records) {
         this.records = records;
-    }
-
-    public StatisticsRecordAttr getAttr() {
-        return attr;
-    }
-
-    public void setAttr(StatisticsRecordAttr attr) {
-        this.attr = attr;
     }
 }

@@ -3,6 +3,8 @@ package com.jfeat.am.module.statistics.services.service.impl;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.jfeat.am.common.crud.impl.CRUDServiceOnlyImpl;
+import com.jfeat.am.core.support.DateTimeKit;
+import com.jfeat.am.core.support.StrKit;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordAttrMapper;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
@@ -11,6 +13,7 @@ import com.jfeat.am.module.statistics.services.service.StatisticsRecordService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +42,16 @@ public class StatisticsRecordServiceImpl extends CRUDServiceOnlyImpl<StatisticsR
     @Override
     public List<Map<String, Object>> getStatisticsRecordByFieldIdAndStartTimeAndEndTime(String field, List<String> fields, String startTime, String endTime) {
         return null;
+    }
+
+    public List<Map<String, Object>> getStatisticsRecordByFieldIdAndStartTimeAndEndTime(Long typeId, List<String> fields, String startTime, String endTime) {
+        if (StrKit.isBlank(startTime)) {
+            startTime = DateTimeKit.lastMouth().toString();
+        }
+        if (StrKit.isBlank(endTime)) {
+            endTime = DateTimeKit.formatDateTime(new Date());
+        }
+        return statisticRecordDao.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
     }
 
     @Override

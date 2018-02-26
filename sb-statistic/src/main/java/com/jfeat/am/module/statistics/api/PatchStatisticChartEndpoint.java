@@ -9,6 +9,8 @@ import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.exception.BizExceptionEnum;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.core.support.StrKit;
+import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
+import com.jfeat.am.module.statistics.services.service.StatisticsRecordService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -24,10 +26,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/adm/statistic/chart")
 public class PatchStatisticChartEndpoint extends BaseController {
     @Resource
-    StatisticFieldService statisticFieldService;
+    StatisticsFieldService statisticFieldService;
 
     @Resource
-    StatisticRecordService statisticRecordService;
+    StatisticsRecordService statisticRecordService;
 
     /*饼状图数据结构
     "titile":"饼状图数据结构",

@@ -98,7 +98,7 @@ public class StatisticsNotifyServiceImpl implements StatisticsNotifyService {
 
 
     @Resource
-    StatisticRecordDao statisticRecordDao;
+    StatisticsRecordService statisticRecordService;
     @Resource
     StatisticsFieldMapper statisticFieldMapper;
 

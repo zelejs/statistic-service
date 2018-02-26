@@ -34,6 +34,9 @@ public class StatisticsRecordServiceImpl extends CRUDServiceOnlyImpl<StatisticsR
     @Resource
     StatisticsRecordAttrMapper statisticsRecordAttrMapper;
 
+    @Resource
+    StatisticsRecordService statisticsRecordService;
+
     @Override
     protected BaseMapper<StatisticsRecord> getMasterMapper() {
         return statisticsRecordMapper;
@@ -41,17 +44,13 @@ public class StatisticsRecordServiceImpl extends CRUDServiceOnlyImpl<StatisticsR
 
     @Override
     public List<Map<String, Object>> getStatisticsRecordByFieldIdAndStartTimeAndEndTime(String field, List<String> fields, String startTime, String endTime) {
-        return null;
-    }
-
-    public List<Map<String, Object>> getStatisticsRecordByFieldIdAndStartTimeAndEndTime(Long typeId, List<String> fields, String startTime, String endTime) {
         if (StrKit.isBlank(startTime)) {
             startTime = DateTimeKit.lastMouth().toString();
         }
         if (StrKit.isBlank(endTime)) {
             endTime = DateTimeKit.formatDateTime(new Date());
         }
-        return statisticRecordDao.getStatisticRecordByTypeIdAndStartTimeAndEndTime(typeId, fields, startTime, endTime);
+        return statisticsRecordService.getStatisticsRecordByFieldIdAndStartTimeAndEndTime(field, fields, startTime, endTime);
     }
 
     @Override

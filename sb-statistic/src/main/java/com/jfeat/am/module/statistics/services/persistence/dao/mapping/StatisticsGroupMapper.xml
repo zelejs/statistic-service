@@ -9,8 +9,13 @@
 		<result column="identifier" property="identifier" />
 		<result column="pid" property="pid" />
 		<result column="description" property="description" />
-		<result column="sort" property="sort" />
+		<result column="index" property="index" />
 		<result column="chart" property="chart" />
 	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, identifier, pid, description, index, chart
+    </sql>
 
 </mapper>

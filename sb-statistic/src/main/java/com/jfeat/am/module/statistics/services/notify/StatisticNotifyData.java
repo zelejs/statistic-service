@@ -8,10 +8,10 @@ import java.util.List;
  */
 public class StatisticNotifyData {
 
-    private String identifier;
+    private String identifier;    // 分组用的吧？
     private Date recordTime;
-    private String defaultName;
-    private List<Statistic> values;
+    private String defaultName;   // 指 field name吗？
+    private List<Statistic> values;  //
 
     public String getIdentifier() {
         return identifier;

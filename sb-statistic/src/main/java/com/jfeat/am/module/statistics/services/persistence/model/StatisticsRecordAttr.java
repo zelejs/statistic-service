@@ -12,8 +12,8 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author admin
- * @since 2017-12-06
+ * @author Code Generator
+ * @since 2018-02-26
  */
 @TableName("st_statistics_record_attr")
 public class StatisticsRecordAttr extends Model<StatisticsRecordAttr> {
@@ -21,21 +21,23 @@ public class StatisticsRecordAttr extends Model<StatisticsRecordAttr> {
     private static final long serialVersionUID = 1L;
 
 	private Long id;
-	@TableField("record_id")
-	private Long recordId;
     /**
-     * 所属数据域
-     */
-	@TableField("field_id")
-	private Long fieldId;
-    /**
-     * 数据域标识符
+     * 所属数据域标识符
      */
 	private String field;
     /**
-     * 记录名称
+     * 所修饰的记录名称
+     */
+	@TableField("record_name")
+	private String recordName;
+    /**
+     * 图例名称(中文)
      */
 	private String legend;
+    /**
+     * 图例说明
+     */
+	private String note;
     /**
      * 排序号
      */
@@ -46,59 +48,65 @@ public class StatisticsRecordAttr extends Model<StatisticsRecordAttr> {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public StatisticsRecordAttr setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getRecordId() {
-		return recordId;
-	}
-
-	public void setRecordId(Long recordId) {
-		this.recordId = recordId;
-	}
-
-	public Long getFieldId() {
-		return fieldId;
-	}
-
-	public void setFieldId(Long fieldId) {
-		this.fieldId = fieldId;
+		return this;
 	}
 
 	public String getField() {
 		return field;
 	}
 
-	public void setField(String field) {
+	public StatisticsRecordAttr setField(String field) {
 		this.field = field;
+		return this;
+	}
+
+	public String getRecordName() {
+		return recordName;
+	}
+
+	public StatisticsRecordAttr setRecordName(String recordName) {
+		this.recordName = recordName;
+		return this;
 	}
 
 	public String getLegend() {
 		return legend;
 	}
 
-	public void setLegend(String legend) {
+	public StatisticsRecordAttr setLegend(String legend) {
 		this.legend = legend;
+		return this;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public StatisticsRecordAttr setNote(String note) {
+		this.note = note;
+		return this;
 	}
 
 	public Integer getIndex() {
 		return index;
 	}
 
-	public void setIndex(Integer index) {
+	public StatisticsRecordAttr setIndex(Integer index) {
 		this.index = index;
+		return this;
 	}
 
 	public static final String ID = "id";
 
-	public static final String RECORD_ID = "record_id";
-
-	public static final String FIELD_ID = "field_id";
-
 	public static final String FIELD = "field";
 
+	public static final String RECORD_NAME = "record_name";
+
 	public static final String LEGEND = "legend";
+
+	public static final String NOTE = "note";
 
 	public static final String INDEX = "index";
 
@@ -111,10 +119,10 @@ public class StatisticsRecordAttr extends Model<StatisticsRecordAttr> {
 	public String toString() {
 		return "StatisticsRecordAttr{" +
 			"id=" + id +
-			", recordId=" + recordId +
-			", fieldId=" + fieldId +
 			", field=" + field +
+			", recordName=" + recordName +
 			", legend=" + legend +
+			", note=" + note +
 			", index=" + index +
 			"}";
 	}

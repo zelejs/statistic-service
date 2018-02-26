@@ -13,8 +13,8 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author admin
- * @since 2017-12-06
+ * @author Code Generator
+ * @since 2018-02-26
  */
 @TableName("st_statistics_record")
 public class StatisticsRecord extends Model<StatisticsRecord> {
@@ -23,7 +23,7 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	private Long id;
     /**
-     * 所属数据域
+     * 所属数据域ID[CRUD]
      */
 	@TableField("field_id")
 	private Long fieldId;
@@ -32,7 +32,7 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
      */
 	private String field;
     /**
-     * 记录标记
+     * 记录名称
      */
 	@TableField("record_name")
 	private String recordName;
@@ -47,91 +47,85 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 	@TableField("record_time")
 	private Date recordTime;
     /**
-     * 所属月份简称 [Mar,Jan,Q1,Q2]
+     * 统计时段说明[Till,Day,Week,Month,Quart,Year]
      */
-	@TableField("month_name")
-	private String monthName;
+	private String period;
     /**
-     * 记录属性
+     * 是否为固定值(无需发散记录)
      */
-	@TableField("attr_id")
-	private Long attrId;
-    /**
-     * 图例名称（中文）
-     */
-	private String legend;
+	private Integer fixed;
 
 
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public StatisticsRecord setId(Long id) {
 		this.id = id;
+		return this;
 	}
 
 	public Long getFieldId() {
 		return fieldId;
 	}
 
-	public void setFieldId(Long fieldId) {
+	public StatisticsRecord setFieldId(Long fieldId) {
 		this.fieldId = fieldId;
+		return this;
 	}
 
 	public String getField() {
 		return field;
 	}
 
-	public void setField(String field) {
+	public StatisticsRecord setField(String field) {
 		this.field = field;
+		return this;
 	}
 
 	public String getRecordName() {
 		return recordName;
 	}
 
-	public void setRecordName(String recordName) {
+	public StatisticsRecord setRecordName(String recordName) {
 		this.recordName = recordName;
+		return this;
 	}
 
 	public String getRecordValue() {
 		return recordValue;
 	}
 
-	public void setRecordValue(String recordValue) {
+	public StatisticsRecord setRecordValue(String recordValue) {
 		this.recordValue = recordValue;
+		return this;
 	}
 
 	public Date getRecordTime() {
 		return recordTime;
 	}
 
-	public void setRecordTime(Date recordTime) {
+	public StatisticsRecord setRecordTime(Date recordTime) {
 		this.recordTime = recordTime;
+		return this;
 	}
 
-	public String getMonthName() {
-		return monthName;
+	public String getPeriod() {
+		return period;
 	}
 
-	public void setMonthName(String monthName) {
-		this.monthName = monthName;
+	public StatisticsRecord setPeriod(String period) {
+		this.period = period;
+		return this;
 	}
 
-	public Long getAttrId() {
-		return attrId;
+	public Integer getFixed() {
+		return fixed;
 	}
 
-	public void setAttrId(Long attrId) {
-		this.attrId = attrId;
-	}
-
-	public String getLegend() {
-		return legend;
-	}
-
-	public void setLegend(String legend) {
-		this.legend = legend;
+	public StatisticsRecord setFixed(Integer fixed) {
+		this.fixed = fixed;
+		return this;
 	}
 
 	public static final String ID = "id";
@@ -146,11 +140,9 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	public static final String RECORD_TIME = "record_time";
 
-	public static final String MONTH_NAME = "month_name";
+	public static final String PERIOD = "period";
 
-	public static final String ATTR_ID = "attr_id";
-
-	public static final String LEGEND = "legend";
+	public static final String FIXED = "fixed";
 
 	@Override
 	protected Serializable pkVal() {
@@ -166,9 +158,8 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 			", recordName=" + recordName +
 			", recordValue=" + recordValue +
 			", recordTime=" + recordTime +
-			", monthName=" + monthName +
-			", attrId=" + attrId +
-			", legend=" + legend +
+			", period=" + period +
+			", fixed=" + fixed +
 			"}";
 	}
 }

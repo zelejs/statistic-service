@@ -75,7 +75,7 @@ public class MaintenanceGroupEndpoint extends BaseController {
                                      @RequestParam(name = "name", required = false) String name,
                                      @RequestParam(name = "desc", required = false) String desc,
                                      @RequestParam(name = "identifier", required = false) String identifier,
-                                     @RequestParam(name = "sort", required = false) Integer sort,
+                                     @RequestParam(name = "index", required = false) Integer index,
                                      @RequestParam(name = "pid", required = false) Long pid) {
         page.setCurrent(pageNum);
         page.setSize(pageSize);
@@ -86,7 +86,7 @@ public class MaintenanceGroupEndpoint extends BaseController {
         statisticsGroup.setDescription(desc);
         statisticsGroup.setIdentifier(identifier);
         statisticsGroup.setPid(pid);
-        statisticsGroup.setSort(sort);
+        statisticsGroup.setIndex(index);
 
         page.setRecords(queryStatisticsGroupDao.findStatisticsGroupPage(page, statisticsGroup));
         return SuccessTip.create(page);

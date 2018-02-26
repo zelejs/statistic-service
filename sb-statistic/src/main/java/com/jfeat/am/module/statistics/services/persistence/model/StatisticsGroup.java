@@ -11,8 +11,8 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author admin
- * @since 2017-12-06
+ * @author Code Generator
+ * @since 2018-02-26
  */
 @TableName("st_statistics_group")
 public class StatisticsGroup extends Model<StatisticsGroup> {
@@ -39,9 +39,9 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
     /**
      * 排序号
      */
-	private Integer sort;
+	private Integer index;
     /**
-     * 图表类型[Pie,Chain]环比
+     * 图表名称[Pie,Chain]环比
      */
 	private String chart;
 
@@ -50,56 +50,63 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public StatisticsGroup setId(Long id) {
 		this.id = id;
+		return this;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public StatisticsGroup setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public String getIdentifier() {
 		return identifier;
 	}
 
-	public void setIdentifier(String identifier) {
+	public StatisticsGroup setIdentifier(String identifier) {
 		this.identifier = identifier;
+		return this;
 	}
 
 	public Long getPid() {
 		return pid;
 	}
 
-	public void setPid(Long pid) {
+	public StatisticsGroup setPid(Long pid) {
 		this.pid = pid;
+		return this;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public StatisticsGroup setDescription(String description) {
 		this.description = description;
+		return this;
 	}
 
-	public Integer getSort() {
-		return sort;
+	public Integer getIndex() {
+		return index;
 	}
 
-	public void setSort(Integer sort) {
-		this.sort = sort;
+	public StatisticsGroup setIndex(Integer index) {
+		this.index = index;
+		return this;
 	}
 
 	public String getChart() {
 		return chart;
 	}
 
-	public void setChart(String chart) {
+	public StatisticsGroup setChart(String chart) {
 		this.chart = chart;
+		return this;
 	}
 
 	public static final String ID = "id";
@@ -112,7 +119,7 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 
 	public static final String DESCRIPTION = "description";
 
-	public static final String SORT = "sort";
+	public static final String INDEX = "index";
 
 	public static final String CHART = "chart";
 
@@ -129,7 +136,7 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 			", identifier=" + identifier +
 			", pid=" + pid +
 			", description=" + description +
-			", sort=" + sort +
+			", index=" + index +
 			", chart=" + chart +
 			"}";
 	}

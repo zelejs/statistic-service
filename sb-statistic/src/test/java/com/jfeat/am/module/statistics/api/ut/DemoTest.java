@@ -6,20 +6,24 @@ package com.jfeat.am.module.statistics.api.ut;
 
 import com.jfeat.am.base.BaseJunit;
 import com.jfeat.am.core.util.JsonKit;
-import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsFieldMapper;
+import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
+import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
+import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrService;
+import com.jfeat.am.module.statistics.services.service.definition.StatisticsPeriods;
+import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
-import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import java.util.Date;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -28,86 +32,92 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class DemoTest extends BaseJunit {
 
     @Autowired
-    StatisticsFieldService statisticsFieldService;
+    StatisticsGroupService groupService;
     @Autowired
-    StatisticsFieldMapper statisticsFieldMapper;
+    StatisticsFieldService fieldService;
+    @Autowired
+    StatisticsRecordMapper recordMapper;
+    @Autowired
+    StatisticsRecordAttrService attrService;
 
-//    数据域api
-    StatisticsField statisticsField = new StatisticsField();
+    //  数据域api
     StatisticsGroup statisticsGroup = new StatisticsGroup();
+    StatisticsField statisticsField = new StatisticsField();
+
     StatisticsRecord statisticsRecord = new StatisticsRecord();
     StatisticsRecordAttr statisticsRecordAttr = new StatisticsRecordAttr();
+
     @Before
     public void initData() {
-   /*     statisticsField.setId(1l);
-        statisticsField.setName("werqer");
+        // define group
+        statisticsGroup.setId(1l);
+        statisticsGroup.setName("group1");
+        statisticsGroup.setChart("Pie");
+        statisticsGroup.setDescription("test");
+        statisticsGroup.setIdentifier("rates");
+        groupService.createGroup(statisticsGroup);
+
+        /// set field
+        statisticsField.setGroupId(1l);
+        statisticsField.setId(1l);
+        statisticsField.setName("Done");
+        statisticsField.setField("done_rate");
         statisticsField.setInvisible(1);
         statisticsField.setPercent(1);
         statisticsField.setIndex(1);
-        statisticsField.setChart("asdfad");
-        statisticsFieldMapper.insert(statisticsField);
+        statisticsField.setChart("Pie");
+        fieldService.createMaster(statisticsField);
 
-        statisticsGroup.setId(1l);
-        statisticsGroup.setName("asdfasdf");
-        statisticsGroup.setChart("adfasdfsd");
-        statisticsGroup.setDescription("adsfasdf");
-        statisticsGroup.setIdentifier("adfasdfas");
-        statisticsGroup.setPid(1l);
-        statisticsGroup.setSort(1);
-*/
+        /// insert record
+        statisticsRecord.setId(1l);
+        statisticsRecord.setRecordName("rate");
+        statisticsRecord.setRecordValue("0.75");
+        statisticsRecord.setFieldId(1l);
+        statisticsRecord.setField("done_rate");
+        statisticsRecord.setFixed(1);
+        statisticsRecord.setPeriod(StatisticsPeriods.Month.toString());
+        statisticsRecord.setRecordTime(new Date());
+        recordMapper.insert(statisticsRecord);
+
+        // attr
+        statisticsRecordAttr.setId(1l);
+        statisticsRecordAttr.setLegend("完成率");
+        statisticsRecordAttr.setField("done_rate");
+        statisticsRecordAttr.setRecordName("rate");
+        attrService.createMaster(statisticsRecordAttr);
     }
 
     @Test
-    public void testGetFields()  throws Exception {
-        String json = "";
-        RequestBuilder request = get("/api/adm/statistics/fields");
-        MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
-    }
-
-    @Test
-    public void testPostAssignTo()  throws Exception {
-        String json = "";
-        RequestBuilder request = post("/api/adm/statistics/fields/1/assignTo/1");
-        MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
-    }
-
-    /*@Test
     public void testGetField()  throws Exception {
-        String json = "";
-        RequestBuilder request = get("/api/statistics/fields/plan/planFinishRate/line");
+        RequestBuilder request = get("/api/statistics/fields/done_rate");
         MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
-    }*/
 
-    @Test
-    public void testPutField()  throws Exception {
-        String json = "";
-        RequestBuilder request = get("/api/adm/statistics/fields").content(JsonKit.toJson(statisticsField));
-        MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
+        logger.debug(result.getResponse().getContentAsString());
     }
 
     @Test
-    public void testPostFieldVisible()  throws Exception {
-        String json = "";
-        RequestBuilder request = post("/api/adm/statistics/fields/1/visible");
+    public void testGetGroupFieldData()  throws Exception {
+        String identifier = "rates";
+        RequestBuilder request = get("/api/statistics/groups/rates/data");
         MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
+
+        logger.debug(result.getResponse().getContentAsString());
     }
 
     @Test
-    public void testPostField()  throws Exception {
-        String json = "";
-        RequestBuilder request = post("/api/adm/statistics/fields/1/invisible");
+    public void testGetPieChartData()  throws Exception {
+        String field = "done_rate";
+        RequestBuilder request = get("/api/statistics/fields/done_rate/chart/pie");
         MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
+
+        logger.debug(result.getResponse().getContentAsString());
     }
 
-//    组api
 
-//    返回所有组有问题，为什么要根据字段去选择？SELECT  id,name,identifier,pid,desc,sort,chart  FROM st_statistics_group WHERE  (chart = ?)
-    @Test
-    public void testGetGroups()  throws Exception {
-        String json = "";
-        RequestBuilder request = get("/api/adm/statistics/groups");
-        MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
-    }
+    /**
+     * adm test cases
+     * @throws Exception
+     */
 
 //    增加组 INSERT INTO st_statistics_group( id,name,identifier,pid,desc,sort,chart )  VALUES( ?,?,?,?,?,?,? )
     @Test

@@ -6,7 +6,7 @@ import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.module.statistics.services.maintenance.dao.QueryStatisticsRecordAttrDao;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
-import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrChildService;
+import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,37 +20,38 @@ import java.util.Date;
  * @since 2017-10-19
  */
 @RestController
-@RequestMapping("/api/adm/statistics/records")
-public class MaintenanceRecordEndpoint extends BaseController {
+@RequestMapping("/api/adm/statistics/record/attrs")
+public class MaintenanceRecordAttrEndpoint extends BaseController {
 
     @Resource
-    private StatisticsRecordAttrChildService statisticsRecordAttrChildService;
+    private StatisticsRecordAttrService statisticsRecordAttrService;
 
     @Resource
     private QueryStatisticsRecordAttrDao queryStatisticsRecordAttrDao;
 
     @ApiOperation("增加记录属性")
-    @PostMapping("/{recordId}/attr")
-    public Tip createRecordAttr(@PathVariable Long recordId, @RequestBody StatisticsRecordAttr attr){
-        return SuccessTip.create(statisticsRecordAttrChildService.updateChild(recordId, attr));
+    @PostMapping
+    public Tip createRecordAttr(@PathVariable Long recordId, @RequestBody StatisticsRecordAttr entity){
+        return SuccessTip.create(statisticsRecordAttrService.createMaster(entity));
     }
 
     @ApiOperation("修改记录属性")
-    @PutMapping("/{recordId}/attr")
-    public Tip updateRecordAttr(@PathVariable Long recordId, @RequestBody StatisticsRecordAttr attr){
-        return SuccessTip.create(statisticsRecordAttrChildService.updateChild(recordId, attr));
+    @PutMapping("/{id}")
+    public Tip updateRecordAttr(@PathVariable Long id, @RequestBody StatisticsRecordAttr entity){
+        entity.setId(id);
+        return SuccessTip.create(statisticsRecordAttrService.updateMaster(entity));
     }
 
     @ApiOperation("获取记录属性")
-    @GetMapping("/{recordId}/attr")
-    public Tip getRecordAttr(@PathVariable Long recordId){
-        return SuccessTip.create(statisticsRecordAttrChildService.getChild(recordId));
+    @GetMapping("/{id}")
+    public Tip getRecordAttr(@PathVariable Long id){
+        return SuccessTip.create(statisticsRecordAttrService.retrieveMaster(id));
     }
 
     @ApiOperation("删除记录属性")
-    @DeleteMapping("/{recordId}/attr")
-    public Tip deleteRecordAttr(@PathVariable Long recordId){
-        return SuccessTip.create(statisticsRecordAttrChildService.deleteChild(recordId));
+    @DeleteMapping("/{id}")
+    public Tip deleteRecordAttr(@PathVariable Long id){
+        return SuccessTip.create(statisticsRecordAttrService.deleteMaster(id));
     }
 
     @ApiOperation("分页返回记录属性")
@@ -71,11 +72,8 @@ public class MaintenanceRecordEndpoint extends BaseController {
         page.setSize(pageSize);
         StatisticsRecordAttr attr = new StatisticsRecordAttr();
         attr.setId(id);
-        attr.setFieldId(fieldId);
-        attr.setField(field);
         attr.setIndex(index);
         attr.setLegend(legend);
-        attr.setRecordId(recordId);
         attr.setLegend(legend);
 
         page.setRecords(queryStatisticsRecordAttrDao.findStatisticsRecordAttrPage(page, attr));

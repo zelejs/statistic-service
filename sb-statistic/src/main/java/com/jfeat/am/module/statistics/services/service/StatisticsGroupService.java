@@ -13,6 +13,6 @@ import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup
  * @since 2017-11-25
  */
 
-public interface StatisticsGroupService  extends CRUDServiceGroup<StatisticsGroup> {
+public interface StatisticsGroupService extends CRUDServiceGroup<StatisticsGroup> {
     StatisticsGroup getGroupByIdentifier(String identifier);
 }

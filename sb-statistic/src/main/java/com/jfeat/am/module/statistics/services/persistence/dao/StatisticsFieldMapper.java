@@ -1,15 +1,15 @@
 package com.jfeat.am.module.statistics.services.persistence.dao;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
  * <p>
   *  Mapper 接口
  * </p>
  *
- * @author admin
- * @since 2017-12-06
+ * @author Code Generator
+ * @since 2018-02-26
  */
 public interface StatisticsFieldMapper extends BaseMapper<StatisticsField> {
 

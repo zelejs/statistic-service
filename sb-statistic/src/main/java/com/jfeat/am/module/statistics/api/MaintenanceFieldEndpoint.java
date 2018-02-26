@@ -6,7 +6,6 @@ import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.module.statistics.services.maintenance.dao.QueryStatisticsFieldDao;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -30,15 +29,6 @@ public class MaintenanceFieldEndpoint extends BaseController {
 
     @Resource
     private QueryStatisticsFieldDao statisticsFieldDao;
-
-    /*@ApiOperation("返回所有图表数据域")
-    @GetMapping("/all/")
-    public Tip getAllStatisticsFields(@RequestParam(required = false) String chart) {
-        if (chart != null) {
-            return SuccessTip.create(statisticsFieldService.getFieldListByChart(chart));
-        }
-        return SuccessTip.create(statisticsFieldService.retrieveMasterList());
-    }*/
 
     @ApiOperation("设置数据据域分组 [转移数据域至其他分组]")
     @PostMapping("/{id}/assignTo/{groupId}")

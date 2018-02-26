@@ -1,15 +1,14 @@
 package com.jfeat.am.module.statistics.services.service.impl;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.jfeat.am.common.crud.impl.CRUDServiceOnlyImpl;
 import com.jfeat.am.core.support.DateTimeKit;
 import com.jfeat.am.core.support.StrKit;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordAttrMapper;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 import com.jfeat.am.module.statistics.services.service.StatisticsRecordService;
+import com.jfeat.am.module.statistics.services.service.dao.StatisticsRecordDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,12 +29,11 @@ public class StatisticsRecordServiceImpl extends CRUDServiceOnlyImpl<StatisticsR
 
     @Resource
     StatisticsRecordMapper statisticsRecordMapper;
-
     @Resource
     StatisticsRecordAttrMapper statisticsRecordAttrMapper;
 
     @Resource
-    StatisticsRecordService statisticsRecordService;
+    StatisticsRecordDao statisticsRecordDao;
 
     @Override
     protected BaseMapper<StatisticsRecord> getMasterMapper() {
@@ -50,17 +48,7 @@ public class StatisticsRecordServiceImpl extends CRUDServiceOnlyImpl<StatisticsR
         if (StrKit.isBlank(endTime)) {
             endTime = DateTimeKit.formatDateTime(new Date());
         }
-        return statisticsRecordService.getStatisticsRecordByFieldIdAndStartTimeAndEndTime(field, fields, startTime, endTime);
-    }
-
-    @Override
-    public List<StatisticsRecordAttr> getRecordAttrByFieldId(Long fieldId) {
-        return statisticsRecordAttrMapper.selectList(new EntityWrapper<StatisticsRecordAttr>().eq(StatisticsRecordAttr.FIELD_ID,fieldId));
-    }
-
-    @Override
-    public List<StatisticsRecordAttr> getRecordAttrByField(String field) {
-        return statisticsRecordAttrMapper.selectList(new EntityWrapper<StatisticsRecordAttr>().eq(StatisticsRecordAttr.FIELD,field));
+        return statisticsRecordDao.getStatisticsRecordByFieldIdAndStartTimeAndEndTime(field, fields, startTime, endTime);
     }
 }
 

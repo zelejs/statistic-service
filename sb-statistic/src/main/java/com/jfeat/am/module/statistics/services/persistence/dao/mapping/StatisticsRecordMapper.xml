@@ -10,9 +10,13 @@
 		<result column="record_name" property="recordName" />
 		<result column="record_value" property="recordValue" />
 		<result column="record_time" property="recordTime" />
-		<result column="month_name" property="monthName" />
-		<result column="attr_id" property="attrId" />
-		<result column="legend" property="legend" />
+		<result column="period" property="period" />
+		<result column="fixed" property="fixed" />
 	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, field_id AS fieldId, field, record_name AS recordName, record_value AS recordValue, record_time AS recordTime, period, fixed
+    </sql>
 
 </mapper>

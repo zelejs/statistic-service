@@ -131,34 +131,4 @@ public class DemoTest extends BaseJunit {
         logger.debug(result.getResponse().getContentAsString());
     }
 
-
-    /**
-     * adm test cases
-     * @throws Exception
-     */
-
-//    增加组 INSERT INTO st_statistics_group( id,name,identifier,pid,desc,sort,chart )  VALUES( ?,?,?,?,?,?,? )
-    @Test
-    public void testPostGroups()  throws Exception {
-        String json = "";
-        RequestBuilder request = post("/api/adm/statistics/groups").content(JsonKit.toJson(statisticsGroup));
-        MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
-    }
-
-//    获取组
-    @Test
-    public void testGetGroup()  throws Exception {
-        String json = "";
-        RequestBuilder request = get("/api/adm/statistics/groups/1");
-        MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
-    }
-
-//    修改组
-    @Test
-    public void testPutGroup()  throws Exception {
-        String json = "";
-        RequestBuilder request = get("/api/adm/statistics/groups/1");
-        MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
-    }
-
 }

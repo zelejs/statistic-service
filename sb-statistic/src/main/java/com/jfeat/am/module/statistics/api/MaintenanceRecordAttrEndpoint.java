@@ -7,6 +7,7 @@ import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.module.statistics.services.maintenance.dao.QueryStatisticsRecordAttrDao;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ import java.util.Date;
  * @author Code Generator
  * @since 2017-10-19
  */
+@Api("统计 [Statistics]")
 @RestController
 @RequestMapping("/api/adm/statistics/record/attrs")
 public class MaintenanceRecordAttrEndpoint extends BaseController {

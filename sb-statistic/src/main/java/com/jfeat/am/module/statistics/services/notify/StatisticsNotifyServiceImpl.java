@@ -37,12 +37,29 @@ public class StatisticsNotifyServiceImpl implements StatisticsNotifyService {
 
         for (Statistic statistic : statisticList) {
             StatisticsRecord statisticRecord = new StatisticsRecord();
-            statisticRecord.setRecordTime(statisticNotifyData.getRecordTime());
             statisticRecord.setField(statistic.getKey());
             statisticRecord.setRecordName(statistic.getName());
-            statisticRecord.setRecordValue(statistic.getValue());
 
-            statisticsRecordMapper.insert(statisticRecord);
+
+            /// check exists first
+            StatisticsRecord one = statisticsRecordMapper.selectOne(statisticRecord);
+            if(one==null){
+
+                // add new
+
+                statisticRecord.setRecordValue(statistic.getValue());
+                statisticRecord.setRecordTime(statisticNotifyData.getRecordTime());
+
+                statisticsRecordMapper.insert(statisticRecord);
+
+            }else{
+                /// just update
+
+                one.setRecordValue(statistic.getValue());
+                one.setRecordTime(statisticNotifyData.getRecordTime());
+
+                statisticsRecordMapper.updateById(one);
+            }
         }
 
         return true;

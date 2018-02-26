@@ -9,6 +9,7 @@ import com.jfeat.am.core.util.JsonKit;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
 import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrService;
+import com.jfeat.am.module.statistics.services.service.definition.Charts;
 import com.jfeat.am.module.statistics.services.service.definition.StatisticsPeriods;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
@@ -52,7 +53,7 @@ public class DemoTest extends BaseJunit {
         // define group
         statisticsGroup.setId(1l);
         statisticsGroup.setName("group1");
-        statisticsGroup.setChart("Pie");
+        statisticsGroup.setChart(Charts.pie.toString());
         statisticsGroup.setDescription("test");
         statisticsGroup.setIdentifier("rates");
         groupService.createGroup(statisticsGroup);
@@ -62,7 +63,7 @@ public class DemoTest extends BaseJunit {
         statisticsField.setId(1l);
         statisticsField.setName("Done");
         statisticsField.setField("done_rate");
-        statisticsField.setInvisible(1);
+        statisticsField.setInvisible(0);
         statisticsField.setPercent(1);
         statisticsField.setIndex(1);
         statisticsField.setChart("Pie");
@@ -74,7 +75,6 @@ public class DemoTest extends BaseJunit {
         statisticsRecord.setRecordValue("0.75");
         statisticsRecord.setFieldId(1l);
         statisticsRecord.setField("done_rate");
-        statisticsRecord.setFixed(1);
         statisticsRecord.setPeriod(StatisticsPeriods.Month.toString());
         statisticsRecord.setRecordTime(new Date());
         recordMapper.insert(statisticsRecord);
@@ -88,7 +88,7 @@ public class DemoTest extends BaseJunit {
     }
 
     @Test
-    public void testGetField()  throws Exception {
+    public void testGetField() throws Exception {
         RequestBuilder request = get("/api/statistics/fields/done_rate");
         MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
 
@@ -96,7 +96,7 @@ public class DemoTest extends BaseJunit {
     }
 
     @Test
-    public void testGetGroupFieldData()  throws Exception {
+    public void testGetGroupFieldData() throws Exception {
         String identifier = "rates";
         RequestBuilder request = get("/api/statistics/groups/rates/data");
         MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
@@ -105,9 +105,27 @@ public class DemoTest extends BaseJunit {
     }
 
     @Test
-    public void testGetPieChartData()  throws Exception {
+    public void testGetPieChartData() throws Exception {
         String field = "done_rate";
         RequestBuilder request = get("/api/statistics/fields/done_rate/chart/pie");
+        MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
+
+        logger.debug(result.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void testGetLineChartData() throws Exception {
+        String field = "done_rate";
+        RequestBuilder request = get("/api/statistics/fields/done_rate/chart/line");
+        MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
+
+        logger.debug(result.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void testGetGroupLineChartData() throws Exception {
+        String field = "done_rate";
+        RequestBuilder request = get("/api/statistics/groups/rates/chart/line");
         MvcResult result = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
 
         logger.debug(result.getResponse().getContentAsString());

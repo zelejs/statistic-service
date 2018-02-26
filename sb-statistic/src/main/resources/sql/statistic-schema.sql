@@ -45,7 +45,7 @@ CREATE TABLE `st_statistics_record` (
   `record_value` varchar(50) NOT NULL COMMENT '记录值',
   `record_time` datetime NOT NULL COMMENT '记录时间',
   `period` varchar(20) NOT NULL COMMENT '统计时段说明[Till,Day,Week,Month,Quart,Year]',
-  `fixed` smallint DEFAULT 0 COMMENT '是否为固定值(无需发散记录)',
+  UNIQUE(`field`, `record_name`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

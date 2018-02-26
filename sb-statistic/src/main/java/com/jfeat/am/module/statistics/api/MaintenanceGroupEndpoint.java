@@ -7,6 +7,7 @@ import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.module.statistics.services.maintenance.dao.QueryStatisticsGroupDao;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ import javax.annotation.Resource;
  * @author Code Generator
  * @since 2017-10-19
  */
+@Api("统计 [Statistics]")
 @RestController
 @RequestMapping("/api/adm/statistics/groups")
 public class MaintenanceGroupEndpoint extends BaseController {

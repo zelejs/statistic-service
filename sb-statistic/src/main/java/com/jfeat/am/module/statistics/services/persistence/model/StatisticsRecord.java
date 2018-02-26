@@ -50,10 +50,6 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
      * 统计时段说明[Till,Day,Week,Month,Quart,Year]
      */
 	private String period;
-    /**
-     * 是否为固定值(无需发散记录)
-     */
-	private Integer fixed;
 
 
 	public Long getId() {
@@ -119,15 +115,6 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 		return this;
 	}
 
-	public Integer getFixed() {
-		return fixed;
-	}
-
-	public StatisticsRecord setFixed(Integer fixed) {
-		this.fixed = fixed;
-		return this;
-	}
-
 	public static final String ID = "id";
 
 	public static final String FIELD_ID = "field_id";
@@ -159,7 +146,6 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 			", recordValue=" + recordValue +
 			", recordTime=" + recordTime +
 			", period=" + period +
-			", fixed=" + fixed +
 			"}";
 	}
 }

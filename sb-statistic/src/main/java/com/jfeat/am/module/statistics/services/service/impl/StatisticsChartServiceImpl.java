@@ -54,13 +54,13 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         pieChartBean.setTitle(fieldModel.getName());
         pieChartBean.setTimestamp(DateTimeKit.formatDateTime(new Date()));
 
-        if(fieldModel.getRecords()==null){
-            fieldModel.setRecords(new ArrayList<>());
+        if(fieldModel.getItems()==null){
+            fieldModel.setItems(new ArrayList<>());
         }
 
         /// convert data
         List<PieChartBean.KeyValue> data = pieChartBean.getData();
-        for (StatisticsRecord record : fieldModel.getRecords()) {
+        for (StatisticsRecord record : fieldModel.getItems()) {
 
             PieChartBean.KeyValue keyValue = new PieChartBean.KeyValue();
             keyValue.setName(record.getRecordName());
@@ -83,6 +83,7 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
     public LineChartBean getLineData(String field) {
         LineChartBean lineChartBean = new LineChartBean();
         lineChartBean.setData(new ArrayList<>());
+        lineChartBean.setDataAxis(new ArrayList<>());
 
         StatisticsFieldModel fieldModel = statisticsFieldService.getFieldModel(field);
         if(fieldModel.getInvisible()==1){
@@ -91,14 +92,16 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         lineChartBean.setTitle(fieldModel.getName());
         lineChartBean.setTimestamp(DateTimeKit.formatDateTime(new Date()));
 
-        if(fieldModel.getRecords()==null){
-            fieldModel.setRecords(new ArrayList<>());
+        if(fieldModel.getItems()==null){
+            fieldModel.setItems(new ArrayList<>());
         }
 
         /// convert to chart data
         List<String> data = lineChartBean.getData();
-        for (StatisticsRecord record : fieldModel.getRecords()) {
+        List<String> dataAxis = lineChartBean.getDataAxis();
+        for (StatisticsRecord record : fieldModel.getItems()) {
             data.add(record.getRecordValue());
+            dataAxis.add(record.getRecordName());
         }
 
         return lineChartBean;
@@ -116,6 +119,8 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
     public BarChartBean getBarData(String field) {
         BarChartBean barChartBean = new BarChartBean();
         barChartBean.setData(new ArrayList<>());
+        barChartBean.setDataAxis(new ArrayList<>());
+
 
         StatisticsFieldModel fieldModel = statisticsFieldService.getFieldModel(field);
         if(fieldModel.getInvisible()==1){
@@ -124,14 +129,16 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         barChartBean.setTitle(fieldModel.getName());
         barChartBean.setTimestamp(DateTimeKit.formatDateTime(new Date()));
 
-        if(fieldModel.getRecords()==null){
-            fieldModel.setRecords(new ArrayList<>());
+        if(fieldModel.getItems()==null){
+            fieldModel.setItems(new ArrayList<>());
         }
 
         /// convert to chart data
         List<String> data = barChartBean.getData();
-        for (StatisticsRecord record : fieldModel.getRecords()) {
+        List<String> dataAxis = barChartBean.getData();
+        for (StatisticsRecord record : fieldModel.getItems()) {
             data.add(record.getRecordValue());
+            dataAxis.add(record.getRecordName());
         }
 
         return barChartBean;

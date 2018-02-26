@@ -9,13 +9,13 @@ import java.util.List;
  * Created by Code Generator on 2017-11-25
  */
 public class StatisticsFieldModel extends StatisticsField{
-    private List<StatisticsRecord> records;
+    private List<StatisticsRecord> items;
 
-    public List<StatisticsRecord> getRecords() {
-        return records;
+    public List<StatisticsRecord> getItems() {
+        return items;
     }
 
-    public void setRecords(List<StatisticsRecord> records) {
-        this.records = records;
+    public void setItems(List<StatisticsRecord> items) {
+        this.items = items;
     }
 }

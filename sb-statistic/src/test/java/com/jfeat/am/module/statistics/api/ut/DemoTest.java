@@ -130,5 +130,4 @@ public class DemoTest extends BaseJunit {
 
         logger.debug(result.getResponse().getContentAsString());
     }
-
 }

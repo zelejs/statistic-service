@@ -5,6 +5,7 @@ import org.apache.ibatis.jdbc.SQL;
 /**
  * Created by vincent on 2017/11/7.
  */
+@Deprecated
 public class TableColumnRateProvider {
     public String queryColumnRate() {
         SQL sql = new SQL();

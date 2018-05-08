@@ -6,7 +6,7 @@ import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.crud.CRUD;
 import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
-import com.jfeat.am.module.statistics.bean.*;
+import com.jfeat.am.module.statistics.api.bean.*;
 import com.jfeat.am.module.statistics.services.service.StatisticsChartService;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupByService;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;

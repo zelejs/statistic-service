@@ -1,14 +1,14 @@
-package com.jfeat.am.module.statistics.bean;
+package com.jfeat.am.module.statistics.api.bean;
 
 import java.util.List;
 
 /**
  * Created by vincent on 2018/2/26.
  */
-public class LineChartBean {
+public class BarChartBean {
     private String title;
     private String timestamp;
-    private String type = "line";
+    private String type = "bar";
     private List<String> dataAxis;
     private List<String> data;
 

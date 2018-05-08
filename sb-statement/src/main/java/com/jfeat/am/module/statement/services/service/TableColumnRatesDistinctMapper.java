@@ -10,6 +10,7 @@ import java.util.Map;
  * Created by Silent-Y on 2017/11/6.
  */
 public interface TableColumnRatesDistinctMapper extends BaseMapper{
+
     @Select("select #{column} from #{table}")
     Map queryTableColumnItems(@Param("table") String table, @Param("column") String column);
 }

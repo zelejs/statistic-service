@@ -35,6 +35,11 @@ CREATE TABLE `st_statistics_field` (
 
 -- ----------------------------
 -- Table structure for st_statistic_record
+-- T      -  Total
+-- D,W,Y  -  Day/Week/Year
+-- LD3    -  Latest 3 Days
+-- LM3    -  Latest 3 Months
+-- Chain  -  Record Chain
 -- ----------------------------
 DROP TABLE IF EXISTS `st_statistics_record`;
 CREATE TABLE `st_statistics_record` (
@@ -43,9 +48,9 @@ CREATE TABLE `st_statistics_record` (
   `field` varchar(80) NOT NULL COMMENT '数据域标识符',
   `record_name` varchar(50) NOT NULL COMMENT '记录名称',
   `record_value` varchar(50) NOT NULL COMMENT '记录值',
+  `record_tag` varchar(30) NOT NULL COMMENT '记录值标记',
   `record_time` datetime NOT NULL COMMENT '记录时间',
-  `period` varchar(20) NOT NULL COMMENT '统计时段说明[Till,Day,Week,Month,Quart,Year]',
-  UNIQUE(`field`, `record_name`),
+  `record_period` varchar(8) NOT NULL COMMENT '统计时段说明[T,D,W,M,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,Y]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -63,5 +68,4 @@ CREATE TABLE `st_statistics_record_attr` (
   UNIQUE(`field`, `record_name`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 

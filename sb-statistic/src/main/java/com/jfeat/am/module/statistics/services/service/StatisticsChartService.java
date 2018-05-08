@@ -1,8 +1,8 @@
 package com.jfeat.am.module.statistics.services.service;
 
-import com.jfeat.am.module.statistics.bean.BarChartBean;
-import com.jfeat.am.module.statistics.bean.LineChartBean;
-import com.jfeat.am.module.statistics.bean.PieChartBean;
+import com.jfeat.am.module.statistics.api.bean.BarChartBean;
+import com.jfeat.am.module.statistics.api.bean.LineChartBean;
+import com.jfeat.am.module.statistics.api.bean.PieChartBean;
 
 import java.util.Map;
 

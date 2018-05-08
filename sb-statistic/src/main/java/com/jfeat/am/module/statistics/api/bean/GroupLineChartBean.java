@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.bean;
+package com.jfeat.am.module.statistics.api.bean;
 
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 

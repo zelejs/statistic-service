@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.bean;
+package com.jfeat.am.module.statistics.api.bean;
 
 import java.util.List;
 

@@ -1,0 +1,43 @@
+package com.jfeat.am.module.statement.services.statistic;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by vincent on 2018/5/8.
+ * 用于记录查询占比数据，如分类占比
+ */
+public class StatisticRate implements Statistics {
+    private String name;
+    private List<Statistic> values;
+
+    public void addRate(String name, String value){
+        if(values==null){
+            values = new ArrayList<>();
+        }
+        values.add(new Statistic(name, value));
+    }
+
+    public void addRate(Statistic rate){
+        if(values==null){
+            values = new ArrayList<>();
+        }
+        values.add(rate);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Statistic> getValues() {
+        return values;
+    }
+
+    public void setValues(List<Statistic> values) {
+        this.values = values;
+    }
+}

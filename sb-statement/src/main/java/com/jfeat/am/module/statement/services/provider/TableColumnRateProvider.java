@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statement.services.service.provider;
+package com.jfeat.am.module.statement.services.provider;
 
 import org.apache.ibatis.jdbc.SQL;
 

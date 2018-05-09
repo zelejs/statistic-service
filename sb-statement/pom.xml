@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>  
   <groupId>com.jfeat</groupId>  
   <artifactId>sb-statement</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <packaging>jar</packaging>  
   <name>Statement</name>
   <description>Statement Component</description>

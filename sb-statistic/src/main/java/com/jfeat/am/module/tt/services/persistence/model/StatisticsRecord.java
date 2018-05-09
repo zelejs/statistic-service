@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services.persistence.model;
+package com.jfeat.am.module.tt.services.persistence.model;
 
 import java.io.Serializable;
 
@@ -23,36 +23,36 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	private Long id;
     /**
-     * 所属数据域ID[CRUD]
+     * 鎵�灞炴暟鎹煙ID[CRUD]
      */
 	@TableField("field_id")
 	private Long fieldId;
     /**
-     * 数据域标识符
+     * 鏁版嵁鍩熸爣璇嗙
      */
 	private String field;
     /**
-     * 记录名称
+     * 璁板綍鍚嶇О
      */
 	@TableField("record_name")
 	private String recordName;
     /**
-     * 记录值
+     * 璁板綍鍊�
      */
 	@TableField("record_value")
 	private String recordValue;
     /**
-     * 记录值所属行名称
+     * 璁板綍鍊兼墍灞炶鍚嶇О
      */
 	@TableField("record_tuple")
 	private String recordTuple;
     /**
-     * 统计时段说明[T,D,W,M,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,Y]
+     * 缁熻鏃舵璇存槑[T,D,W,M,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,Y]
      */
 	@TableField("record_timeline")
 	private String recordTimeline;
     /**
-     * 记录时间
+     * 璁板綍鏃堕棿
      */
 	@TableField("record_time")
 	private Date recordTime;

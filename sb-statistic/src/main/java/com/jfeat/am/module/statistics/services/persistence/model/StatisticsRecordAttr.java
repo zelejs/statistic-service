@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author Code Generator
- * @since 2018-02-26
+ * @since 2018-05-09
  */
 @TableName("st_statistics_record_attr")
 public class StatisticsRecordAttr extends Model<StatisticsRecordAttr> {

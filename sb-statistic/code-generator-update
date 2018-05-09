@@ -1,0 +1,29 @@
+#!/bin/bash
+
+module=$1
+table=$2
+shift
+tables=$@
+arg=$#
+
+if [ ! $arg -gt 0 ];then
+ bin=$(basename $0)
+ echo "Usage: $bin <module> <table>"
+ exit 0
+fi
+
+tabs=''
+for item in "$@"; do
+  #process item
+  tabs="$tabs -Dtable=$item"
+done
+#trim space
+read  -rd '' tabs <<< "$tabs"
+
+if [ ! tables ];then
+ bin=$(basename $0)
+ echo "Usage: $bin <module> <table...>"
+ exit 0
+fi
+
+mvn com.jfeat:sb-code-generator:1.1.0:generate -DmoduleName=$module -Dtable=$table -f code-generator-pom.xml

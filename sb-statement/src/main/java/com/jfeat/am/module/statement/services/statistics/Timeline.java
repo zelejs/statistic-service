@@ -1,54 +1,58 @@
 package com.jfeat.am.module.statement.services.statistics;
 
-import static com.jfeat.am.module.statement.services.statistics.Timeline.Timelines.Today;
-import static com.jfeat.am.module.statement.services.statistics.Timeline.Timelines.Week;
+import static com.jfeat.am.module.statement.services.statistics.Timeline.Timelines.*;
 
 /**
  * Created by vincenthuang on 08/05/2018.
  */
 public class Timeline {
 
+    /**
+     * timeline options
+     */
     public enum Timelines{
-        Today,   /// today
-        Week,    /// current week
-        Month,   /// current month
-        Year,    /// current year
+        T,       /// till now
+        D,       /// current day
+        W,       /// current week
+        M,       /// current month
+        LD3,     /// Latest 3 days
         LW1,     /// Latest week,
         LM1,     /// Latest month
         LM3,     /// Latest 3 months
-        Q1,      /// Q1
+        Q1,      //第一季度
         Q2,
         Q3,
         Q4,
+        Y        /// current year
     }
-
-    /**
-     * 关于时间的表字段
-     */
-    private String timelineColumnName;
 
     /**
      * 关于时间名称，用于记录时间
      */
-    private String timelineName;
+    private String name;
+
+    /**
+     * 关于时间的表字段
+     */
+    private String timestampField;
 
 
     public Timeline(){
     }
 
     public Timeline(String name, String columnName){
-        this.timelineName = name;
-        this.timelineColumnName = columnName;
+        this.name = name;
+        this.timestampField = columnName;
     }
 
     public String buildTimelineSql(String name){
 
         String sql = null;
 
-        if(Today.toString().compareTo(name)==0){
-            sql = buildTodayQuery("mysql", timelineColumnName);
+        if(D.toString().compareTo(name)==0){
+            sql = buildTodayQuery("mysql", timestampField);
 
-        }else if(Week.toString().compareTo(name)==0){
+        }else if(W.toString().compareTo(name)==0){
 
         }else{
             throw new RuntimeException("fatal: invalid timeline name: " + name);

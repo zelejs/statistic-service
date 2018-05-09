@@ -4,6 +4,7 @@ import com.jfeat.am.module.statement.services.statistics.util.JDBCConnectionUtil
 import com.jfeat.am.module.statement.services.statistics.service.GeneralStatisticService;
 import com.jfeat.am.module.statement.services.statistics.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import java.util.Map;
 /**
  * Created by vincent on 2018/5/8.
  */
+@Service
 public class GeneralStatisticServiceImpl implements GeneralStatisticService {
 
     @Autowired
@@ -87,31 +89,42 @@ public class GeneralStatisticServiceImpl implements GeneralStatisticService {
     }
 
     @Override
-    public StatisticTuple queryStatisticTuple(String name, String sql) throws SQLException {
+    public StatisticTuple queryStatisticTuple(String name, String sql, List<String> tuples) throws SQLException {
         Connection connection = getConnection();
         List<Map<String, String>> result =  JDBCConnectionUtil.querySQL(connection, sql);
         if(result==null || result.size()==0){
             return null;
         }
 
+        ///
+        if(result.size()!=tuples.size()){
+            throw new RuntimeException("fatal: [Bad Request] parameter tuples size is out of range");
+        }
+
         /// set statistic data
         /// 报表数据转换为 列数据, 如按时间段查询
-        StatisticTuple tuples = new StatisticTuple();
-        tuples.setName(name);
+        StatisticTuple statisticTuple = new StatisticTuple();
+        statisticTuple.setName(name);
 
         // 列表为各占比的名称
         // create column name hash table
 
         // 历遍报表结构查询结果，转换并创建各占比数据
+        int curr = 0;
         Iterator<Map<String,String>> it = result.iterator();
         while (it.hasNext()){
             Map<String,String> data = it.next();
 
+            String tupleName = tuples.get(curr);
             StatisticRate rate = convertMapToStatisticRate(data);
-            tuples.addRate(rate);
+            rate.setName(tupleName);
+
+            statisticTuple.addRate(rate);
+
+            curr++;
         }
 
-        return tuples;
+        return statisticTuple;
     }
 
     @Override

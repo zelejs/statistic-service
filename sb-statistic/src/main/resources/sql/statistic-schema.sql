@@ -48,9 +48,9 @@ CREATE TABLE `st_statistics_record` (
   `field` varchar(80) NOT NULL COMMENT '数据域标识符',
   `record_name` varchar(50) NOT NULL COMMENT '记录名称',
   `record_value` varchar(50) NOT NULL COMMENT '记录值',
-  `record_tag` varchar(30) NOT NULL COMMENT '记录值标记',
+  `record_tuple` varchar(30) NOT NULL COMMENT '记录值所属行名称',
+  `record_timeline` varchar(8) NOT NULL COMMENT '统计时段说明[T,D,W,M,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,Y]',
   `record_time` datetime NOT NULL COMMENT '记录时间',
-  `record_period` varchar(8) NOT NULL COMMENT '统计时段说明[T,D,W,M,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,Y]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

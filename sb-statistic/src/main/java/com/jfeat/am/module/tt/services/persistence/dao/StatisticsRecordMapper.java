@@ -1,6 +1,6 @@
-package com.jfeat.am.module.statistics.services.persistence.dao;
+package com.jfeat.am.module.tt.services.persistence.dao;
 
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
+import com.jfeat.am.module.tt.services.persistence.model.StatisticsRecord;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

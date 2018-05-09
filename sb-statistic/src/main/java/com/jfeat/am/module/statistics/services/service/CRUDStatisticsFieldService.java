@@ -1,7 +1,7 @@
 package com.jfeat.am.module.statistics.services.service;
 
 import com.jfeat.am.common.crud.CRUDServiceOverModelOne;
-import com.jfeat.am.module.statistics.services.service.model.StatisticsFieldModel;
+import com.jfeat.am.module.statistics.services.statistic.model.StatisticsFieldModel;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 
@@ -16,4 +16,9 @@ import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecor
  */
 
 public interface CRUDStatisticsFieldService extends CRUDServiceOverModelOne<StatisticsField, StatisticsFieldModel, StatisticsRecord> {
+    /**
+     * 通过域名获取域信息
+     */
+    StatisticsField getFieldByFieldName(String field);
+
 }

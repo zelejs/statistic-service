@@ -3,8 +3,7 @@ package com.jfeat.am.module.statistics.api;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
-import com.jfeat.am.module.statistics.services.service.StatisticsChartService;
-import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
+import com.jfeat.am.module.statistics.services.chart.service.StatisticsChartService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +18,7 @@ import javax.annotation.Resource;
 @RequestMapping("/api/statistics/fields")
 public class StatisticsFieldChartEndpoint extends BaseController {
     @Resource
-    StatisticsFieldService statisticsFieldService;
-
-    @Resource
     StatisticsChartService chartService;
-
-    @ApiOperation("获取指定数据域数据")
-    @GetMapping("/{field}")
-    public Tip getStatisticField(@PathVariable String field) {
-        return SuccessTip.create(statisticsFieldService.getFieldData(field));
-    }
-
 
     /*饼状图数据结构
     "title":"饼状图数据结构",

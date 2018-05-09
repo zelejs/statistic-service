@@ -47,6 +47,11 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 	@TableField("record_tuple")
 	private String recordTuple;
     /**
+     * 记录值所属分类名称
+     */
+	@TableField("record_cluster")
+	private String recordCluster;
+    /**
      * 统计时段说明[T,D,W,M,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,Y]
      */
 	private String timeline;
@@ -111,6 +116,15 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 		return this;
 	}
 
+	public String getRecordCluster() {
+		return recordCluster;
+	}
+
+	public StatisticsRecord setRecordCluster(String recordCluster) {
+		this.recordCluster = recordCluster;
+		return this;
+	}
+
 	public String getTimeline() {
 		return timeline;
 	}
@@ -141,6 +155,8 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	public static final String RECORD_TUPLE = "record_tuple";
 
+	public static final String RECORD_CLUSTER = "record_cluster";
+
 	public static final String TIMELINE = "timeline";
 
 	public static final String RECORD_TIME = "record_time";
@@ -159,6 +175,7 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 			", recordName=" + recordName +
 			", recordValue=" + recordValue +
 			", recordTuple=" + recordTuple +
+			", recordCluster=" + recordCluster +
 			", timeline=" + timeline +
 			", recordTime=" + recordTime +
 			"}";

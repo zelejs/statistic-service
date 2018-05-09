@@ -25,6 +25,7 @@ CREATE TABLE `st_statistics_field` (
   `group_id` bigint(20) NOT NULL COMMENT '统计所属分组',
   `name` varchar(50) NOT NULL COMMENT '统计名称',
   `field` varchar(80) NOT NULL COMMENT '数据域标识符',
+  `schema` varchar(26) NOT NULL COMMENT '统计数据类型[Value,Rate,Report,Cluster]',
   `chart` varchar(26) NOT NULL COMMENT '图表名称[Pie,Chain]环比',
   `invisible` smallint(5) DEFAULT 0 COMMENT '是否不可见',
   `index` smallint(5) DEFAULT 0 COMMENT '排序号',
@@ -49,11 +50,15 @@ CREATE TABLE `st_statistics_record` (
   `record_name` varchar(50) NOT NULL COMMENT '记录名称',
   `record_value` varchar(50) NOT NULL COMMENT '记录值',
   `record_tuple` varchar(30) NOT NULL COMMENT '记录值所属行名称',
+  `record_cluster` varchar(30) NOT NULL COMMENT '记录值所属分类名称',
   `timeline` varchar(8) NOT NULL COMMENT '统计时段说明[T,D,W,M,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,Y]',
   `record_time` datetime NOT NULL COMMENT '记录时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
+-- @Deprecated
 -- ----------------------------
 -- Table structure for st_statistics_record_attr
 -- ----------------------------

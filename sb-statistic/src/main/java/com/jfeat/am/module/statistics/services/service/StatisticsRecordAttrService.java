@@ -7,5 +7,6 @@ import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecor
 /**
  * Created by Silent-Y on 2017/8/31.
  */
+@Deprecated
 public interface StatisticsRecordAttrService extends CRUDServiceOnly<StatisticsRecordAttr> {
 }

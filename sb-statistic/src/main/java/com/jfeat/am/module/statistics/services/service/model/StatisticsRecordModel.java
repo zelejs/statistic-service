@@ -6,6 +6,7 @@ import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecor
 /**
  * Created by Code Generator on 2017-11-25
  */
+@Deprecated
 public class StatisticsRecordModel extends StatisticsRecord{
     private StatisticsRecordAttr attr;
 

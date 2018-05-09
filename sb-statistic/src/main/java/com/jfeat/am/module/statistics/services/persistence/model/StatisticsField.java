@@ -35,6 +35,10 @@ public class StatisticsField extends Model<StatisticsField> {
      */
 	private String field;
     /**
+     * 统计数据类型[Value,Rate,Report,Cluster]
+     */
+	private String schema;
+    /**
      * 图表名称[Pie,Chain]环比
      */
 	private String chart;
@@ -88,6 +92,15 @@ public class StatisticsField extends Model<StatisticsField> {
 		return this;
 	}
 
+	public String getSchema() {
+		return schema;
+	}
+
+	public StatisticsField setSchema(String schema) {
+		this.schema = schema;
+		return this;
+	}
+
 	public String getChart() {
 		return chart;
 	}
@@ -132,6 +145,8 @@ public class StatisticsField extends Model<StatisticsField> {
 
 	public static final String FIELD = "field";
 
+	public static final String SCHEMA = "schema";
+
 	public static final String CHART = "chart";
 
 	public static final String INVISIBLE = "invisible";
@@ -152,6 +167,7 @@ public class StatisticsField extends Model<StatisticsField> {
 			", groupId=" + groupId +
 			", name=" + name +
 			", field=" + field +
+			", schema=" + schema +
 			", chart=" + chart +
 			", invisible=" + invisible +
 			", index=" + index +

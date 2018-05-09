@@ -17,6 +17,7 @@ import javax.annotation.Resource;
  * @author Code Generator
  * @since 2017-11-25
  */
+@Deprecated
 @Service
 public class StatisticsRecordAttrServiceImpl extends CRUDServiceOnlyImpl<StatisticsRecordAttr> implements StatisticsRecordAttrService {
 

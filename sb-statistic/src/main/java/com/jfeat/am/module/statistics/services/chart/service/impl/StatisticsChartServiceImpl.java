@@ -1,18 +1,18 @@
-package com.jfeat.am.module.statistics.services.service.impl;
+package com.jfeat.am.module.statistics.services.chart.service.impl;
 
 import com.google.common.collect.Lists;
 import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.core.support.DateTimeKit;
-import com.jfeat.am.module.statistics.api.bean.BarChartBean;
-import com.jfeat.am.module.statistics.api.bean.LineChartBean;
-import com.jfeat.am.module.statistics.api.bean.PieChartBean;
+import com.jfeat.am.module.statistics.services.chart.model.BarChartData;
+import com.jfeat.am.module.statistics.services.chart.model.PieChartData;
+import com.jfeat.am.module.statistics.services.chart.model.LineChartData;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
-import com.jfeat.am.module.statistics.services.service.StatisticsChartService;
-import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
+import com.jfeat.am.module.statistics.services.chart.service.StatisticsChartService;
+import com.jfeat.am.module.statistics.services.statistic.service.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.service.StatisticsRecordService;
-import com.jfeat.am.module.statistics.services.service.model.StatisticsFieldModel;
+import com.jfeat.am.module.statistics.services.statistic.model.StatisticsFieldModel;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -43,11 +43,11 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
     {value:400, name:'搜索引擎'}
     ]*/
     @Override
-    public PieChartBean getPieData(String field){
-        PieChartBean pieChartBean = new PieChartBean();
+    public PieChartData getPieData(String field){
+        PieChartData pieChartBean = new PieChartData();
         pieChartBean.setData(new ArrayList<>());
 
-        StatisticsFieldModel fieldModel = statisticsFieldService.getFieldModel(field);
+        StatisticsFieldModel fieldModel = statisticsFieldService.getFieldAmount(field);
         if(fieldModel.getInvisible()==1){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Current field is invisible");
         }
@@ -59,10 +59,10 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         }
 
         /// convert data
-        List<PieChartBean.KeyValue> data = pieChartBean.getData();
+        List<PieChartData.KeyValue> data = pieChartBean.getData();
         for (StatisticsRecord record : fieldModel.getItems()) {
 
-            PieChartBean.KeyValue keyValue = new PieChartBean.KeyValue();
+            PieChartData.KeyValue keyValue = new PieChartData.KeyValue();
             keyValue.setName(record.getRecordName());
             keyValue.setValue(record.getRecordValue());
 
@@ -80,12 +80,12 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
     "dataAxis":['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
     "data":[220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];*/
     @Override
-    public LineChartBean getLineData(String field) {
-        LineChartBean lineChartBean = new LineChartBean();
+    public LineChartData getLineData(String field) {
+        LineChartData lineChartBean = new LineChartData();
         lineChartBean.setData(new ArrayList<>());
         lineChartBean.setDataAxis(new ArrayList<>());
 
-        StatisticsFieldModel fieldModel = statisticsFieldService.getFieldModel(field);
+        StatisticsFieldModel fieldModel = statisticsFieldService.getFieldAmount(field);
         if(fieldModel.getInvisible()==1){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Current field is invisible");
         }
@@ -116,13 +116,13 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
     "dataAxis":['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
     "data":[220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];*/
     @Override
-    public BarChartBean getBarData(String field) {
-        BarChartBean barChartBean = new BarChartBean();
+    public BarChartData getBarData(String field) {
+        BarChartData barChartBean = new BarChartData();
         barChartBean.setData(new ArrayList<>());
         barChartBean.setDataAxis(new ArrayList<>());
 
 
-        StatisticsFieldModel fieldModel = statisticsFieldService.getFieldModel(field);
+        StatisticsFieldModel fieldModel = statisticsFieldService.getFieldAmount(field);
         if(fieldModel.getInvisible()==1){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Current field is invisible");
         }
@@ -178,7 +178,7 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         }
 
         ///
-        LineChartBean lineChartBean = new LineChartBean();
+        LineChartData lineChartBean = new LineChartData();
         List<String> dataAxis = Lists.newArrayList();
         List<String> data = Lists.newArrayList();
 

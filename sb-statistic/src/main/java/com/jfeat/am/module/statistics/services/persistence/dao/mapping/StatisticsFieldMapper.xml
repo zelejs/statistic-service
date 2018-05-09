@@ -8,6 +8,7 @@
 		<result column="group_id" property="groupId" />
 		<result column="name" property="name" />
 		<result column="field" property="field" />
+		<result column="schema" property="schema" />
 		<result column="chart" property="chart" />
 		<result column="invisible" property="invisible" />
 		<result column="index" property="index" />
@@ -16,7 +17,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, group_id AS groupId, name, field, chart, invisible, index, percent
+        id, group_id AS groupId, name, field, schema, chart, invisible, index, percent
     </sql>
 
 </mapper>

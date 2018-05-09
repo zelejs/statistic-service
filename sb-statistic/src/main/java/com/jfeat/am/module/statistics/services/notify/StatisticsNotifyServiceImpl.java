@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class StatisticsNotifyServiceImpl implements StatisticsNotifyService {
     @Transactional
     public boolean insertStatisticRecord(StatisticNotifyData statisticNotifyData) {
 
-        List<Statistic> statisticList = statisticNotifyData.getValues();
+        List<StatisticChunk> statisticList = statisticNotifyData.getChunks();
 
         //插入field
         // 指标，这里指 field, 在运维阶段预先设定好即可
@@ -35,28 +36,37 @@ public class StatisticsNotifyServiceImpl implements StatisticsNotifyService {
             }
         }*/
 
-        for (Statistic statistic : statisticList) {
-            StatisticsRecord statisticRecord = new StatisticsRecord();
-            statisticRecord.setField(statistic.getKey());
-            statisticRecord.setRecordName(statistic.getName());
+        String fieldName = statisticNotifyData.getName();
+        Date recordTime = statisticNotifyData.getRecordTime();
 
+        for (StatisticChunk chunk : statisticList) {
+
+            /// 设置记示决定项
+            StatisticsRecord record = new StatisticsRecord();
+            record.setField(fieldName);                    /// 域名
+            record.setRecordName(chunk.getName());         /// 名称
+            record.setRecordTuple(chunk.getTuple());       /// 所属行名称
+            record.setRecordCluster(chunk.getCluster());   /// 所属分类名称
+            record.setTimeline(chunk.getTimeline());       /// 所属时间段名称
+
+            String recordValue = chunk.getValue();
 
             /// check exists first
-            StatisticsRecord one = statisticsRecordMapper.selectOne(statisticRecord);
+            StatisticsRecord one = statisticsRecordMapper.selectOne(record);
             if(one==null){
 
-                // add new
+                // add new, update value & record time
 
-                statisticRecord.setRecordValue(statistic.getValue());
-                statisticRecord.setRecordTime(statisticNotifyData.getRecordTime());
+                record.setRecordValue(recordValue);
+                record.setRecordTime(recordTime);
 
-                statisticsRecordMapper.insert(statisticRecord);
+                statisticsRecordMapper.insert(record);
 
             }else{
                 /// just update
 
-                one.setRecordValue(statistic.getValue());
-                one.setRecordTime(statisticNotifyData.getRecordTime());
+                one.setRecordValue(recordValue);
+                one.setRecordTime(recordTime);
 
                 statisticsRecordMapper.updateById(one);
             }

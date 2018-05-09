@@ -1,5 +1,8 @@
 package com.jfeat.am.module.statement.services.statistics;
 
+import com.jfeat.am.module.statement.services.statistics.route.StatisticRouteData;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,5 +27,44 @@ public class StatisticTimeline implements Statistics {
 
     public void setStatistics(List<? extends Statistics> statistics) {
         this.statistics = statistics;
+    }
+
+    @Override
+    public StatisticRouteData toRouteData() {
+        StatisticRouteData routeData = new StatisticRouteData();
+        routeData.setRecordTime(new Date());
+
+        if(statistics!=null) {
+
+            for(Statistics ref : statistics) {
+
+                if(ref instanceof Statistic){
+                    Statistic statistic = (Statistic) ref;
+                    StatisticRouteData timeline = statistic.toRouteData();
+                    routeData.append(timeline);
+                }
+
+                if(ref instanceof StatisticRate){
+                    StatisticRate statistic = (StatisticRate) ref;
+                    StatisticRouteData timeline =  statistic.toRouteData();
+                    routeData.append(timeline);
+                }
+
+                if(ref instanceof StatisticTuple){
+                    StatisticTuple statistic = (StatisticTuple) ref;
+                    StatisticRouteData timeline =  statistic.toRouteData();
+                    routeData.append(timeline);
+                }
+
+                if(ref instanceof StatisticCluster){
+                    StatisticCluster statistic = (StatisticCluster) ref;
+                    StatisticRouteData timeline =  statistic.toRouteData();
+                    routeData.append(timeline);
+                }
+            }
+        }
+
+
+        return routeData;
     }
 }

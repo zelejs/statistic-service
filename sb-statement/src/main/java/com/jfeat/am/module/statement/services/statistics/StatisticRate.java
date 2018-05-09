@@ -1,6 +1,10 @@
 package com.jfeat.am.module.statement.services.statistics;
 
+import com.jfeat.am.module.statement.services.statistics.route.StatisticChunk;
+import com.jfeat.am.module.statement.services.statistics.route.StatisticRouteData;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,5 +43,26 @@ public class StatisticRate implements Statistics {
 
     public void setValues(List<Statistic> values) {
         this.values = values;
+    }
+
+
+    @Override
+    public StatisticRouteData toRouteData() {
+        StatisticRouteData routeData = new StatisticRouteData();
+        routeData.setRecordTime(new Date());
+
+        if(values!=null) {
+
+            for(Statistic statistic : values) {
+
+                StatisticChunk chunk = new StatisticChunk();
+                chunk.setName(statistic.getName());
+                chunk.setValue(statistic.getValue());
+
+                routeData.addChunk(chunk);
+            }
+        }
+
+        return routeData;
     }
 }

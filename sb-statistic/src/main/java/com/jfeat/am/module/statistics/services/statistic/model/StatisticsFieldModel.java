@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services.service.model;
+package com.jfeat.am.module.statistics.services.statistic.model;
 
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;

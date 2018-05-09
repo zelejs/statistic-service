@@ -1,30 +1,16 @@
-package com.jfeat.am.module.statistics.services.notify;
+package com.jfeat.am.module.statement.services.statistics.route;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Silent-Y on 2017/8/31.
  */
-public class StatisticNotifyData {
-
-    /// 分组由运维决定,这里不指定分组
-
-    @Deprecated
-    private String identifier;
-    @Deprecated
-    public String getIdentifier() {
-        return identifier;
-    }
-    @Deprecated
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
-
+public class StatisticRouteData {
 
     /**
-     * 名称(这里指唯一统计域 域名）
+     * 名称(这里指统计域 域名）
      */
     private String name;
 
@@ -38,6 +24,25 @@ public class StatisticNotifyData {
      */
     private List<StatisticChunk> chunks;
 
+    public StatisticRouteData addChunk(StatisticChunk chunk){
+        if(chunks==null){
+            chunks = new ArrayList<>();
+        }
+
+        chunks.add(chunk);
+
+        return this;
+    }
+
+    public StatisticRouteData append(StatisticRouteData route){
+        if(chunks==null){
+            chunks = new ArrayList<>();
+        }
+
+        chunks.addAll(route.getChunks());
+
+        return this;
+    }
 
     public String getName() {
         return name;

@@ -6,8 +6,8 @@ import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.crud.CRUD;
 import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
-import com.jfeat.am.module.statistics.api.bean.*;
-import com.jfeat.am.module.statistics.services.service.StatisticsChartService;
+import com.jfeat.am.module.statistics.services.chart.model.*;
+import com.jfeat.am.module.statistics.services.chart.service.StatisticsChartService;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupByService;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
 import com.jfeat.am.module.statistics.services.service.model.StatisticsGroupModel;
@@ -70,7 +70,7 @@ public class StatisticsFieldGroupEndpoint extends BaseController {
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Invalid group identifier");
         }
 
-        GroupPieChartBean groupPieChartBean = CRUD.castObject(group, GroupPieChartBean.class);
+        GroupPieChartData groupPieChartBean = CRUD.castObject(group, GroupPieChartData.class);
 
         List<StatisticsField> fields = statisticsGroupByService.getGroupItems(group.getId());
         if(fields==null || fields.size()==0){
@@ -78,10 +78,10 @@ public class StatisticsFieldGroupEndpoint extends BaseController {
         }
 
 
-        List<PieChartBean> items = new ArrayList<>();
+        List<PieChartData> items = new ArrayList<>();
 
         for(StatisticsField field : fields){
-            PieChartBean bean = chartService.getPieData(field.getField());
+            PieChartData bean = chartService.getPieData(field.getField());
             items.add(bean);
         }
 
@@ -98,7 +98,7 @@ public class StatisticsFieldGroupEndpoint extends BaseController {
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Invalid group identifier");
         }
 
-        GroupBarChartBean groupBarChartBean = CRUD.castObject(group, GroupBarChartBean.class);
+        GroupBarChartData groupBarChartBean = CRUD.castObject(group, GroupBarChartData.class);
 
         List<StatisticsField> fields = statisticsGroupByService.getGroupItems(group.getId());
         if(fields==null || fields.size()==0){
@@ -106,10 +106,10 @@ public class StatisticsFieldGroupEndpoint extends BaseController {
         }
 
 
-        List<BarChartBean> items = new ArrayList<>();
+        List<BarChartData> items = new ArrayList<>();
 
         for(StatisticsField field : fields){
-            BarChartBean bean = chartService.getBarData(field.getField());
+            BarChartData bean = chartService.getBarData(field.getField());
             items.add(bean);
         }
 
@@ -126,7 +126,7 @@ public class StatisticsFieldGroupEndpoint extends BaseController {
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Invalid group identifier");
         }
 
-        GroupLineChartBean groupLineChartBean = CRUD.castObject(group, GroupLineChartBean.class);
+        GroupLineChartData groupLineChartBean = CRUD.castObject(group, GroupLineChartData.class);
 
         List<StatisticsField> fields = statisticsGroupByService.getGroupItems(group.getId());
         if(fields==null || fields.size()==0){
@@ -134,10 +134,10 @@ public class StatisticsFieldGroupEndpoint extends BaseController {
         }
 
 
-        List<LineChartBean> items = new ArrayList<>();
+        List<LineChartData> items = new ArrayList<>();
 
         for(StatisticsField field : fields){
-            LineChartBean bean = chartService.getLineData(field.getField());
+            LineChartData bean = chartService.getLineData(field.getField());
             items.add(bean);
         }
 

@@ -1,5 +1,9 @@
 package com.jfeat.am.module.statement.services.statistics;
 
+import com.jfeat.am.module.statement.services.statistics.route.StatisticChunk;
+import com.jfeat.am.module.statement.services.statistics.route.StatisticRouteData;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -9,7 +13,7 @@ import java.util.List;
  */
 public class StatisticCluster implements Statistics {
     private String name;
-    private List<StatisticTimeline> timelines;
+    private List<StatisticTuple> tuples;
 
     public String getName() {
         return name;
@@ -19,11 +23,45 @@ public class StatisticCluster implements Statistics {
         this.name = name;
     }
 
-    public List<StatisticTimeline> getTimelines() {
-        return timelines;
+    public List<StatisticTuple> getTuples() {
+        return tuples;
     }
 
-    public void setTimelines(List<StatisticTimeline> timelines) {
-        this.timelines = timelines;
+    public void setTuples(List<StatisticTuple> tuples) {
+        this.tuples = tuples;
     }
+
+    @Override
+    public StatisticRouteData toRouteData() {
+        StatisticRouteData routeData = new StatisticRouteData();
+        routeData.setRecordTime(new Date());
+
+        for(StatisticTuple tuple : tuples) {
+
+            if (tuple != null) {
+                List<StatisticRate> rates = tuple.getRates();
+
+                for (StatisticRate rate : rates) {
+
+                    if (rate.getValues() != null) {
+                        for (Statistic statistic : rate.getValues()) {
+
+                            StatisticChunk chunk = new StatisticChunk();
+
+                            chunk.setCluster(tuple.getName());
+                            chunk.setTuple(rate.getName());
+
+                            chunk.setName(statistic.getName());
+                            chunk.setValue(statistic.getValue());
+
+                            routeData.addChunk(chunk);
+                        }
+                    }
+                }
+            }
+        }
+
+        return routeData;
+    }
+
 }

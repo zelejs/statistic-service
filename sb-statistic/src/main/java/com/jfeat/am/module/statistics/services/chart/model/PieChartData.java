@@ -1,11 +1,11 @@
-package com.jfeat.am.module.statistics.api.bean;
+package com.jfeat.am.module.statistics.services.chart.model;
 
 import java.util.List;
 
 /**
  * Created by vincent on 2018/2/26.
  */
-public class PieChartBean {
+public class PieChartData {
     private String title;
     private String timestamp;
     private String type = "pie";

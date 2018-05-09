@@ -5,17 +5,16 @@ package com.jfeat.am.module.statistics.api.ut;
  */
 
 import com.jfeat.am.base.BaseJunit;
-import com.jfeat.am.core.util.JsonKit;
-import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
+import com.jfeat.am.module.statistics.services.statistic.service.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
 import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrService;
 import com.jfeat.am.module.statistics.services.service.definition.Charts;
-import com.jfeat.am.module.statistics.services.service.definition.StatisticsPeriods;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
+import com.jfeat.am.module.statistics.services.service.definition.Timelines;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +74,7 @@ public class DemoTest extends BaseJunit {
         statisticsRecord.setRecordValue("0.75");
         statisticsRecord.setFieldId(1l);
         statisticsRecord.setField("done_rate");
-        statisticsRecord.setPeriod(StatisticsPeriods.Month.toString());
+        statisticsRecord.setTimeline(Timelines.M.toString());
         statisticsRecord.setRecordTime(new Date());
         recordMapper.insert(statisticsRecord);
 

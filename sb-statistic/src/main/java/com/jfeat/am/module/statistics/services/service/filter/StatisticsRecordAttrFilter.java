@@ -7,6 +7,7 @@ import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecor
 /**
  * Created by Code Generator on 2017-11-25
  */
+@Deprecated
 public class StatisticsRecordAttrFilter implements CRUDFilter<StatisticsRecordAttr> {
 
     private String[] ignoreFields = new String[]{};

@@ -26,4 +26,4 @@ if [ ! tables ];then
  exit 0
 fi
 
-mvn com.jfeat:sb-code-generator:1.1.0:generate -DmoduleName=$module -Dtable=$table -f code-generator-pom.xml
+mvn com.jfeat:sb-code-generator:1.2.0:generate -DmoduleName=$module -Dtable=$table -f code-generator-pom.xml

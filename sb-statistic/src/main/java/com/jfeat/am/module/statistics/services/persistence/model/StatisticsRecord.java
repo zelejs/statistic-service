@@ -49,8 +49,7 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
     /**
      * 统计时段说明[T,D,W,M,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,Y]
      */
-	@TableField("record_timeline")
-	private String recordTimeline;
+	private String timeline;
     /**
      * 记录时间
      */
@@ -112,12 +111,12 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 		return this;
 	}
 
-	public String getRecordTimeline() {
-		return recordTimeline;
+	public String getTimeline() {
+		return timeline;
 	}
 
-	public StatisticsRecord setRecordTimeline(String recordTimeline) {
-		this.recordTimeline = recordTimeline;
+	public StatisticsRecord setTimeline(String timeline) {
+		this.timeline = timeline;
 		return this;
 	}
 
@@ -142,7 +141,7 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	public static final String RECORD_TUPLE = "record_tuple";
 
-	public static final String RECORD_TIMELINE = "record_timeline";
+	public static final String TIMELINE = "timeline";
 
 	public static final String RECORD_TIME = "record_time";
 
@@ -160,7 +159,7 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 			", recordName=" + recordName +
 			", recordValue=" + recordValue +
 			", recordTuple=" + recordTuple +
-			", recordTimeline=" + recordTimeline +
+			", timeline=" + timeline +
 			", recordTime=" + recordTime +
 			"}";
 	}

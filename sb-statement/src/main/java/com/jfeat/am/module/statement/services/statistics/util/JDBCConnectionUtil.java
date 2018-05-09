@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statement.services.connections;
+package com.jfeat.am.module.statement.services.statistics.util;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -59,5 +59,37 @@ public class JDBCConnectionUtil {
         }
 
         return null;
+    }
+
+
+    /**
+     * class ColumnInfo
+     */
+    public static class ColumnInfo {
+        private String type;
+        private String name;
+
+        public ColumnInfo() { }
+
+        public ColumnInfo(String type, String name) {
+            this.type = type;
+            this.name = name;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }

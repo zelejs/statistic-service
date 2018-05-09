@@ -8,10 +8,18 @@ import java.util.List;
  */
 public class StatisticNotifyData {
 
-    private String identifier;    // 分组用的吧？
+    @Deprecated
+    private String identifier;    // 分组由运维决定,这里不指定分组
+
+    /**
+     * 记录时间
+     */
     private Date recordTime;
-    private String defaultName;   // 指 field name吗？
-    private List<Statistic> values;  //
+    /**
+     * 名称(这里指唯一域名）
+     */
+    private String name;
+    private List<Statistic> values;
 
     public String getIdentifier() {
         return identifier;
@@ -29,12 +37,12 @@ public class StatisticNotifyData {
         this.recordTime = recordTime;
     }
 
-    public String getDefaultName() {
-        return defaultName;
+    public String getName() {
+        return name;
     }
 
-    public void setDefaultName(String defaultName) {
-        this.defaultName = defaultName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Statistic> getValues() {

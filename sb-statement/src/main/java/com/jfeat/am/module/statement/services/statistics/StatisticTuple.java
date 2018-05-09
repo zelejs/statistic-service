@@ -1,5 +1,6 @@
-package com.jfeat.am.module.statement.services.statistic;
+package com.jfeat.am.module.statement.services.statistics;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,6 +10,13 @@ import java.util.List;
 public class StatisticTuple implements Statistics {
     private String name;
     private List<StatisticRate> rates;
+
+    public void addRate(StatisticRate rate){
+        if(rates==null){
+            rates = new ArrayList<>();
+        }
+        rates.add(rate);
+    }
 
     public String getName() {
         return name;

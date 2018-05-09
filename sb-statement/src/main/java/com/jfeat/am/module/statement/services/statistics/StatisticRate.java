@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statement.services.statistic;
+package com.jfeat.am.module.statement.services.statistics;
 
 import java.util.ArrayList;
 import java.util.List;

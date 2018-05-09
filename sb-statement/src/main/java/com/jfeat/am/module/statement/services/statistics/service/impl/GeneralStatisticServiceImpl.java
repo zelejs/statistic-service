@@ -1,15 +1,13 @@
-package com.jfeat.am.module.statement.services.service.impl;
+package com.jfeat.am.module.statement.services.statistics.service.impl;
 
-import com.jfeat.am.module.statement.services.connections.ColumnInfo;
-import com.jfeat.am.module.statement.services.connections.JDBCConnectionUtil;
-import com.jfeat.am.module.statement.services.service.CustomStatisticService;
-import com.jfeat.am.module.statement.services.statistic.*;
+import com.jfeat.am.module.statement.services.statistics.util.JDBCConnectionUtil;
+import com.jfeat.am.module.statement.services.statistics.service.GeneralStatisticService;
+import com.jfeat.am.module.statement.services.statistics.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +15,7 @@ import java.util.Map;
 /**
  * Created by vincent on 2018/5/8.
  */
-public class CustomStatisticServiceImpl implements CustomStatisticService {
+public class GeneralStatisticServiceImpl implements GeneralStatisticService {
 
     @Autowired
     DataSource dataSource;
@@ -104,29 +102,20 @@ public class CustomStatisticServiceImpl implements CustomStatisticService {
         // 列表为各占比的名称
         // create column name hash table
 
-        Map<String,StatisticRate> rateHash = new HashMap<>();
-        {
-            /// 创建时间段各占比名称
-            List<ColumnInfo> infoList = JDBCConnectionUtil.getColumnInfo(connection, sql);
-            for (ColumnInfo info : infoList) {
-                StatisticRate rate = new StatisticRate();
-                rateHash.put(info.getName(), rate);
-            }
-        }
-
         // 历遍报表结构查询结果，转换并创建各占比数据
         Iterator<Map<String,String>> it = result.iterator();
         while (it.hasNext()){
-            Map<String,String> item = it.next();
-            Map.Entry<String,String> entry = item.entrySet().iterator().next();
+            Map<String,String> data = it.next();
 
+            StatisticRate rate = convertMapToStatisticRate(data);
+            tuples.addRate(rate);
         }
 
         return tuples;
     }
 
     @Override
-    public StatisticTimeline queryStatisticTimeline(String name, String sql) throws SQLException  {
+    public StatisticTimeline queryStatisticTimeline(String name, String sql, Timeline timeline) throws SQLException  {
         Connection connection = getConnection();
         List<Map<String, String>> result =  JDBCConnectionUtil.querySQL(connection, sql);
         if(result==null || result.size()==0){
@@ -135,22 +124,11 @@ public class CustomStatisticServiceImpl implements CustomStatisticService {
 
         /// set statistic data
         /// 报表数据转换为 列数据, 如按时间段查询
-        StatisticTimeline timeline = new StatisticTimeline();
-        timeline.setName(name);
+        StatisticTimeline timelines = new StatisticTimeline();
+        timelines.setName(name);
 
         // 列表为各占比的名称
         // create column name hash table
-
-
-        Map<String,StatisticRate> rateHash = new HashMap<>();
-        {
-            /// 创建时间段各占比名称
-            List<ColumnInfo> infoList = JDBCConnectionUtil.getColumnInfo(connection, sql);
-            for (ColumnInfo info : infoList) {
-                StatisticRate rate = new StatisticRate();
-                rateHash.put(info.getName(), rate);
-            }
-        }
 
         // 历遍报表结构查询结果，转换并创建各占比数据
         Iterator<Map<String,String>> it = result.iterator();
@@ -159,10 +137,28 @@ public class CustomStatisticServiceImpl implements CustomStatisticService {
             Map.Entry<String,String> entry = item.entrySet().iterator().next();
         }
 
-        return timeline;
+        return timelines;
     }
 
+
+    /**
+     * 转换sql查询结果为 占比数据结构
+     * @param map
+     * @return
+     */
     private StatisticRate convertMapToStatisticRate(Map<String,String> map){
-        return null;
+        if(map==null || map.size()==0){
+            return null;
+        }
+
+        StatisticRate rate = new StatisticRate();
+
+        Iterator<Map.Entry<String,String>> it = map.entrySet().iterator();
+        while (it.hasNext()){
+            Map.Entry<String,String> entry = it.next();
+            rate.addRate(new Statistic(entry.getKey(), entry.getValue()));
+        }
+
+        return rate;
     }
 }

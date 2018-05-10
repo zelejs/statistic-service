@@ -11,7 +11,6 @@ import com.jfeat.am.module.statistics.services.statistic.model.StatisticsFieldMo
 import com.jfeat.am.module.statistics.services.statistic.model.StatisticsFieldTuple;
 import com.jfeat.am.module.statistics.services.statistic.service.StatisticsFieldService;
 import org.springframework.stereotype.Service;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.annotation.Resource;
 
@@ -58,15 +57,35 @@ public class StatisticsFieldServiceImpl extends CRUDStatisticsFieldServiceImpl i
 
     @Override
     public StatisticsFieldTuple getFieldTuple(String field) {
+        StatisticsField statisticsField = getFieldByFieldName(field);
+        if (statisticsField == null) {
+            throw new BusinessException(BusinessCode.BadRequest);
+        }
+        StatisticsFieldModel model = retrieveMaster(statisticsField.getId(), new StatisticsFieldFilter(), null, null)
+                .toJavaObject(StatisticsFieldModel.class);
+
+        StatisticsFieldTuple tuple = new StatisticsFieldTuple();
+
         //TODO,
 
-        throw new NotImplementedException();
+
+        return tuple;
     }
 
     @Override
     public StatisticsFieldCluster getFieldCluster(String field) {
+        StatisticsField statisticsField = getFieldByFieldName(field);
+        if (statisticsField == null) {
+            throw new BusinessException(BusinessCode.BadRequest);
+        }
+        StatisticsFieldModel model = retrieveMaster(statisticsField.getId(), new StatisticsFieldFilter(), null, null)
+                .toJavaObject(StatisticsFieldModel.class);
+
+        StatisticsFieldCluster cluster = new StatisticsFieldCluster();
+
         //TODO,
 
-        throw new NotImplementedException();
+
+        return cluster;
     }
 }

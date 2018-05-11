@@ -52,10 +52,9 @@ public class JDBCConnectionUtil {
                 }
                 result.add(map);
             }
-
             return result;
-
         } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return null;

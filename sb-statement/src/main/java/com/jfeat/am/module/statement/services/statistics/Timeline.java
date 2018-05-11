@@ -38,6 +38,21 @@ public class Timeline {
      */
     private String timestampField;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTimestampField() {
+        return timestampField;
+    }
+
+    public void setTimestampField(String timestampField) {
+        this.timestampField = timestampField;
+    }
 
     public Timeline(){
     }
@@ -75,6 +90,8 @@ public class Timeline {
             sql = buildQQuery("mysql",timestampField,calendar.get(Calendar.DAY_OF_YEAR),Q3.toString());
         }else if(Q4.toString().compareTo(name)==0){
             sql = buildQQuery("mysql",timestampField,calendar.get(Calendar.DAY_OF_YEAR),Q4.toString());
+        }else if(Y.toString().compareTo(name)==0){
+            sql = buildQQuery("mysql",timestampField,calendar.get(Calendar.DAY_OF_YEAR),Y.toString());
         }else{
             throw new RuntimeException("fatal: invalid timeline name: " + name);
         }
@@ -93,24 +110,27 @@ public class Timeline {
         String start="",end = "";
 
         if(Q.equals(Q1.toString())){
-            start = String.format("%s-01-01",year);
-            end   = String.format("%s-04-01",year);
+            start = String.format("'%s-01-01'",year);
+            end   = String.format("'%s-04-01'",year);
         }else if(Q.equals(Q2.toString())){
-            start = String.format("%s-04-01",year);
-            end   = String.format("%s-07-01",year);
+            start = String.format("'%s-04-01'",year);
+            end   = String.format("'%s-07-01'",year);
         }else if(Q.equals(Q3.toString())){
-            start = String.format("%s-07-01",year);
-            end   = String.format("%s-10-01",year);
-        }else if(Q.equals(Q4.toString())){
-            start = String.format("%s-10-01",year);
-            end   = String.format("%s-01-01",year+1);
+            start = String.format("'%s-07-01'",year);
+            end   = String.format("'%s-10-01'",year);
+        }else if(Q.equals(Q4.toString())) {
+            start = String.format("'%s-10-01'", year);
+            end = String.format("'%s-01-01'", year + 1);
+        }else if(Q.equals(Y.toString())){
+            end = "now()";
+            start = String.format("'%s-01-01'", year);
         }else{
             throw new RuntimeException("这是一个内部异常，出现在 Timeline.buildQQuery() 中的Q 参数");
         }
 
 
         if("mysql".equals(dbType)){
-            return String.format("%s <= date('%s') and %s > DATE_SUB(date('%s'),INTERVAL %s)", column, start ,column, end );
+            return String.format("%s <= date(%s) and %s > date('%s')", column, end ,column, start );
         }else if("sqlserver".equals(dbType)){
             return null;
         }else if("oracle".equals(dbType)){

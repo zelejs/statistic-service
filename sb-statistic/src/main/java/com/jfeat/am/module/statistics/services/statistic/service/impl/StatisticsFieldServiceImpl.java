@@ -3,6 +3,7 @@ package com.jfeat.am.module.statistics.services.statistic.service.impl;
 import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import com.jfeat.am.module.statistics.services.service.StatisticsRecordService;
 import com.jfeat.am.module.statistics.services.service.filter.StatisticsFieldFilter;
 import com.jfeat.am.module.statistics.services.service.impl.CRUDStatisticsFieldServiceImpl;
@@ -13,6 +14,9 @@ import com.jfeat.am.module.statistics.services.statistic.service.StatisticsField
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -65,9 +69,6 @@ public class StatisticsFieldServiceImpl extends CRUDStatisticsFieldServiceImpl i
                 .toJavaObject(StatisticsFieldModel.class);
 
         StatisticsFieldTuple tuple = new StatisticsFieldTuple();
-
-        //TODO,
-
 
         return tuple;
     }

@@ -1,6 +1,7 @@
 package com.jfeat.am.module.statement.services.test;
 
 import com.jfeat.am.AmApplication;
+import com.jfeat.am.module.statement.services.dao.TableColumnRatesDao;
 import com.jfeat.am.module.statement.services.statistics.*;
 import com.jfeat.am.module.statement.services.statistics.route.StatisticRouteData;
 import com.jfeat.am.module.statement.services.statistics.service.GeneralStatisticService;
@@ -27,6 +28,9 @@ public class TestGeneralStaticService {
 
     @Autowired
     private GeneralStatisticService generalStatisticService;
+
+    @Autowired
+    private TableColumnRatesDao tableColumnRatesDao;
 
     @Test
     public void testQueryStatistic() throws Exception {
@@ -60,6 +64,12 @@ public class TestGeneralStaticService {
         StatisticTuple statisticTuple = generalStatisticService.queryStatisticTuple("stat", "select distinct count(stat) as rate from cl_client_record", tuple);
         StatisticRouteData statisticRouteData = statisticTuple.toRouteData();
         System.out.println("for debug");
+    }
+
+
+    @Test
+    public void testRate(){
+        System.out.println(tableColumnRatesDao.getColumnRates("cl_client_record","stat",new ArrayList<>(),"stat","2011-01-01","2018-09-09"));
     }
 
 }

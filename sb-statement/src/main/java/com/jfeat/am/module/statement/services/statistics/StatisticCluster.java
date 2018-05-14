@@ -1,6 +1,5 @@
 package com.jfeat.am.module.statement.services.statistics;
 
-import com.jfeat.am.module.statement.services.statistics.route.StatisticChunk;
 import com.jfeat.am.module.statement.services.statistics.route.StatisticRouteData;
 
 import java.util.Date;
@@ -13,7 +12,7 @@ import java.util.List;
  */
 public class StatisticCluster implements Statistics {
     private String name;
-    private List<StatisticTuple> tuples;
+    private List<? extends Statistics> statistics;
 
     public String getName() {
         return name;
@@ -23,12 +22,12 @@ public class StatisticCluster implements Statistics {
         this.name = name;
     }
 
-    public List<StatisticTuple> getTuples() {
-        return tuples;
+    public List<? extends Statistics> getStatistics() {
+        return statistics;
     }
 
-    public void setTuples(List<StatisticTuple> tuples) {
-        this.tuples = tuples;
+    public void setStatistics(List<? extends Statistics> statistics) {
+        this.statistics = statistics;
     }
 
     @Override
@@ -36,30 +35,36 @@ public class StatisticCluster implements Statistics {
         StatisticRouteData routeData = new StatisticRouteData();
         routeData.setRecordTime(new Date());
 
-        for(StatisticTuple tuple : tuples) {
+        if(statistics!=null) {
 
-            if (tuple != null) {
-                List<StatisticRate> rates = tuple.getRates();
+            for(Statistics ref : statistics) {
 
-                for (StatisticRate rate : rates) {
+                if(ref instanceof Statistic){
+                    Statistic statistic = (Statistic) ref;
+                    StatisticRouteData timeline = statistic.toRouteData();
+                    routeData.append(timeline);
+                }
 
-                    if (rate.getValues() != null) {
-                        for (Statistic statistic : rate.getValues()) {
+                if(ref instanceof StatisticRate){
+                    StatisticRate statistic = (StatisticRate) ref;
+                    StatisticRouteData timeline =  statistic.toRouteData();
+                    routeData.append(timeline);
+                }
 
-                            StatisticChunk chunk = new StatisticChunk();
+                if(ref instanceof StatisticTuple){
+                    StatisticTuple statistic = (StatisticTuple) ref;
+                    StatisticRouteData timeline =  statistic.toRouteData();
+                    routeData.append(timeline);
+                }
 
-                            chunk.setCluster(tuple.getName());
-                            chunk.setTuple(rate.getName());
-
-                            chunk.setName(statistic.getName());
-                            chunk.setValue(statistic.getValue());
-
-                            routeData.addChunk(chunk);
-                        }
-                    }
+                if(ref instanceof StatisticTimeline){
+                    StatisticTimeline statistic = (StatisticTimeline) ref;
+                    StatisticRouteData timeline =  statistic.toRouteData();
+                    routeData.append(timeline);
                 }
             }
         }
+
 
         return routeData;
     }

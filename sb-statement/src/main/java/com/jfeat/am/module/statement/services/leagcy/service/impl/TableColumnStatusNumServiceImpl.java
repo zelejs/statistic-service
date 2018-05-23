@@ -1,9 +1,9 @@
-package com.jfeat.am.module.statement.services.service.impl;
+package com.jfeat.am.module.statement.services.leagcy.service.impl;
 
 import com.google.common.collect.Maps;
 import com.jfeat.am.core.support.DateTimeKit;
-import com.jfeat.am.module.statement.services.dao.TableColumnStatusNumDao;
-import com.jfeat.am.module.statement.services.service.TableColumnStatusNumService;
+import com.jfeat.am.module.statement.services.leagcy.dao.TableColumnStatusNumDao;
+import com.jfeat.am.module.statement.services.leagcy.service.TableColumnStatusNumService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,6 +13,7 @@ import java.util.Map;
 /**
  * Created by Silent-Y on 2017/11/6.
  */
+@Deprecated
 @Service
 public class TableColumnStatusNumServiceImpl implements TableColumnStatusNumService {
 

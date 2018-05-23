@@ -1,13 +1,13 @@
-package com.jfeat.am.module.statement.services.global;
+package com.jfeat.am.module.statement.services.statistics.util;
 
 import java.sql.Connection;
 
 /**
  * Created by vincent on 2018/5/8.
  */
-public class ConnectionManager {
-    static ConnectionManager mgr = new ConnectionManager();
-    public static ConnectionManager getInstance(){
+public class MybatisConnection {
+    static MybatisConnection mgr = new MybatisConnection();
+    public static MybatisConnection getInstance(){
         return mgr;
     }
     public static void init(Connection connection){

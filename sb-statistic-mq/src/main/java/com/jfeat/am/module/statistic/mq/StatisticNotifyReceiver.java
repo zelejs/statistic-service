@@ -2,8 +2,8 @@ package com.jfeat.am.module.statistic.mq;
 
 import com.jfeat.am.core.support.StrKit;
 import com.jfeat.am.core.util.JsonKit;
-import com.jfeat.am.module.statistics.services.notify.StatisticsNotifyService;
 import com.jfeat.am.module.statistics.services.notify.StatisticNotifyData;
+import com.jfeat.am.module.statistics.services.notify.StatisticsNotifyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;

@@ -1,8 +1,8 @@
-package com.jfeat.am.module.statement.services.service.impl;
+package com.jfeat.am.module.statement.services.leagcy.service.impl;
 import com.google.common.collect.Maps;
 import com.jfeat.am.core.support.DateTimeKit;
-import com.jfeat.am.module.statement.services.dao.TableColumnRatesDao;
-import com.jfeat.am.module.statement.services.service.TableColumnRatesService;
+import com.jfeat.am.module.statement.services.leagcy.dao.TableColumnRatesDao;
+import com.jfeat.am.module.statement.services.leagcy.service.TableColumnRatesService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
@@ -12,6 +12,7 @@ import java.util.Map;
 /**
  * Created by Silent-Y on 2017/11/6.
  */
+@Deprecated
 @Service
 public class TableColumnRatesServiceImpl implements TableColumnRatesService {
 

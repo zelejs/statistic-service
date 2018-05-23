@@ -1,6 +1,6 @@
 package com.jfeat.am;
 
-import com.jfeat.am.module.statement.services.global.ConnectionManager;
+import com.jfeat.am.module.statement.services.statistics.util.MybatisConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class AmApplication implements CommandLineRunner{
 
     @Override
     public void run(String... strings) throws Exception {
-        ConnectionManager.init(dataSource.getConnection());
+        MybatisConnection.init(dataSource.getConnection());
     }
 
     public static void main(String[] args) throws SQLException {

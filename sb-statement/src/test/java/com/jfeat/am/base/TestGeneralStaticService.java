@@ -1,11 +1,9 @@
-package com.jfeat.am.module.statement.services.test;
+package com.jfeat.am.base;
 
 import com.jfeat.am.AmApplication;
-import com.jfeat.am.module.statement.services.dao.TableColumnRatesDao;
 import com.jfeat.am.module.statement.services.statistics.*;
 import com.jfeat.am.module.statement.services.statistics.route.StatisticRouteData;
 import com.jfeat.am.module.statement.services.statistics.service.GeneralStatisticService;
-import com.jfeat.am.module.statement.services.statistics.service.impl.GeneralStatisticServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,47 +27,44 @@ public class TestGeneralStaticService {
     @Autowired
     private GeneralStatisticService generalStatisticService;
 
-    @Autowired
-    private TableColumnRatesDao tableColumnRatesDao;
-
     @Test
-    public void testQueryStatistic() throws Exception {
-        Statistics subject = generalStatisticService.queryStatistic("stat", "select distinct count(stat) from cl_client_record");
+    public void testQueryStatisticTotal() throws Exception {
+        String name = "stat";
+        String sql = "select distinct count(stat) from cl_client_record";
+        Statistics subject = generalStatisticService.queryStatistic(name,sql);
         StatisticRouteData statisticRouteData = subject.toRouteData();
-        System.out.println("for debug");
+        System.out.println(statisticRouteData);
     }
 
     @Test
     public void testQueryStatisticRate() throws SQLException {
-        StatisticRate statisticRate = generalStatisticService.queryStatisticRate("stat", "select distinct count(stat) from cl_client_record");
+        String name = "stat";
+        String sql = "select distinct count(stat) from cl_client_record";
+        StatisticRate statisticRate = generalStatisticService.queryStatisticRate(name, sql);
         StatisticRouteData statisticRouteData = statisticRate.toRouteData();
-        System.out.println("for debug");
+        System.out.println(statisticRouteData);
     }
 
     @Test
     public void testQueryStatisticTimeline() throws SQLException {
+        String sql = "select stat from cl_client_record";
         Timeline timeline = new Timeline();
         timeline.setName("stat");
         timeline.setTimestampField("stat");
         System.out.println(timeline.buildTimelineSql(Timeline.Timelines.D.toString()));
-        StatisticTimeline statisticTimeline = generalStatisticService.queryStatisticTimeline("stat", "select stat from cl_client_record", timeline);
+        StatisticTimeline statisticTimeline = generalStatisticService.queryStatisticTimeline("stat", sql, timeline);
         StatisticRouteData statisticRouteData = statisticTimeline.toRouteData();
-        System.out.println("for debug");
+        System.out.println(statisticRouteData);
     }
 
     @Test
     public void testQueryStatisticTuple() throws SQLException {
+        String sql = "select distinct count(stat) as rate from cl_client_record";
         List<String> tuple = new ArrayList<>();
         tuple.add("stat");
-        StatisticTuple statisticTuple = generalStatisticService.queryStatisticTuple("stat", "select distinct count(stat) as rate from cl_client_record", tuple);
+        StatisticTuple statisticTuple = generalStatisticService.queryStatisticTuple("stat", sql, tuple);
         StatisticRouteData statisticRouteData = statisticTuple.toRouteData();
-        System.out.println("for debug");
-    }
-
-
-    @Test
-    public void testRate(){
-        System.out.println(tableColumnRatesDao.getColumnRates("cl_client_record","stat",new ArrayList<>(),"stat","2011-01-01","2018-09-09"));
+        System.out.println(statisticRouteData);
     }
 
 }

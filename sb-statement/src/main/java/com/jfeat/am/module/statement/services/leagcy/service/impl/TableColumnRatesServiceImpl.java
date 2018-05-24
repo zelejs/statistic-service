@@ -3,6 +3,7 @@ import com.google.common.collect.Maps;
 import com.jfeat.am.core.support.DateTimeKit;
 import com.jfeat.am.module.statement.services.leagcy.dao.TableColumnRatesDao;
 import com.jfeat.am.module.statement.services.leagcy.service.TableColumnRatesService;
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
@@ -12,7 +13,6 @@ import java.util.Map;
 /**
  * Created by Silent-Y on 2017/11/6.
  */
-@Deprecated
 @Service
 public class TableColumnRatesServiceImpl implements TableColumnRatesService {
 
@@ -31,14 +31,33 @@ public class TableColumnRatesServiceImpl implements TableColumnRatesService {
     {value:400, name:'搜索引擎'}
     ]*/
 
+    /**
+     * 返回某时间段内某表所有值的各数量
+     * @param table
+     * @param column
+     * @param timeName
+     * @param startTime
+     * @param endTime
+     * @return
+     */
     @Override
-    public Map<String, Object> getColumnRates(String table, String column,String field,String timeName,String startTime,String endTime) {
-        Map<String,Object> map = Maps.newHashMap();
-        List<String> strings = tableColumnRatesDao.queryValueOfColumn(table, column);
-        Map<String,Integer> maps = tableColumnRatesDao.getColumnRates(table, column, strings,timeName,startTime,endTime);
-        map.put("timestamp",DateTimeKit.formatDateTime(new Date()));
-        map.put("data",maps);
-        map.put("field",field);
-        return map;
+    public Map<String, Integer> getColumnRates(String table, String column, String timeName, String startTime, String endTime) {
+        List<String> columnValues = tableColumnRatesDao.queryColumnValues(table, column);
+        return tableColumnRatesDao.getColumnRates(table, column, columnValues, timeName, startTime, endTime);
+    }
+
+    /**
+     * 返回时间段内表列某值的数量
+     * @param table
+     * @param column
+     * @param columnValue
+     * @param timeName
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Override
+    public Map<String, Integer> getColumnValueTotal(String table, String column, String columnValue, String timeName, String startTime, String endTime) {
+        return tableColumnRatesDao.getColumnValueTotal(table, column, columnValue, timeName, startTime, endTime);
     }
 }

@@ -2,34 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.statement.services.leagcy.dao.TableColumnRatesDao">
 
-
-    <select id="queryValueOfColumn" resultType="String">
+    <select id="queryColumnValues" resultType="String">
         select distinct ${column} from ${table}
          where ${column} is not null
     </select>
 
     <select id="getColumnRates" resultType="map">
-        select count(${column}) as total
+        select
         <foreach collection="columnValues" index="index" item="columnValue" open="," separator="," close="">
             sum( case when ${column}= #{columnValue} then 1 else 0 end) as ${columnValue}
         </foreach>
         from ${table}
-        where 1=1
-        <if test="timeName != null and timeName != ''and startTime != null and startTime != '' and endTime != null and endTime != ''">
-            and (${table}.${timeName} BETWEEN #{startTime} AND #{endTime})
-        </if>
+        <where>
+            <if test="timeName != null and timeName != ''and startTime != null and startTime != '' and endTime != null and endTime != ''">
+                and (${table}.${timeName} BETWEEN #{startTime} AND #{endTime})
+            </if>
+        </where>
     </select>
 
-    <select id="getColumnStatusNum" resultType="map">
-        select count(${column}) as total,
+    <select id="getColumnValueTotal" resultType="map">
+        select
         <if test="columnValue != null and columnValue != ''">
             sum( case when ${column}= #{columnValue} then 1 else 0 end) as ${columnValue}
         </if>
         from ${table}
-        where 1=1
-        <if test="timeName != null and timeName != ''and startTime != null and startTime != '' and endTime != null and endTime != ''">
-            and (${table}.${timeName} BETWEEN #{startTime} AND #{endTime})
-        </if>
+        <where>
+            <if test="timeName != null and timeName != ''and startTime != null and startTime != '' and endTime != null and endTime != ''">
+                and (${table}.${timeName} BETWEEN #{startTime} AND #{endTime})
+            </if>
+        </where>
     </select>
 
 </mapper>

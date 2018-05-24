@@ -9,13 +9,12 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/8/9.
  */
-@Deprecated
 public interface TableColumnRatesDao extends BaseMapper {
-
-    List<String> queryValueOfColumn(@Param("table") String table,@Param("column") String column);
+    List<String> queryColumnValues(@Param("table") String table, @Param("column") String column);
 
     Map<String,Integer> getColumnRates(@Param("table") String table,@Param("column") String column,@Param("columnValues") List<String> columnValues,@Param("timeName") String timeName,@Param("startTime") String startTime,@Param("endTime") String endTime);
 
+    Map<String,Integer> getColumnValueTotal(@Param("table") String table, @Param("column") String column, @Param("columnValue") String columnValue, @Param("timeName") String timeName, @Param("startTime") String startTime, @Param("endTime") String endTime);
 }
 
 

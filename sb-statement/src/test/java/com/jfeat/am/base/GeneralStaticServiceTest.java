@@ -22,7 +22,7 @@ import java.util.List;
 @SpringBootTest(classes = AmApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @EnableAutoConfiguration
 @Transactional
-public class TestGeneralStaticService {
+public class GeneralStaticServiceTest {
 
     @Autowired
     private GeneralStatisticService generalStatisticService;

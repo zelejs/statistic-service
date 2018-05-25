@@ -9,6 +9,7 @@ import java.util.Map;
 /**
  * Created by vincent on 2018/2/26.
  */
+@Deprecated
 public interface StatisticsRecordDao extends BaseMapper<StatisticsRecord>{
     List<Map<String,Object>> getStatisticsRecordByFieldIdAndStartTimeAndEndTime(String field, List<String> fields, String startTime, String endTime);
 }

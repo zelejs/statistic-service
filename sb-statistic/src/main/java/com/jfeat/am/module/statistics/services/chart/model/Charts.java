@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services.service.definition;
+package com.jfeat.am.module.statistics.services.chart.model;
 
 /**
  * Created by vincenthuang on 26/02/2018.

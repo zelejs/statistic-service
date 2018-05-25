@@ -5,14 +5,15 @@ import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.core.support.DateTimeKit;
 import com.jfeat.am.module.statistics.services.chart.model.BarChartData;
-import com.jfeat.am.module.statistics.services.chart.model.PieChartData;
 import com.jfeat.am.module.statistics.services.chart.model.LineChartData;
+import com.jfeat.am.module.statistics.services.chart.model.PieChartData;
+import com.jfeat.am.module.statistics.services.chart.service.StatisticsChartService;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
-import com.jfeat.am.module.statistics.services.chart.service.StatisticsChartService;
-import com.jfeat.am.module.statistics.services.statistic.service.StatisticsFieldService;
-import com.jfeat.am.module.statistics.services.service.StatisticsRecordService;
-import com.jfeat.am.module.statistics.services.statistic.model.StatisticsFieldModel;
+import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
+import com.jfeat.am.module.statistics.services.service.converter.StatisticConverter;
+import com.jfeat.am.module.statistics.services.service.converter.statistic.StatisticRate;
+import com.jfeat.am.module.statistics.services.service.model.StatisticsFieldModel;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,9 +28,6 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
 
     @Resource
     private StatisticsFieldService statisticsFieldService;
-    @Resource
-    private StatisticsRecordService statisticsRecordService;
-
 
     /*饼状图数据结构
     "title":"饼状图数据结构",
@@ -47,24 +45,26 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         PieChartData pieChartBean = new PieChartData();
         pieChartBean.setData(new ArrayList<>());
 
-        StatisticsFieldModel fieldModel = statisticsFieldService.getFieldAmount(field);
+        StatisticsFieldModel fieldModel = statisticsFieldService.getStatisticsFieldModel(field);
         if(fieldModel.getInvisible()==1){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Current field is invisible");
         }
-        pieChartBean.setTitle(fieldModel.getName());
-        pieChartBean.setTimestamp(DateTimeKit.formatDateTime(new Date()));
-
         if(fieldModel.getItems()==null){
-            fieldModel.setItems(new ArrayList<>());
+            throw new BusinessException(BusinessCode.BadRequest.getCode(), "No rate data");
         }
+
+        StatisticRate statisticRate = StatisticConverter.convertStatisticRate(fieldModel);
+
+        pieChartBean.setTitle(statisticRate.getName());
+        pieChartBean.setTimestamp(DateTimeKit.formatDateTime(new Date()));
 
         /// convert data
         List<PieChartData.KeyValue> data = pieChartBean.getData();
-        for (StatisticsRecord record : fieldModel.getItems()) {
+        for (StatisticRate.Rate rate : statisticRate.getRates()) {
 
             PieChartData.KeyValue keyValue = new PieChartData.KeyValue();
-            keyValue.setName(record.getRecordName());
-            keyValue.setValue(record.getRecordValue());
+            keyValue.setName(rate.getName());
+            keyValue.setValue(rate.getValue());
 
             data.add(keyValue);
         }
@@ -85,7 +85,7 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         lineChartBean.setData(new ArrayList<>());
         lineChartBean.setDataAxis(new ArrayList<>());
 
-        StatisticsFieldModel fieldModel = statisticsFieldService.getFieldAmount(field);
+        StatisticsFieldModel fieldModel = statisticsFieldService.getStatisticsFieldModel(field);
         if(fieldModel.getInvisible()==1){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Current field is invisible");
         }
@@ -122,7 +122,7 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         barChartBean.setDataAxis(new ArrayList<>());
 
 
-        StatisticsFieldModel fieldModel = statisticsFieldService.getFieldAmount(field);
+        StatisticsFieldModel fieldModel = statisticsFieldService.getStatisticsFieldModel(field);
         if(fieldModel.getInvisible()==1){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Current field is invisible");
         }
@@ -172,7 +172,7 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
             endTime = lastDay;
         }
 
-        StatisticsField statisticsField = statisticsFieldService.getFieldByFieldName(field);
+        StatisticsField statisticsField = statisticsFieldService.getStatisticFieldByName(field);
         if(statisticsField==null){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Invalid field name: " + field);
         }
@@ -182,44 +182,10 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         List<String> dataAxis = Lists.newArrayList();
         List<String> data = Lists.newArrayList();
 
-        /*for (Map map:maps){
-            dataAxis.add(map.get("recordTime").toString());
-            data.add(map.get(field).toString());
-        }*/
-
         lineChartBean.setTitle(statisticsField.getName());
         lineChartBean.setTimestamp(DateTimeKit.formatDateTime(new Date()));
         lineChartBean.setDataAxis(dataAxis);
         lineChartBean.setData(data);
-
-
-        /*
-        if (echart.equals("line")){
-            StatisticsField statisticsField = statisticsFieldService.getFieldByFieldName(field);
-            if(statisticsField!=null){
-                List<StatisticsRecordAttr> statisticsRecordAttrs = statisticsRecordService.getRecordAttrByField(statisticsField.getField());
-                List<String> fields = statisticsRecordAttrs.stream().map(StatisticsRecordAttr::getField).collect(Collectors.toList());
-                List<Map<String,Object>> maps = statisticsRecordService.getStatisticsRecordByFieldIdAndStartTimeAndEndTime(field, fields, startTime, endTime);
-                Map<String,Object> result = Maps.newHashMap();
-                List<String> dataAxis = Lists.newArrayList();
-                List<String> data = Lists.newArrayList();
-                String legend = "";
-                for (Map map:maps){
-                    if (map != null){
-                        legend = map.get("legend").toString();
-                    }
-                    dataAxis.add(map.get("recordTime").toString());
-                    data.add(map.get(field).toString());
-                }
-                result.put("title",legend);
-                result.put("timestamp", DateTimeKit.formatDateTime(new Date()));
-                result.put("type",echart);
-                result.put("dataAxis",dataAxis);
-                result.put("data",data);
-                System.out.print(JsonKit.toJson(result));
-                return result;
-            }
-        }*/
 
         return null;
     }

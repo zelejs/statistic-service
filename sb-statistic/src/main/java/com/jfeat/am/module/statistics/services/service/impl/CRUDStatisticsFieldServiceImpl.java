@@ -7,7 +7,7 @@ import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordM
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import com.jfeat.am.module.statistics.services.service.CRUDStatisticsFieldService;
-import com.jfeat.am.module.statistics.services.statistic.model.StatisticsFieldModel;
+import com.jfeat.am.module.statistics.services.service.model.StatisticsFieldModel;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -62,54 +62,15 @@ public class CRUDStatisticsFieldServiceImpl
         return StatisticsFieldModel.class;
     }
 
-
     /**
-     *
+     * 通过域名获取域数据
      */
-
     @Override
-    public StatisticsField getFieldByFieldName(String field) {
+    public StatisticsField getStatisticFieldByName(String field) {
         StatisticsField queryItem = new StatisticsField();
         queryItem.setField(field);
         return statisticsFieldMapper.selectOne(queryItem);
     }
-
-
-    /*
-   public JSONObject getFieldData(String field) {
-        StatisticsField statisticsField = getFieldByFieldName(field);
-        if (statisticsField == null) {
-            throw new BusinessException(BusinessCode.BadRequest);
-        }
-
-        JSONObject jsonObject = retrieveMaster(statisticsField.getId(), new StatisticsFieldFilter(), null, null)
-                .toJSONObject();
-
-
-        /// update record name by record attr
-        ///
-
-        if(jsonObject!=null){
-            JSONArray records = jsonObject.getJSONArray("items");
-
-            if(records!=null) {
-
-                Iterator<Object> it = records.iterator();
-                while (it.hasNext()){
-                    JSONObject item  = (JSONObject) it.next();
-
-                    StatisticsRecord record = JSON.toJavaObject(item, StatisticsRecord.class);
-                    StatisticsRecordModel recordModel = statisticsRecordService.getStatisticsRecordModel(record);
-                    if (recordModel.getAttr() != null) {
-                        item.put(StatisticsRecord.RECORD_NAME, recordModel.getAttr().getLegend());
-                    }
-                }
-            }
-        }
-
-        return jsonObject;
-    }*/
-
 }
 
 

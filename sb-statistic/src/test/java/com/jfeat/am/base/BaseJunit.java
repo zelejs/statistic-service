@@ -44,14 +44,9 @@ public class BaseJunit {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-    @Before
-    public void initDatabase(){
-    }
-
     @Test
     public void test(){
         String endTimeNew = DateTimeKit.formatDateTime(new Date());
-
         System.out.println("==================================================================================================="+endTimeNew);
     }
 }

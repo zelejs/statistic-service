@@ -5,16 +5,15 @@ package com.jfeat.am.module.statistics.api.ut;
  */
 
 import com.jfeat.am.base.BaseJunit;
-import com.jfeat.am.module.statistics.services.statistic.service.StatisticsFieldService;
-import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
-import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrService;
-import com.jfeat.am.module.statistics.services.service.definition.Charts;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
-import com.jfeat.am.module.statistics.services.service.definition.Timelines;
+import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
+import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
+import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrService;
+import com.jfeat.am.module.statistics.services.chart.model.Charts;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +22,13 @@ import org.springframework.test.web.servlet.RequestBuilder;
 
 import java.util.Date;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by jackyhuang on 2017/10/16.
  */
-public class DemoTest extends BaseJunit {
+public class StatisticChartTest extends BaseJunit {
 
     @Autowired
     StatisticsGroupService groupService;
@@ -74,7 +73,7 @@ public class DemoTest extends BaseJunit {
         statisticsRecord.setRecordValue("0.75");
         statisticsRecord.setFieldId(1l);
         statisticsRecord.setField("done_rate");
-        statisticsRecord.setTimeline(Timelines.M.toString());
+        statisticsRecord.setTimeline("M");
         statisticsRecord.setRecordTime(new Date());
         recordMapper.insert(statisticsRecord);
 

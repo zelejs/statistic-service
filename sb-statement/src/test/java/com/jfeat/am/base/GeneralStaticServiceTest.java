@@ -47,7 +47,7 @@ public class GeneralStaticServiceTest {
     public void testQueryStatisticTuple() throws SQLException {
         String mame = "test";
         String sql = "select id,name,sex from t_staff";
-        StatisticTuple statisticTuple = generalStatisticService.queryStatisticTuple(mame, sql, null);
+        StatisticTuple statisticTuple = generalStatisticService.queryStatisticTuple(mame, sql);
         StatisticRouteData statisticRouteData = statisticTuple.toRouteData();
         System.out.println(statisticRouteData);
     }
@@ -66,7 +66,6 @@ public class GeneralStaticServiceTest {
         System.out.println(statisticRouteData);
     }
 
-
     @Test
     public void testQueryStatisticRateTimeline() throws SQLException {
         String name = "test";
@@ -82,6 +81,15 @@ public class GeneralStaticServiceTest {
 
     @Test
     public void testQueryStatisticTupleTimeline() throws SQLException {
+        //TODO, tuple name FROM sql ?
+        String name = "test";
+        String sql = "select id,name,sex from t_staff";
 
+        Timeline tl_year = new Timeline(Timeline.Timelines.Y.toString(), "create_time");
+        Timeline tl_month = new Timeline(Timeline.Timelines.M.toString(), "create_time");
+
+        StatisticTimeline statisticTimeline = generalStatisticService.queryStatisticTimeline(name, sql, tl_year, tl_month);
+        StatisticRouteData statisticRouteData = statisticTimeline.toRouteData();
+        System.out.println(statisticRouteData);
     }
 }

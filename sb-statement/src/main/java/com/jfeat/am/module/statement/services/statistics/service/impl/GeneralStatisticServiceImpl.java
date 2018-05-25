@@ -87,16 +87,11 @@ public class GeneralStatisticServiceImpl implements GeneralStatisticService {
     }
 
     @Override
-    public StatisticTuple queryStatisticTuple(String name, String sql, List<String> tuples) throws SQLException {
+    public StatisticTuple queryStatisticTuple(String name, String sql) throws SQLException {
         Connection connection = getConnection();
         List<Map<String, String>> result =  JDBCConnectionUtil.querySQL(connection, sql);
         if(result==null || result.size()==0){
             return null;
-        }
-
-        ///
-        if(tuples!=null && result.size()!=tuples.size()){
-            throw new RuntimeException("fatal: [Bad Request] parameter tuples size is out of range");
         }
 
         /// set statistic data
@@ -121,7 +116,7 @@ public class GeneralStatisticServiceImpl implements GeneralStatisticService {
                     firstEntry = entry;
                 }
 
-                String tupleName = tuples != null ? tuples.get(curr) : firstEntry.getValue();
+                String tupleName = firstEntry.getValue();
                 StatisticRate rate = new StatisticRate();
                 rate.setName(tupleName);
                 rate.addRate(new Statistic(entry.getKey(), entry.getValue()));
@@ -176,12 +171,19 @@ public class GeneralStatisticServiceImpl implements GeneralStatisticService {
                 }
             }else if(result.size()>1){
                 /// tuple
-                for (Map<String,String> row : result){
-                    StatisticRate rate = convertMapToStatisticRate(row);
-                    rate.setTimeline(timeline.getName());
+                StatisticTuple statisticTuple = new StatisticTuple();
+                statisticTuple.setTimeline(timeline.getName());
 
-                    statisticTimeline.addStatistic(rate);
+                for (Map<String,String> tuple : result){
+                    StatisticRate rate = convertMapToStatisticRate(tuple);
+
+                    // set tuple name
+                    rate.setName(rate.getValues().get(0).getValue());
+
+                    statisticTuple.addRate(rate);
                 }
+
+                statisticTimeline.addStatistic(statisticTuple);
             }
         }
 

@@ -24,9 +24,8 @@ public class StatisticChunk {
     private String name;        // 统计数据名称
     private String value;       // 统计数据
     private String tuple;       // 统计数据所属行名称
-    private String cluster;     // 统计数据所属分类名称
     private String timeline;    // 统计数据所属时间段
-
+    private String cluster;     // 统计数据所属分类名称
 
     public StatisticChunk() {
     }

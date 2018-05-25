@@ -26,9 +26,8 @@ public interface GeneralStatisticService {
     /**
      * 查询报表
      *  @param name   : 报表统计名称, 自定义
-     *  @param tuples : 每一行的名称，如果 tuples=null, 即 行名称为sql查询的第一个字段
      */
-    StatisticTuple queryStatisticTuple(String name, String sql, List<String> tuples) throws SQLException ;
+    StatisticTuple queryStatisticTuple(String name, String sql) throws SQLException ;
 
 
     /**

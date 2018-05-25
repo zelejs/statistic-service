@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class StatisticTuple implements Statistics {
     private String name;
+    private String timeline;
+    private String cluster;
     private List<StatisticRate> rates;
 
     public void addRate(StatisticRate rate){
@@ -28,6 +30,14 @@ public class StatisticTuple implements Statistics {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTimeline() {
+        return timeline;
+    }
+
+    public void setTimeline(String timeline) {
+        this.timeline = timeline;
     }
 
     public List<StatisticRate> getRates() {
@@ -53,7 +63,7 @@ public class StatisticTuple implements Statistics {
                         chunk.setName(statistic.getName());
                         chunk.setValue(statistic.getValue());
                         chunk.setTuple(rate.getName());
-                        chunk.setTimeline(name);
+                        chunk.setTimeline(timeline);
 
                         routeData.addChunk(chunk);
                     }

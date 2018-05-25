@@ -1,12 +1,8 @@
-package com.jfeat.am.module.statement.services.leagcy.service.impl;
-import com.google.common.collect.Maps;
-import com.jfeat.am.core.support.DateTimeKit;
-import com.jfeat.am.module.statement.services.leagcy.dao.TableColumnRatesDao;
-import com.jfeat.am.module.statement.services.leagcy.service.TableColumnRatesService;
-import io.swagger.models.auth.In;
+package com.jfeat.am.module.statement.services.legacy.service.impl;
+import com.jfeat.am.module.statement.services.legacy.dao.TableColumnRatesDao;
+import com.jfeat.am.module.statement.services.legacy.service.TableColumnRatesService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 

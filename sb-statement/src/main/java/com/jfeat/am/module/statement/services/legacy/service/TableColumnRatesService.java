@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statement.services.leagcy.service;
+package com.jfeat.am.module.statement.services.legacy.service;
 
 
 import java.util.Map;

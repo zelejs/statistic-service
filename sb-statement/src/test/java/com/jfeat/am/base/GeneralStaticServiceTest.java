@@ -29,8 +29,8 @@ public class GeneralStaticServiceTest {
 
     @Test
     public void testQueryStatisticTotal() throws Exception {
-        String name = "stat";
-        String sql = "select distinct count(stat) from cl_client_record";
+        String name = "test";
+        String sql = "select sum(case when sex=0 then 1 else 0 end) as '男' from t_staff";
         Statistics subject = generalStatisticService.queryStatistic(name,sql);
         StatisticRouteData statisticRouteData = subject.toRouteData();
         System.out.println(statisticRouteData);
@@ -38,10 +38,20 @@ public class GeneralStaticServiceTest {
 
     @Test
     public void testQueryStatisticRate() throws SQLException {
-        String name = "stat";
-        String sql = "select distinct count(stat) from cl_client_record";
+        String name = "test";
+        String sql = "select sum(case when sex=0 then 1 else 0 end) as '男', sum(case when sex=1 then 1 else 0 end) as '女' from t_staff";
         StatisticRate statisticRate = generalStatisticService.queryStatisticRate(name, sql);
         StatisticRouteData statisticRouteData = statisticRate.toRouteData();
+        System.out.println(statisticRouteData);
+    }
+
+    @Test
+    public void testQueryStatisticTuple() throws SQLException {
+        String sql = "select distinct count(stat) as rate from cl_client_record";
+        List<String> tuple = new ArrayList<>();
+        tuple.add("stat");
+        StatisticTuple statisticTuple = generalStatisticService.queryStatisticTuple("stat", sql, tuple);
+        StatisticRouteData statisticRouteData = statisticTuple.toRouteData();
         System.out.println(statisticRouteData);
     }
 
@@ -54,16 +64,6 @@ public class GeneralStaticServiceTest {
         System.out.println(timeline.buildTimelineSql(Timeline.Timelines.D.toString()));
         StatisticTimeline statisticTimeline = generalStatisticService.queryStatisticTimeline("stat", sql, timeline);
         StatisticRouteData statisticRouteData = statisticTimeline.toRouteData();
-        System.out.println(statisticRouteData);
-    }
-
-    @Test
-    public void testQueryStatisticTuple() throws SQLException {
-        String sql = "select distinct count(stat) as rate from cl_client_record";
-        List<String> tuple = new ArrayList<>();
-        tuple.add("stat");
-        StatisticTuple statisticTuple = generalStatisticService.queryStatisticTuple("stat", sql, tuple);
-        StatisticRouteData statisticRouteData = statisticTuple.toRouteData();
         System.out.println(statisticRouteData);
     }
 

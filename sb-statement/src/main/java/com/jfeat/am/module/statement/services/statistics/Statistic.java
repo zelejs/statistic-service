@@ -40,6 +40,7 @@ public class Statistic implements Statistics {
     @Override
     public StatisticRouteData toRouteData() {
         StatisticRouteData routeData = new StatisticRouteData();
+        routeData.setName(this.name);
         routeData.setRecordTime(new Date());
 
         StatisticChunk chunk = new StatisticChunk();

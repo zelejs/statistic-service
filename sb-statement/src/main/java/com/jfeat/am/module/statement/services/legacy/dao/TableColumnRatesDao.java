@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statement.services.leagcy.dao;
+package com.jfeat.am.module.statement.services.legacy.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;

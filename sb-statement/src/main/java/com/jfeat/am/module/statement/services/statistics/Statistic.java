@@ -11,6 +11,8 @@ import java.util.Date;
  */
 public class Statistic implements Statistics {
     private String name;
+    private String timeline;
+    private String cluster;
     private String value;
 
     public Statistic(){
@@ -20,6 +22,12 @@ public class Statistic implements Statistics {
         this.name = name;
         this.value = value;
     }
+
+    public Statistic timeline(String timeline) {
+        this.timeline = timeline;
+        return this;
+    }
+
 
     public String getValue() {
         return value;
@@ -37,6 +45,14 @@ public class Statistic implements Statistics {
         this.name = name;
     }
 
+    public String getTimeline() {
+        return timeline;
+    }
+
+    public void setTimeline(String timeline) {
+        this.timeline = timeline;
+    }
+
     @Override
     public StatisticRouteData toRouteData() {
         StatisticRouteData routeData = new StatisticRouteData();
@@ -46,9 +62,19 @@ public class Statistic implements Statistics {
         StatisticChunk chunk = new StatisticChunk();
         chunk.setName(name);
         chunk.setValue(value);
+        chunk.setTimeline(timeline);
 
         routeData.addChunk(chunk);
 
         return routeData;
+    }
+
+
+    public String getCluster() {
+        return cluster;
+    }
+
+    public void setCluster(String cluster) {
+        this.cluster = cluster;
     }
 }

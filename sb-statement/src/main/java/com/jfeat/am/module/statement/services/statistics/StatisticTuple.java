@@ -42,21 +42,18 @@ public class StatisticTuple implements Statistics {
     @Override
     public StatisticRouteData toRouteData() {
         StatisticRouteData routeData = new StatisticRouteData();
+        routeData.setName(name);
         routeData.setRecordTime(new Date());
 
         if(rates!=null) {
-
             for(StatisticRate rate : rates) {
-
                 if(rate.getValues()!=null) {
                     for (Statistic statistic : rate.getValues()) {
-
                         StatisticChunk chunk = new StatisticChunk();
-
-                        chunk.setTuple(rate.getName());
-
                         chunk.setName(statistic.getName());
                         chunk.setValue(statistic.getValue());
+                        chunk.setTuple(rate.getName());
+                        chunk.setTimeline(name);
 
                         routeData.addChunk(chunk);
                     }

@@ -17,17 +17,16 @@ public class Timeline {
         D,       /// current day
         W,       /// current week
         M,       /// current month
+        Y,       /// current year
         LD3,     /// Latest 3 days
         LW1,     /// Latest week,
         LM1,     /// Latest month
         LM3,     /// Latest 3 months
-        Q1,      //第一季度
+        Q1,      //今天第一季度
         Q2,
         Q3,
         Q4,
-        Y        /// current year
     }
-
 
     /**
      * 关于时间名称，用于记录时间
@@ -58,54 +57,81 @@ public class Timeline {
     public Timeline() {
     }
 
-    public Timeline(String name, String columnName) {
+    public Timeline(String name, String timestamp) {
         this.name = name;
-        this.timestampField = columnName;
+        this.timestampField = timestamp;
+
+        if (T.toString().equals(name)) {
+            // ok
+        } else if (D.toString().equals(name)) {
+            // ok
+        } else if (W.toString().equals(name)) {
+            // ok
+        } else if (M.toString().equals(name)) {
+            // ok
+        } else if (Y.toString().equals(name)) {
+            // ok
+        } else if (LW1.toString().equals(name)) {
+            // ok
+        } else if (LM1.toString().equals(name)) {
+            // ok
+        } else if (LM3.toString().equals(name)) {
+            // ok
+        } else if (Q1.toString().equals(name)) {
+            // ok
+        } else if (Q2.toString().equals(name)) {
+            // ok
+        } else if (Q3.toString().equals(name)) {
+            // ok
+        } else if (Q4.toString().equals(name)) {
+            // ok
+        }else {
+            throw new RuntimeException("fatal: BAD_REQUEST: 无效的时间段名称:" + name);
+        }
     }
 
-    public String buildTimelineSql(String startTime, String endTime) {
+    public String toSql(String startTime, String endTime) {
         return String.format("%s between %s and %s", timestampField, startTime, endTime);
     }
 
-    public String buildTimelineSql(String name) {
-
-        String sql = null;
+    public String toSql() {
         final String mysqlDbType = "mysql";
 
-        Calendar calendar = Calendar.getInstance();
+        String sql = null;
 
+        Calendar calendar = Calendar.getInstance();
         if (D.toString().compareTo(name) == 0) {
             /// today
             sql = buildTodayQuery(mysqlDbType, timestampField);
-        } else if (LW1.toString().compareTo(name) == 0) {
-            /// last week
+        } else if(W.toString().compareTo(name)==0){
+            // current week
+            sql = buildLatestQuery(mysqlDbType, timestampField, calendar.get(Calendar.DAY_OF_WEEK) + " DAY");
+        } else if(M.toString().compareTo(name)==0){
+            // current week
+            sql = buildLatestQuery(mysqlDbType, timestampField, calendar.get(Calendar.DAY_OF_MONTH) + " DAY");
+        } else if(Y.toString().compareTo(name)==0){
+            // current year
+            sql = buildLatestQuery(mysqlDbType, timestampField, calendar.get(Calendar.DAY_OF_YEAR) + " DAY");
+        } else if (LD3.toString().compareTo(name) == 0) {
+            /// latest 3 days
+            sql = buildLatestQuery(mysqlDbType, timestampField, "3 DAY");
+        }else if (LW1.toString().compareTo(name) == 0) {
+            /// latest week
             sql = buildLatestQuery(mysqlDbType, timestampField, "7 DAY");
         } else if (LM1.toString().compareTo(name) == 0) {
-            /// last month
+            /// latest month
             sql = buildLatestQuery(mysqlDbType, timestampField, "1 MONTH");
         } else if (LM3.toString().compareTo(name) == 0) {
             /// latest 3 month
             sql = buildLatestQuery(mysqlDbType, timestampField, "3 MONTH");
-        } else if (LD3.toString().compareTo(name) == 0) {
-            /// last 3 days
-            sql = buildLatestQuery(mysqlDbType, timestampField, "3 DAY");
-        } else if (W.toString().compareTo(name) == 0) {
-            /// current week
-            sql = buildLatestQuery(mysqlDbType, timestampField, calendar.get(Calendar.DAY_OF_WEEK) + " DAY");
-        } else if (M.toString().compareTo(name) == 0) {
-            /// current month
-            sql = buildLatestQuery(mysqlDbType, timestampField, calendar.get(Calendar.DAY_OF_MONTH) + " DAY");
-
         } else if (Q1.toString().compareTo(name) == 0) {
-            sql = buildQuarterQuery(mysqlDbType, timestampField, calendar.get(Calendar.DAY_OF_YEAR), 1);
+            sql = buildQuarterQuery(mysqlDbType, timestampField, 1);
         } else if (Q2.toString().compareTo(name) == 0) {
-            sql = buildQuarterQuery(mysqlDbType, timestampField, calendar.get(Calendar.DAY_OF_YEAR), 2);
+            sql = buildQuarterQuery(mysqlDbType, timestampField, 2);
         } else if (Q3.toString().compareTo(name) == 0) {
-            sql = buildQuarterQuery(mysqlDbType, timestampField, calendar.get(Calendar.DAY_OF_YEAR), 3);
+            sql = buildQuarterQuery(mysqlDbType, timestampField, 3);
         } else if (Q4.toString().compareTo(name) == 0) {
-            sql = buildQuarterQuery(mysqlDbType, timestampField, calendar.get(Calendar.DAY_OF_YEAR), 4);
-        } else if (Y.toString().compareTo(name) == 0) {
-            sql = buildQuarterQuery(mysqlDbType, timestampField, calendar.get(Calendar.DAY_OF_YEAR), 0);
+            sql = buildQuarterQuery(mysqlDbType, timestampField, 4);
         } else {
             throw new RuntimeException("fatal: invalid timeline name: " + name);
         }
@@ -116,6 +142,7 @@ public class Timeline {
 
     /**
      * build latest query with date_sub interval
+     *
      * @param dbType
      * @param column
      * @param interval
@@ -123,7 +150,7 @@ public class Timeline {
      */
     private String buildLatestQuery(String dbType, String column, String interval) {
         if ("mysql".equals(dbType)) {
-            return String.format("%s <= date(now()) and %s > DATE_SUB(date(now()),INTERVAL %s)", column, column, interval);
+            return String.format("%s <= now() and %s > DATE_SUB(date(now()),INTERVAL %s)", column, column, interval);
         } else if ("sqlserver".equals(dbType)) {
             return null;
         } else if ("oracle".equals(dbType)) {
@@ -141,14 +168,14 @@ public class Timeline {
      *
      * @param dbType
      * @param column
-     * @param year
-     * @param which 0-entire year, 1-Q1, 2-Q2, 3-Q3, 4-Q4
+     * @param which  1-Q1, 2-Q2, 3-Q3, 4-Q4
      * @return
      */
-    private String buildQuarterQuery(String dbType, String column, int year, int which) { //季度
+    private String buildQuarterQuery(String dbType, String column, int which) { //季度
+
+        int year = Calendar.getInstance().get(Calendar.YEAR);
 
         String start = "", end = "";
-
         switch (which) {
             case 0:
                 start = String.format("'%s-01-01'", year);
@@ -192,6 +219,7 @@ public class Timeline {
 
     /**
      * build today query sql
+     *
      * @param dbType
      * @param column
      * @return
@@ -209,5 +237,10 @@ public class Timeline {
         }
 
         throw new RuntimeException("fatal: invalid dbType = " + dbType);
+    }
+
+    @Override
+    public String toString(){
+        return toSql();
     }
 }

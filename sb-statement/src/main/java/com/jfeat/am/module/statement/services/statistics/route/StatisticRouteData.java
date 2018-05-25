@@ -1,5 +1,7 @@
 package com.jfeat.am.module.statement.services.statistics.route;
 
+import com.alibaba.fastjson.JSON;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,5 +68,10 @@ public class StatisticRouteData {
 
     public void setChunks(List<StatisticChunk> chunks) {
         this.chunks = chunks;
+    }
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
     }
 }

@@ -2,6 +2,7 @@ package com.jfeat.am.module.statement.services.statistics;
 
 import com.jfeat.am.module.statement.services.statistics.route.StatisticRouteData;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public class StatisticTimeline implements Statistics {
     private String name;
-    private List<? extends Statistics> statistics;
+    private List<Statistics> statistics;
 
     public String getName() {
         return name;
@@ -21,17 +22,26 @@ public class StatisticTimeline implements Statistics {
         this.name = name;
     }
 
-    public List<? extends Statistics> getStatistics() {
+    public List<Statistics> getStatistics() {
         return statistics;
     }
 
-    public void setStatistics(List<? extends Statistics> statistics) {
+    public void setStatistics(List<Statistics> statistics) {
         this.statistics = statistics;
+    }
+
+    public StatisticTimeline addStatistic(Statistics statistic){
+        if(this.statistics == null){
+            this.statistics = new ArrayList<>();
+        }
+        this.statistics.add(statistic);
+        return this;
     }
 
     @Override
     public StatisticRouteData toRouteData() {
         StatisticRouteData routeData = new StatisticRouteData();
+        routeData.setName(name);
         routeData.setRecordTime(new Date());
 
         if(statistics!=null) {
@@ -40,30 +50,29 @@ public class StatisticTimeline implements Statistics {
 
                 if(ref instanceof Statistic){
                     Statistic statistic = (Statistic) ref;
-                    StatisticRouteData timeline = statistic.toRouteData();
-                    routeData.append(timeline);
+                    StatisticRouteData data = statistic.toRouteData();
+                    routeData.append(data);
                 }
 
-                if(ref instanceof StatisticRate){
+                else if(ref instanceof StatisticRate){
                     StatisticRate statistic = (StatisticRate) ref;
-                    StatisticRouteData timeline =  statistic.toRouteData();
-                    routeData.append(timeline);
+                    StatisticRouteData data =  statistic.toRouteData();
+                    routeData.append(data);
                 }
 
-                if(ref instanceof StatisticTuple){
+                else if(ref instanceof StatisticTuple){
                     StatisticTuple statistic = (StatisticTuple) ref;
-                    StatisticRouteData timeline =  statistic.toRouteData();
-                    routeData.append(timeline);
+                    StatisticRouteData data =  statistic.toRouteData();
+                    routeData.append(data);
                 }
 
-                if(ref instanceof StatisticCluster){
+                else if(ref instanceof StatisticCluster){
                     StatisticCluster statistic = (StatisticCluster) ref;
-                    StatisticRouteData timeline =  statistic.toRouteData();
-                    routeData.append(timeline);
+                    StatisticRouteData data =  statistic.toRouteData();
+                    routeData.append(data);
                 }
             }
         }
-
 
         return routeData;
     }

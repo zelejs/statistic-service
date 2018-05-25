@@ -9,9 +9,8 @@ public class StatisticChunk {
     private String name;        // 统计数据名称
     private String value;       // 统计数据
     private String tuple;       // 统计数据所属行名称
-    private String cluster;     // 统计数据所属分类分称
     private String timeline;    // 统计数据所属时间段
-
+    private String cluster;     // 统计数据所属分类分称
 
     public StatisticChunk() {
     }
@@ -21,11 +20,12 @@ public class StatisticChunk {
         this.value = value;
     }
 
-    public StatisticChunk(String name, String value, String tuple, String timeline) {
+    public StatisticChunk(String name, String value, String tuple, String timeline, String cluster) {
         this.name = name;
         this.value = value;
         this.tuple = tuple;
         this.timeline = timeline;
+        this.cluster = cluster;
     }
 
     public String getName() {

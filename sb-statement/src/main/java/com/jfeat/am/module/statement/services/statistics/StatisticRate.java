@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class StatisticRate implements Statistics {
     private String name;
+    private String timeline;
+    private String cluster;
     private List<Statistic> values;
 
     public void addRate(String name, String value){
@@ -37,6 +39,14 @@ public class StatisticRate implements Statistics {
         this.name = name;
     }
 
+    public String getTimeline() {
+        return timeline;
+    }
+
+    public void setTimeline(String timeline) {
+        this.timeline = timeline;
+    }
+
     public List<Statistic> getValues() {
         return values;
     }
@@ -45,10 +55,10 @@ public class StatisticRate implements Statistics {
         this.values = values;
     }
 
-
     @Override
     public StatisticRouteData toRouteData() {
         StatisticRouteData routeData = new StatisticRouteData();
+        routeData.setName(name);
         routeData.setRecordTime(new Date());
 
         if(values!=null) {
@@ -58,6 +68,10 @@ public class StatisticRate implements Statistics {
                 StatisticChunk chunk = new StatisticChunk();
                 chunk.setName(statistic.getName());
                 chunk.setValue(statistic.getValue());
+
+                /// get from rate
+                chunk.setTimeline(timeline);
+                chunk.setCluster(cluster);
 
                 routeData.addChunk(chunk);
             }

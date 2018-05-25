@@ -75,13 +75,11 @@ public class GeneralStatisticServiceImpl implements GeneralStatisticService {
 
         /// set statistic data
         StatisticRate rates = new StatisticRate();
-        // set name
         rates.setName(name);
 
-        Iterator<Map<String,String>> it = result.iterator();
+        Iterator<Map.Entry<String,String>> it = result.get(0).entrySet().iterator();
         while (it.hasNext()){
-            Map<String,String> item = it.next();
-            Map.Entry<String,String> entry = item.entrySet().iterator().next();
+            Map.Entry<String,String> entry = it.next();
             rates.addRate(entry.getKey(), entry.getValue());
         }
 
@@ -97,7 +95,7 @@ public class GeneralStatisticServiceImpl implements GeneralStatisticService {
         }
 
         ///
-        if(result.size()!=tuples.size()){
+        if(tuples!=null && result.size()!=tuples.size()){
             throw new RuntimeException("fatal: [Bad Request] parameter tuples size is out of range");
         }
 
@@ -111,15 +109,25 @@ public class GeneralStatisticServiceImpl implements GeneralStatisticService {
 
         // 历遍报表结构查询结果，转换并创建各占比数据
         int curr = 0;
-        Iterator<Map<String,String>> it = result.iterator();
-        while (it.hasNext()){
-            Map<String,String> data = it.next();
+        Iterator<Map<String,String>> rowIt = result.iterator();
+        while (rowIt.hasNext()){
+            Map<String,String> row = rowIt.next();
 
-            String tupleName = tuples.get(curr);
-            StatisticRate rate = convertMapToStatisticRate(data);
-            rate.setName(tupleName);
+            Iterator<Map.Entry<String, String>> it = row.entrySet().iterator();
+            Map.Entry<String, String> firstEntry = null;
+            while (it.hasNext()) {
+                Map.Entry<String, String> entry = it.next();
+                if(firstEntry==null){
+                    firstEntry = entry;
+                }
 
-            statisticTuple.addRate(rate);
+                String tupleName = tuples != null ? tuples.get(curr) : firstEntry.getValue();
+                StatisticRate rate = new StatisticRate();
+                rate.setName(tupleName);
+                rate.addRate(new Statistic(entry.getKey(), entry.getValue()));
+
+                statisticTuple.addRate(rate);
+            }
 
             curr++;
         }
@@ -128,29 +136,56 @@ public class GeneralStatisticServiceImpl implements GeneralStatisticService {
     }
 
     @Override
-    public StatisticTimeline queryStatisticTimeline(String name, String sql, Timeline timeline) throws SQLException  {
-        Connection connection = getConnection();
-        List<Map<String, String>> result =  JDBCConnectionUtil.querySQL(connection, sql);
-        if(result==null || result.size()==0){
-            return null;
+    public StatisticTimeline queryStatisticTimeline(String name, String sql, Timeline... timelines)
+            throws SQLException  {
+
+        /// 报表数据转换为列数据, 如按时间段查询
+        StatisticTimeline statisticTimeline = new StatisticTimeline();
+        statisticTimeline.setName(name);
+
+        // foreach timeline
+        for(Timeline timeline : timelines) {
+
+            StringBuilder builder = new StringBuilder();
+            builder.append(sql);
+            builder.append(" WHERE ");
+            builder.append(timeline.toSql());
+
+            String timelineSql = builder.toString();
+
+            Connection connection = getConnection();
+            List<Map<String, String>> result = JDBCConnectionUtil.querySQL(connection, timelineSql);
+            if (result == null || result.size() == 0) {
+                return null;
+            }
+
+            /// create statistic
+            if(result.size()==1){
+                if(result.get(0).keySet().size()==1) {
+                    // total
+                    Map.Entry<String,String> entry = result.get(0).entrySet().iterator().next();
+                    statisticTimeline.addStatistic(
+                            new Statistic(entry.getKey(), entry.getValue()).timeline(timeline.getName()));
+
+                }else if(result.get(0).keySet().size()>1){
+                    // rate
+                    StatisticRate rate = convertMapToStatisticRate(result.get(0));
+                    rate.setTimeline(timeline.getName());
+
+                    statisticTimeline.addStatistic(rate);
+                }
+            }else if(result.size()>1){
+                /// tuple
+                for (Map<String,String> row : result){
+                    StatisticRate rate = convertMapToStatisticRate(row);
+                    rate.setTimeline(timeline.getName());
+
+                    statisticTimeline.addStatistic(rate);
+                }
+            }
         }
 
-        /// set statistic data
-        /// 报表数据转换为 列数据, 如按时间段查询
-        StatisticTimeline timelines = new StatisticTimeline();
-        timelines.setName(name);
-
-        // 列表为各占比的名称
-        // create column name hash table
-
-        // 历遍报表结构查询结果，转换并创建各占比数据
-        Iterator<Map<String,String>> it = result.iterator();
-        while (it.hasNext()){
-            Map<String,String> item = it.next();
-            Map.Entry<String,String> entry = item.entrySet().iterator().next();
-        }
-
-        return timelines;
+        return statisticTimeline;
     }
 
 
@@ -163,9 +198,7 @@ public class GeneralStatisticServiceImpl implements GeneralStatisticService {
         if(map==null || map.size()==0){
             return null;
         }
-
         StatisticRate rate = new StatisticRate();
-
         Iterator<Map.Entry<String,String>> it = map.entrySet().iterator();
         while (it.hasNext()){
             Map.Entry<String,String> entry = it.next();

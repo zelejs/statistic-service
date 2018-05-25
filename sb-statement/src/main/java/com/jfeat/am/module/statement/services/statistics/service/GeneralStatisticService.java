@@ -38,5 +38,5 @@ public interface GeneralStatisticService {
      *              KeyField 第一项作为占比命名, sql 查询语句必须满足查询条件
      * @param timeline : 时间段查询定义，可完全由sql提供
      */
-    StatisticTimeline queryStatisticTimeline(String name, String sql, Timeline timeline) throws SQLException ;
+    StatisticTimeline queryStatisticTimeline(String name, String sql, Timeline... timeline) throws SQLException ;
 }

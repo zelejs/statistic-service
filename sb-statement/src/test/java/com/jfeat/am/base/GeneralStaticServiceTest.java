@@ -14,8 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @ActiveProfiles(profiles = "dev")
 @RunWith(SpringRunner.class)
@@ -47,24 +45,43 @@ public class GeneralStaticServiceTest {
 
     @Test
     public void testQueryStatisticTuple() throws SQLException {
-        String sql = "select distinct count(stat) as rate from cl_client_record";
-        List<String> tuple = new ArrayList<>();
-        tuple.add("stat");
-        StatisticTuple statisticTuple = generalStatisticService.queryStatisticTuple("stat", sql, tuple);
+        String mame = "test";
+        String sql = "select id,name,sex from t_staff";
+        StatisticTuple statisticTuple = generalStatisticService.queryStatisticTuple(mame, sql, null);
         StatisticRouteData statisticRouteData = statisticTuple.toRouteData();
         System.out.println(statisticRouteData);
     }
 
     @Test
-    public void testQueryStatisticTimeline() throws SQLException {
-        String sql = "select stat from cl_client_record";
-        Timeline timeline = new Timeline();
-        timeline.setName("stat");
-        timeline.setTimestampField("stat");
-        System.out.println(timeline.buildTimelineSql(Timeline.Timelines.D.toString()));
-        StatisticTimeline statisticTimeline = generalStatisticService.queryStatisticTimeline("stat", sql, timeline);
+    public void testQueryStatisticTotalTimeline() throws SQLException {
+        String name = "test";
+        String sql = "select sum(case when sex=0 then 1 else 0 end) as '男' from t_staff";
+
+        Timeline tl_year = new Timeline(Timeline.Timelines.Y.toString(), "create_time");
+        Timeline tl_month = new Timeline(Timeline.Timelines.M.toString(), "create_time");
+
+        StatisticTimeline statisticTimeline =
+                generalStatisticService.queryStatisticTimeline(name, sql, tl_year, tl_month);
         StatisticRouteData statisticRouteData = statisticTimeline.toRouteData();
         System.out.println(statisticRouteData);
     }
 
+
+    @Test
+    public void testQueryStatisticRateTimeline() throws SQLException {
+        String name = "test";
+        String sql = "select sum(case when sex=0 then 1 else 0 end) as '男', sum(case when sex=1 then 1 else 0 end) as '女' from t_staff";
+
+        Timeline tl_year = new Timeline(Timeline.Timelines.Y.toString(), "create_time");
+        Timeline tl_month = new Timeline(Timeline.Timelines.M.toString(), "create_time");
+
+        StatisticTimeline statisticTimeline = generalStatisticService.queryStatisticTimeline(name, sql, tl_year, tl_month);
+        StatisticRouteData statisticRouteData = statisticTimeline.toRouteData();
+        System.out.println(statisticRouteData);
+    }
+
+    @Test
+    public void testQueryStatisticTupleTimeline() throws SQLException {
+
+    }
 }

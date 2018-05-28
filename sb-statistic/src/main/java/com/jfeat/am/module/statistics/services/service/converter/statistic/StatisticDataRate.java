@@ -5,11 +5,18 @@ import java.util.List;
 /**
  * Created by vincent on 2018/5/25.
  */
-public class StatisticRate{
+public class StatisticDataRate {
 
     private String name;
 
     private List<Rate> rates;
+
+    public StatisticDataRate(){}
+
+    public StatisticDataRate(String name, List<Rate> rates){
+        this.name = name;
+        this.rates = rates;
+    }
 
     public List<Rate> getRates() {
         return rates;

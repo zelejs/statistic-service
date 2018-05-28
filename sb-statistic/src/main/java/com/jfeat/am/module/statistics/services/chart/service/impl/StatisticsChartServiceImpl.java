@@ -12,7 +12,7 @@ import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.service.converter.StatisticConverter;
-import com.jfeat.am.module.statistics.services.service.converter.statistic.StatisticRate;
+import com.jfeat.am.module.statistics.services.service.converter.statistic.StatisticDataRate;
 import com.jfeat.am.module.statistics.services.service.model.StatisticsFieldModel;
 import org.springframework.stereotype.Service;
 
@@ -53,14 +53,14 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "No rate data");
         }
 
-        StatisticRate statisticRate = StatisticConverter.convertStatisticRate(fieldModel);
+        StatisticDataRate statisticDataRate = StatisticConverter.convertStatisticRate(fieldModel);
 
-        pieChartBean.setTitle(statisticRate.getName());
+        pieChartBean.setTitle(statisticDataRate.getName());
         pieChartBean.setTimestamp(DateTimeKit.formatDateTime(new Date()));
 
         /// convert data
         List<PieChartData.KeyValue> data = pieChartBean.getData();
-        for (StatisticRate.Rate rate : statisticRate.getRates()) {
+        for (StatisticDataRate.Rate rate : statisticDataRate.getRates()) {
 
             PieChartData.KeyValue keyValue = new PieChartData.KeyValue();
             keyValue.setName(rate.getName());

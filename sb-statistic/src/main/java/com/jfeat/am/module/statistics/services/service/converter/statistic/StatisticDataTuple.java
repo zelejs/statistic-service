@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by vincent on 2018/5/25.
  */
-public class StatisticDataTuple {
+public class StatisticDataTuple extends StatisticData {
     private String name;
 
     private List<StatisticDataTuple.Tuple> tuples;

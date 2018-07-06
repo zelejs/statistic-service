@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by Silent-Y on 2017/12/4.
  */
+@Deprecated
 @Service
 public class StatisticsNotifyServiceImpl implements StatisticsNotifyService {
 

@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Created by Silent-Y on 2017/8/31.
  */
+@Deprecated
 public class StatisticNotifyData {
 
     /// 分组由运维决定,这里不指定分组

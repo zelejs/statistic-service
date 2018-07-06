@@ -1,4 +1,4 @@
 #!/bin/bash
 
-mvn com.jfeat:sb-sql-runner:1.0.0:generate 
+mvn -f sql-runner-pom.xml com.jfeat:sb-sql-runner:1.0.0:generate 
 

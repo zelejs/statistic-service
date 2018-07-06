@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.constant;
+package com.jfeat.am.module.statistics.api.perm;
 
 /**
  * Created by kang on 2018/6/12.

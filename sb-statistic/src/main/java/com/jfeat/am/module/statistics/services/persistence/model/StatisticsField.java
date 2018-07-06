@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author Code Generator
- * @since 2018-05-09
+ * @since 2018-07-06
  */
 @TableName("st_statistics_field")
 public class StatisticsField extends Model<StatisticsField> {
@@ -22,36 +22,45 @@ public class StatisticsField extends Model<StatisticsField> {
 
 	private Long id;
     /**
-     * 统计所属分组
+     * 数据域唯一标识符
      */
-	@TableField("group_id")
-	private Long groupId;
+	private String field;
     /**
      * 统计名称
      */
 	private String name;
     /**
-     * 数据域标识符
+     * 统计所属分组
      */
-	private String field;
+	@TableField("group_id")
+	private Long groupId;
     /**
-     * 统计数据类型[Value,Rate,Report,Cluster]
+     * 统计数据类型[Total,Rate,Tuple,Cluster]
      */
-	private String schema;
+	private String pattern;
     /**
      * 图表名称[Pie,Chain]环比
      */
 	private String chart;
     /**
-     * 是否不可见
+     * 是否实时查询
+     */
+	private Integer runtime;
+    /**
+     * 实时查询sql
+     */
+	@TableField("query_sql")
+	private String querySql;
+    /**
+     * [属性]是否不可见
      */
 	private Integer invisible;
     /**
-     * 排序号
+     * [属性]排序号
      */
 	private Integer index;
     /**
-     * 是否显示为百分比
+     * [属性]是否显示为百分比
      */
 	private Integer percent;
 
@@ -65,12 +74,12 @@ public class StatisticsField extends Model<StatisticsField> {
 		return this;
 	}
 
-	public Long getGroupId() {
-		return groupId;
+	public String getField() {
+		return field;
 	}
 
-	public StatisticsField setGroupId(Long groupId) {
-		this.groupId = groupId;
+	public StatisticsField setField(String field) {
+		this.field = field;
 		return this;
 	}
 
@@ -83,21 +92,21 @@ public class StatisticsField extends Model<StatisticsField> {
 		return this;
 	}
 
-	public String getField() {
-		return field;
+	public Long getGroupId() {
+		return groupId;
 	}
 
-	public StatisticsField setField(String field) {
-		this.field = field;
+	public StatisticsField setGroupId(Long groupId) {
+		this.groupId = groupId;
 		return this;
 	}
 
-	public String getSchema() {
-		return schema;
+	public String getPattern() {
+		return pattern;
 	}
 
-	public StatisticsField setSchema(String schema) {
-		this.schema = schema;
+	public StatisticsField setPattern(String pattern) {
+		this.pattern = pattern;
 		return this;
 	}
 
@@ -107,6 +116,24 @@ public class StatisticsField extends Model<StatisticsField> {
 
 	public StatisticsField setChart(String chart) {
 		this.chart = chart;
+		return this;
+	}
+
+	public Integer getRuntime() {
+		return runtime;
+	}
+
+	public StatisticsField setRuntime(Integer runtime) {
+		this.runtime = runtime;
+		return this;
+	}
+
+	public String getQuerySql() {
+		return querySql;
+	}
+
+	public StatisticsField setQuerySql(String querySql) {
+		this.querySql = querySql;
 		return this;
 	}
 
@@ -139,15 +166,19 @@ public class StatisticsField extends Model<StatisticsField> {
 
 	public static final String ID = "id";
 
-	public static final String GROUP_ID = "group_id";
+	public static final String FIELD = "field";
 
 	public static final String NAME = "name";
 
-	public static final String FIELD = "field";
+	public static final String GROUP_ID = "group_id";
 
-	public static final String SCHEMA = "schema";
+	public static final String PATTERN = "pattern";
 
 	public static final String CHART = "chart";
+
+	public static final String RUNTIME = "runtime";
+
+	public static final String QUERY_SQL = "query_sql";
 
 	public static final String INVISIBLE = "invisible";
 
@@ -164,11 +195,13 @@ public class StatisticsField extends Model<StatisticsField> {
 	public String toString() {
 		return "StatisticsField{" +
 			"id=" + id +
-			", groupId=" + groupId +
-			", name=" + name +
 			", field=" + field +
-			", schema=" + schema +
+			", name=" + name +
+			", groupId=" + groupId +
+			", pattern=" + pattern +
 			", chart=" + chart +
+			", runtime=" + runtime +
+			", querySql=" + querySql +
 			", invisible=" + invisible +
 			", index=" + index +
 			", percent=" + percent +

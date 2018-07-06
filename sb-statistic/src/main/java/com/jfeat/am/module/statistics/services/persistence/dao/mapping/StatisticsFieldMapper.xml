@@ -5,11 +5,13 @@
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.jfeat.am.module.statistics.services.persistence.model.StatisticsField">
 		<id column="id" property="id" />
-		<result column="group_id" property="groupId" />
-		<result column="name" property="name" />
 		<result column="field" property="field" />
-		<result column="schema" property="schema" />
+		<result column="name" property="name" />
+		<result column="group_id" property="groupId" />
+		<result column="pattern" property="pattern" />
 		<result column="chart" property="chart" />
+		<result column="runtime" property="runtime" />
+		<result column="query_sql" property="querySql" />
 		<result column="invisible" property="invisible" />
 		<result column="index" property="index" />
 		<result column="percent" property="percent" />
@@ -17,7 +19,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, group_id AS groupId, name, field, schema, chart, invisible, index, percent
+        id, field, name, group_id AS groupId, pattern, chart, runtime, query_sql AS querySql, invisible, index, percent
     </sql>
 
 </mapper>

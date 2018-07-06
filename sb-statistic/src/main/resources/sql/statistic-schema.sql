@@ -22,14 +22,16 @@ CREATE TABLE `st_statistics_group` (
 DROP TABLE IF EXISTS `st_statistics_field`;
 CREATE TABLE `st_statistics_field` (
   `id` bigint(20) NOT NULL,
-  `group_id` bigint(20) NOT NULL COMMENT '统计所属分组',
+  `field` varchar(80) NOT NULL COMMENT '数据域唯一标识符',
   `name` varchar(50) NOT NULL COMMENT '统计名称',
-  `field` varchar(80) NOT NULL COMMENT '数据域标识符',
-  `schema` varchar(26) NOT NULL COMMENT '统计数据类型[Value,Rate,Report,Cluster]',
+  `group_id` bigint(20) NOT NULL COMMENT '统计所属分组',
+  `pattern` varchar(26) NOT NULL COMMENT '统计数据类型[Total,Rate,Tuple,Cluster]',
   `chart` varchar(26) NOT NULL COMMENT '图表名称[Pie,Chain]环比',
-  `invisible` smallint(5) DEFAULT 0 COMMENT '是否不可见',
-  `index` smallint(5) DEFAULT 0 COMMENT '排序号',
-  `percent` smallint(5) DEFAULT 0 COMMENT '是否显示为百分比',
+  `runtime` smallint DEFAULT 0 COMMENT '是否实时查询',
+  `query_sql` text DEFAULT NULL COMMENT '实时查询sql',
+  `invisible` smallint DEFAULT 0 COMMENT '[属性]是否不可见',
+  `index` smallint DEFAULT 0 COMMENT '[属性]排序号',
+  `percent` smallint DEFAULT 0 COMMENT '[属性]是否显示为百分比',
   UNIQUE(`field`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

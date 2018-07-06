@@ -9,6 +9,7 @@ import java.util.Map;
 /**
  * Created by Silent-Y on 2017/11/6.
  */
+@Deprecated
 @Service
 public class TableColumnRatesServiceImpl implements TableColumnRatesService {
 

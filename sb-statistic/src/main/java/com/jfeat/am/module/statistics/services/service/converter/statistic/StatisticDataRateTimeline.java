@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by vincent on 2018/5/25.
  */
-public class StatisticDataRateTimeline {
+public class StatisticDataRateTimeline extends StatisticData {
     private String name;
     private java.util.Map<String, StatisticDataRate> timeline;
 

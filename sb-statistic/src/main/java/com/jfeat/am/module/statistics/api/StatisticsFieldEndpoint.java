@@ -5,6 +5,8 @@ import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
+import com.jfeat.am.module.statement.services.statistics.service.GeneralStatisticService;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.service.converter.StatisticConverter;
 import com.jfeat.am.module.statistics.services.service.converter.statistic.StatisticData;
@@ -28,6 +30,9 @@ public class StatisticsFieldEndpoint extends BaseController {
     @Resource
     StatisticsFieldService statisticsFieldService;
 
+    @Resource
+    GeneralStatisticService generalStatisticService;
+
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "[total,rate,tuple,totalTimeline,rateTimeline,tupleTimeline]", paramType = "query", dataType = "string")
     })
@@ -39,28 +44,37 @@ public class StatisticsFieldEndpoint extends BaseController {
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据类型错误:" + type);
         }
 
-        Object statistic = statisticsFieldService.getStatisticsFieldModel(field);
+        StatisticsField statisticsField = statisticsFieldService.getStatisticsFieldModel(field);
+
+        Object statistic = null;
 
         if(type!=null) {
-            StatisticsFieldModel fieldModel = (StatisticsFieldModel) statistic;
+            if(statisticsField instanceof StatisticsFieldModel) {
+                StatisticsFieldModel fieldModel = (StatisticsFieldModel) statisticsField;
 
-            if (StatisticData.STAT_TYPE_TOTAL.equals(type)) {
-                statistic = StatisticConverter.convertStatisticTotal(fieldModel);
-            }
-            if (StatisticData.STAT_TYPE_TOTAL_TIMELINE.equals(type)) {
-                statistic = StatisticConverter.convertStatisticTotalTimeline(fieldModel);
-            }
-            if (StatisticData.STAT_TYPE_RATE.equals(type)) {
-                statistic = StatisticConverter.convertStatisticRate(fieldModel);
-            }
-            if (StatisticData.STAT_TYPE_RATE_TIMELINE.equals(type)) {
-                statistic = StatisticConverter.convertStatisticRateTimeline(fieldModel);
-            }
-            if (StatisticData.STAT_TYPE_TUPLE.equals(type)) {
-                statistic = StatisticConverter.convertStatisticTuple(fieldModel);
-            }
-            if (StatisticData.STAT_TYPE_TUPLE_TIMELINE.equals(type)) {
-                statistic = StatisticConverter.convertStatisticTupleTimeline(fieldModel);
+                if (StatisticData.STAT_TYPE_TOTAL.equals(type)) {
+                    statistic = StatisticConverter.convertStatisticTotal(fieldModel);
+                }
+                if (StatisticData.STAT_TYPE_TOTAL_TIMELINE.equals(type)) {
+                    statistic = StatisticConverter.convertStatisticTotalTimeline(fieldModel);
+                }
+                if (StatisticData.STAT_TYPE_RATE.equals(type)) {
+                    statistic = StatisticConverter.convertStatisticRate(fieldModel);
+                }
+                if (StatisticData.STAT_TYPE_RATE_TIMELINE.equals(type)) {
+                    statistic = StatisticConverter.convertStatisticRateTimeline(fieldModel);
+                }
+                if (StatisticData.STAT_TYPE_TUPLE.equals(type)) {
+                    statistic = StatisticConverter.convertStatisticTuple(fieldModel);
+                }
+                if (StatisticData.STAT_TYPE_TUPLE_TIMELINE.equals(type)) {
+                    statistic = StatisticConverter.convertStatisticTupleTimeline(fieldModel);
+                }
+            }else if(statisticsField.getQuerySql()!=null){
+                //TODO, 考虑StatisticData 与 statement 中的 StatisticRate 区别
+
+            }else{
+                throw new BusinessException(BusinessCode.BadRequest.getCode(), "无效的统计域，请检查统计域的querySql字段");
             }
         }
 

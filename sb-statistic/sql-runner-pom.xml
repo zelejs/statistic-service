@@ -15,7 +15,7 @@
                 <configuration>
                     <username>root</username>
                     <password>root</password>
-                    <databaseUrl>jdbc:mysql://127.0.0.1/test?characterEncoding=utf8</databaseUrl>
+                    <databaseUrl>jdbc:mysql://192.168.2.153/test?characterEncoding=utf8</databaseUrl>
                 </configuration>
             </plugin>
         </plugins>

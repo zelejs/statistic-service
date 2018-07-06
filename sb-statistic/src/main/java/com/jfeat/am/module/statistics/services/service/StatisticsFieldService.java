@@ -1,6 +1,6 @@
 package com.jfeat.am.module.statistics.services.service;
 
-import com.jfeat.am.module.statistics.services.service.model.StatisticsFieldModel;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 
 
 /**
@@ -17,8 +17,8 @@ public interface StatisticsFieldService extends CRUDStatisticsFieldService {
     /**
      * 获取原始域数据
      * @param field
-     * @return StatisticsFieldModel 域数据列表
+     * @return StatisticsField 域数据列表
      */
-    StatisticsFieldModel getStatisticsFieldModel(String field);
+    StatisticsField getStatisticsFieldModel(String field);
 }
 

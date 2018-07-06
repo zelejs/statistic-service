@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by vincent on 2018/5/25.
  */
-public class StatisticDataRate {
+public class StatisticDataRate extends StatisticData{
 
     private String name;
 

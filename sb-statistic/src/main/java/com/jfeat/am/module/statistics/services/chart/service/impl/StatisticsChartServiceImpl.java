@@ -45,7 +45,7 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         PieChartData pieChartBean = new PieChartData();
         pieChartBean.setData(new ArrayList<>());
 
-        StatisticsFieldModel fieldModel = statisticsFieldService.getStatisticsFieldModel(field);
+        StatisticsFieldModel fieldModel = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(field);
         if(fieldModel.getInvisible()==1){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Current field is invisible");
         }
@@ -85,7 +85,7 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         lineChartBean.setData(new ArrayList<>());
         lineChartBean.setDataAxis(new ArrayList<>());
 
-        StatisticsFieldModel fieldModel = statisticsFieldService.getStatisticsFieldModel(field);
+        StatisticsFieldModel fieldModel = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(field);
         if(fieldModel.getInvisible()==1){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Current field is invisible");
         }
@@ -122,7 +122,7 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         barChartBean.setDataAxis(new ArrayList<>());
 
 
-        StatisticsFieldModel fieldModel = statisticsFieldService.getStatisticsFieldModel(field);
+        StatisticsFieldModel fieldModel = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(field);
         if(fieldModel.getInvisible()==1){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Current field is invisible");
         }

@@ -27,9 +27,9 @@ public class StatisticsFieldServiceImpl extends CRUDStatisticsFieldServiceImpl i
         }
 
         /// 如果需要实时查询，跳过获取统计项
-        if(statisticsField.getQuerySql()!=null){
-            return statisticsField;
-        }
+        //if(statisticsField.getQuerySql()!=null){
+        //    return statisticsField;
+        //}
 
         /// else
         StatisticsFieldModel model = retrieveMaster(statisticsField.getId(), new StatisticsFieldFilter(), null, null)

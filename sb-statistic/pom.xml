@@ -201,6 +201,17 @@
             <artifactId>sb-statement</artifactId>
             <version>1.2.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>sb-log</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>sb-starter-test</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -247,9 +258,9 @@
                     <username>root</username>
                     <password>root</password>
                     <tables>
-                        <table>st_statistics_field</table>
+                        <table>st_statistics_field_meta</table>
                     </tables>
-                    <initialize>true</initialize>
+                    <initialize>false</initialize>
                 </configuration>
             </plugin>
         </plugins>
@@ -268,21 +279,4 @@
             </resource>
         </resources>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>archiva-internal</id>
-            <name>Internal Repository</name>
-            <url>http://114.215.187.140:8081/repository/internal</url>
-        </repository>
-    </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>archiva-internal</id>
-            <name>Internal Repository</name>
-            <url>http://114.215.187.140:8081/repository/internal</url>
-        </repository>
-    </repositories>
-
 </project>

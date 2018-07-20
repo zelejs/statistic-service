@@ -89,7 +89,9 @@ public class GeneralStaticServiceTest {
         Timeline tl_month = new Timeline(Timeline.Timelines.M.toString(), "create_time");
 
         StatisticTimeline statisticTimeline = generalStatisticService.queryStatisticTimeline(name, sql, tl_year, tl_month);
-        StatisticRouteData statisticRouteData = statisticTimeline.toRouteData();
-        System.out.println(statisticRouteData);
+        if(statisticTimeline!=null) {
+            StatisticRouteData statisticRouteData = statisticTimeline.toRouteData();
+            System.out.println(statisticRouteData);
+        }
     }
 }

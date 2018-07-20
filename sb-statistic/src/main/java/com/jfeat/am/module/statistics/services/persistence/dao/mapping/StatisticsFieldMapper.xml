@@ -10,16 +10,15 @@
 		<result column="group_id" property="groupId" />
 		<result column="pattern" property="pattern" />
 		<result column="chart" property="chart" />
-		<result column="runtime" property="runtime" />
-		<result column="query_sql" property="querySql" />
 		<result column="invisible" property="invisible" />
 		<result column="index" property="index" />
 		<result column="percent" property="percent" />
+		<result column="meta_record_id" property="metaRecordId" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, field, name, group_id AS groupId, pattern, chart, runtime, query_sql AS querySql, invisible, index, percent
+        id, field, name, group_id AS groupId, pattern, chart, invisible, index, percent, meta_record_id AS metaRecordId
     </sql>
 
 </mapper>

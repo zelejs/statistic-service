@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author Code Generator
- * @since 2018-07-06
+ * @since 2018-07-20
  */
 @TableName("st_statistics_field")
 public class StatisticsField extends Model<StatisticsField> {
@@ -43,15 +43,6 @@ public class StatisticsField extends Model<StatisticsField> {
      */
 	private String chart;
     /**
-     * 是否实时查询
-     */
-	private Integer runtime;
-    /**
-     * 实时查询sql
-     */
-	@TableField("query_sql")
-	private String querySql;
-    /**
      * [属性]是否不可见
      */
 	private Integer invisible;
@@ -63,6 +54,11 @@ public class StatisticsField extends Model<StatisticsField> {
      * [属性]是否显示为百分比
      */
 	private Integer percent;
+    /**
+     * 元数据记录ID
+     */
+	@TableField("meta_record_id")
+	private Long metaRecordId;
 
 
 	public Long getId() {
@@ -119,24 +115,6 @@ public class StatisticsField extends Model<StatisticsField> {
 		return this;
 	}
 
-	public Integer getRuntime() {
-		return runtime;
-	}
-
-	public StatisticsField setRuntime(Integer runtime) {
-		this.runtime = runtime;
-		return this;
-	}
-
-	public String getQuerySql() {
-		return querySql;
-	}
-
-	public StatisticsField setQuerySql(String querySql) {
-		this.querySql = querySql;
-		return this;
-	}
-
 	public Integer getInvisible() {
 		return invisible;
 	}
@@ -164,6 +142,15 @@ public class StatisticsField extends Model<StatisticsField> {
 		return this;
 	}
 
+	public Long getMetaRecordId() {
+		return metaRecordId;
+	}
+
+	public StatisticsField setMetaRecordId(Long metaRecordId) {
+		this.metaRecordId = metaRecordId;
+		return this;
+	}
+
 	public static final String ID = "id";
 
 	public static final String FIELD = "field";
@@ -176,15 +163,13 @@ public class StatisticsField extends Model<StatisticsField> {
 
 	public static final String CHART = "chart";
 
-	public static final String RUNTIME = "runtime";
-
-	public static final String QUERY_SQL = "query_sql";
-
 	public static final String INVISIBLE = "invisible";
 
 	public static final String INDEX = "index";
 
 	public static final String PERCENT = "percent";
+
+	public static final String META_RECORD_ID = "meta_record_id";
 
 	@Override
 	protected Serializable pkVal() {
@@ -200,11 +185,10 @@ public class StatisticsField extends Model<StatisticsField> {
 			", groupId=" + groupId +
 			", pattern=" + pattern +
 			", chart=" + chart +
-			", runtime=" + runtime +
-			", querySql=" + querySql +
 			", invisible=" + invisible +
 			", index=" + index +
 			", percent=" + percent +
+			", metaRecordId=" + metaRecordId +
 			"}";
 	}
 }

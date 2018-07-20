@@ -70,10 +70,10 @@ public class StatisticsFieldEndpoint extends BaseController {
                 if (StatisticData.STAT_TYPE_TUPLE_TIMELINE.equals(type)) {
                     statistic = StatisticConverter.convertStatisticTupleTimeline(fieldModel);
                 }
-            }else if(statisticsField.getQuerySql()!=null){
+            }//else if(statisticsField.getQuerySql()!=null){
                 //TODO, 考虑StatisticData 与 statement 中的 StatisticRate 区别
-
-            }else{
+            //}
+            else{
                 throw new BusinessException(BusinessCode.BadRequest.getCode(), "无效的统计域，请检查统计域的querySql字段");
             }
         }

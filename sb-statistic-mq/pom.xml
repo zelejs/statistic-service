@@ -8,7 +8,7 @@
     <version>1.2.0</version>
     <packaging>jar</packaging>
 
-    <name>SimpleBusiness - Statistic MQ</name>
+    <name>Statistic MQ</name>
     <description>Statistic MQ Component</description>
 
     <parent>

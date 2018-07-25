@@ -83,8 +83,7 @@
       <version>${h2.version}</version>  
       <scope>test</scope> 
     </dependency>  
-    <!--shiro����-->  
-    <dependency> 
+    <dependency>
       <groupId>org.apache.shiro</groupId>  
       <artifactId>shiro-core</artifactId>  
       <version>${shiro.version}</version>  
@@ -129,8 +128,7 @@
       <artifactId>fst</artifactId>  
       <version>${fst.version}</version> 
     </dependency>  
-    <!--��������-->  
-    <dependency> 
+    <dependency>
       <groupId>com.alibaba</groupId>  
       <artifactId>fastjson</artifactId>  
       <version>${fastjson.version}</version> 
@@ -212,39 +210,12 @@
         <configuration>
           <skip>${skipStandalone}</skip>
         </configuration>
-        <!--<executions> -->
-          <!--<execution> -->
-            <!--<goals> -->
-              <!--<goal>repackage</goal> -->
-            <!--</goals>  -->
-            <!--<configuration> -->
-              <!--<classifier>standalone</classifier> -->
-            <!--</configuration> -->
-          <!--</execution> -->
-        <!--</executions> -->
-      </plugin>  
+      </plugin>
       <plugin> 
         <groupId>org.apache.maven.plugins</groupId>  
         <artifactId>maven-deploy-plugin</artifactId> 
       </plugin>  
-      <plugin> 
-        <groupId>com.jfeat</groupId>  
-        <artifactId>sb-code-generator</artifactId>  
-        <version>1.0.2</version>  
-        <configuration> 
-          <!-- change to your module name -->  
-          <moduleName>statement</moduleName>
-          <dbUrl>jdbc:mysql://127.0.0.1:3306/sbstatement</dbUrl>
-          <username>root</username>  
-          <password>root</password>  
-          <outputDir>src\\main\\java</outputDir>
-          <parentPackage>com.jfeat.am.module</parentPackage>
-          <tables>
-            <table>t_statement</table>
-          </tables>
-        </configuration>
-      </plugin> 
-    </plugins>  
+    </plugins>
     <resources> 
       <resource> 
         <directory>src/main/webapp</directory> 
@@ -260,18 +231,4 @@
       </resource> 
     </resources> 
   </build>  
-  <distributionManagement> 
-    <repository> 
-      <id>archiva-internal</id>  
-      <name>Internal Repository</name>  
-      <url>http://114.215.187.140:8081/repository/internal</url> 
-    </repository> 
-  </distributionManagement>  
-  <repositories>
-    <repository> 
-      <id>archiva-internal</id>  
-      <name>Internal Repository</name>  
-      <url>http://114.215.187.140:8081/repository/internal</url> 
-    </repository> 
-  </repositories>
 </project>

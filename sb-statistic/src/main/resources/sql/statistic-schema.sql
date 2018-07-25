@@ -30,20 +30,8 @@ CREATE TABLE `st_statistics_field` (
   `invisible` smallint DEFAULT 0 COMMENT '[属性]是否不可见',
   `index` smallint DEFAULT 0 COMMENT '[属性]排序号',
   `percent` smallint DEFAULT 0 COMMENT '[属性]是否显示为百分比',
-  `meta_record_id` bigint(20) DEFAULT NULL COMMENT '元数据记录ID',
+  `runtime` smallint DEFAULT 0 COMMENT '是否实时查询[via meta]',
   UNIQUE(`field`),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for st_statistics_field
--- ----------------------------
-DROP TABLE IF EXISTS `st_statistics_field_meta`;
-CREATE TABLE `st_statistics_field_meta` (
-  `id` bigint(20) NOT NULL,
-  `field` varchar(80) DEFAULT NULL COMMENT '数据域唯一标识符',
-  `runtime` smallint DEFAULT 0 COMMENT '是否实时查询',
-  `query_sql` text DEFAULT NULL COMMENT '实时查询sql',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -53,6 +41,7 @@ CREATE TABLE `st_statistics_field_meta` (
 -- D,W,Y  -  Day/Week/Year
 -- LD3    -  Latest 3 Days
 -- LM3    -  Latest 3 Months
+-- TF     -  Time Frame
 -- Chain  -  Record Chain
 -- ----------------------------
 DROP TABLE IF EXISTS `st_statistics_record`;
@@ -64,11 +53,23 @@ CREATE TABLE `st_statistics_record` (
   `record_value` varchar(50) NOT NULL COMMENT '记录值',
   `record_tuple` varchar(30) NOT NULL COMMENT '记录值所属行名称',
   `record_cluster` varchar(30) NOT NULL COMMENT '记录值所属分类名称',
-  `timeline` varchar(8) NOT NULL COMMENT '统计时段说明[T,D,W,M,Y,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4]',
   `record_time` datetime NOT NULL COMMENT '记录时间',
+  `timeline` varchar(8) NOT NULL COMMENT '统计时段说明[T,D,W,M,Y,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,TF]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Table structure for st_statistics_field
+-- ----------------------------
+DROP TABLE IF EXISTS `st_statistics_field_meta`;
+CREATE TABLE `st_statistics_field_meta` (
+  `id` bigint(20) NOT NULL,
+  `field_id` bigint(20) NOT NULL COMMENT '所属数据域ID[CRUD]',
+  `field` varchar(80) DEFAULT NULL COMMENT '数据域唯一标识符',
+  `record_name` varchar(50) NOT NULL COMMENT '记录名称',
+  `query_sql` text DEFAULT NULL COMMENT '实时查询sql',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ---------------------------------------------------------------------
 -- @Deprecated
@@ -88,4 +89,3 @@ CREATE TABLE `st_statistics_record_attr` (
   UNIQUE(`field`, `record_name`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-

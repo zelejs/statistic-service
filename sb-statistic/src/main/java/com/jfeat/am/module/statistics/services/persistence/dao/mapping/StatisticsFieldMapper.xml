@@ -13,12 +13,12 @@
 		<result column="invisible" property="invisible" />
 		<result column="index" property="index" />
 		<result column="percent" property="percent" />
-		<result column="meta_record_id" property="metaRecordId" />
+		<result column="runtime" property="runtime" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, field, name, group_id AS groupId, pattern, chart, invisible, index, percent, meta_record_id AS metaRecordId
+        id, field, name, group_id AS groupId, pattern, chart, invisible, index, percent, runtime
     </sql>
 
 </mapper>

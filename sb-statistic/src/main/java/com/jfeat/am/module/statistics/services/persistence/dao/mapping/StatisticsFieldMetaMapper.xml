@@ -5,14 +5,15 @@
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.jfeat.am.module.statistics.services.persistence.model.StatisticsFieldMeta">
 		<id column="id" property="id" />
+		<result column="field_id" property="fieldId" />
 		<result column="field" property="field" />
-		<result column="runtime" property="runtime" />
+		<result column="record_name" property="recordName" />
 		<result column="query_sql" property="querySql" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, field, runtime, query_sql AS querySql
+        id, field_id AS fieldId, field, record_name AS recordName, query_sql AS querySql
     </sql>
 
 </mapper>

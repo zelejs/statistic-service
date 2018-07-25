@@ -11,13 +11,13 @@
 		<result column="record_value" property="recordValue" />
 		<result column="record_tuple" property="recordTuple" />
 		<result column="record_cluster" property="recordCluster" />
-		<result column="timeline" property="timeline" />
 		<result column="record_time" property="recordTime" />
+		<result column="timeline" property="timeline" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, field_id AS fieldId, field, record_name AS recordName, record_value AS recordValue, record_tuple AS recordTuple, record_cluster AS recordCluster, timeline, record_time AS recordTime
+        id, field_id AS fieldId, field, record_name AS recordName, record_value AS recordValue, record_tuple AS recordTuple, record_cluster AS recordCluster, record_time AS recordTime, timeline
     </sql>
 
 </mapper>

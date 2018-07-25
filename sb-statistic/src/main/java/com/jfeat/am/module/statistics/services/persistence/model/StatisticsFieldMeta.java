@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author Code Generator
- * @since 2018-07-20
+ * @since 2018-07-25
  */
 @TableName("st_statistics_field_meta")
 public class StatisticsFieldMeta extends Model<StatisticsFieldMeta> {
@@ -22,13 +22,19 @@ public class StatisticsFieldMeta extends Model<StatisticsFieldMeta> {
 
 	private Long id;
     /**
+     * 所属数据域ID[CRUD]
+     */
+	@TableField("field_id")
+	private Long fieldId;
+    /**
      * 数据域唯一标识符
      */
 	private String field;
     /**
-     * 是否实时查询
+     * 记录名称
      */
-	private Integer runtime;
+	@TableField("record_name")
+	private String recordName;
     /**
      * 实时查询sql
      */
@@ -45,6 +51,15 @@ public class StatisticsFieldMeta extends Model<StatisticsFieldMeta> {
 		return this;
 	}
 
+	public Long getFieldId() {
+		return fieldId;
+	}
+
+	public StatisticsFieldMeta setFieldId(Long fieldId) {
+		this.fieldId = fieldId;
+		return this;
+	}
+
 	public String getField() {
 		return field;
 	}
@@ -54,12 +69,12 @@ public class StatisticsFieldMeta extends Model<StatisticsFieldMeta> {
 		return this;
 	}
 
-	public Integer getRuntime() {
-		return runtime;
+	public String getRecordName() {
+		return recordName;
 	}
 
-	public StatisticsFieldMeta setRuntime(Integer runtime) {
-		this.runtime = runtime;
+	public StatisticsFieldMeta setRecordName(String recordName) {
+		this.recordName = recordName;
 		return this;
 	}
 
@@ -74,9 +89,11 @@ public class StatisticsFieldMeta extends Model<StatisticsFieldMeta> {
 
 	public static final String ID = "id";
 
+	public static final String FIELD_ID = "field_id";
+
 	public static final String FIELD = "field";
 
-	public static final String RUNTIME = "runtime";
+	public static final String RECORD_NAME = "record_name";
 
 	public static final String QUERY_SQL = "query_sql";
 
@@ -89,8 +106,9 @@ public class StatisticsFieldMeta extends Model<StatisticsFieldMeta> {
 	public String toString() {
 		return "StatisticsFieldMeta{" +
 			"id=" + id +
+			", fieldId=" + fieldId +
 			", field=" + field +
-			", runtime=" + runtime +
+			", recordName=" + recordName +
 			", querySql=" + querySql +
 			"}";
 	}

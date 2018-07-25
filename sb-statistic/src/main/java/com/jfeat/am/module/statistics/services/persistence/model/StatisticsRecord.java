@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author Code Generator
- * @since 2018-05-09
+ * @since 2018-07-25
  */
 @TableName("st_statistics_record")
 public class StatisticsRecord extends Model<StatisticsRecord> {
@@ -52,14 +52,14 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 	@TableField("record_cluster")
 	private String recordCluster;
     /**
-     * 统计时段说明[T,D,W,M,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,Y]
-     */
-	private String timeline;
-    /**
      * 记录时间
      */
 	@TableField("record_time")
 	private Date recordTime;
+    /**
+     * 统计时段说明[T,D,W,M,Y,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,TF]
+     */
+	private String timeline;
 
 
 	public Long getId() {
@@ -125,21 +125,21 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 		return this;
 	}
 
-	public String getTimeline() {
-		return timeline;
-	}
-
-	public StatisticsRecord setTimeline(String timeline) {
-		this.timeline = timeline;
-		return this;
-	}
-
 	public Date getRecordTime() {
 		return recordTime;
 	}
 
 	public StatisticsRecord setRecordTime(Date recordTime) {
 		this.recordTime = recordTime;
+		return this;
+	}
+
+	public String getTimeline() {
+		return timeline;
+	}
+
+	public StatisticsRecord setTimeline(String timeline) {
+		this.timeline = timeline;
 		return this;
 	}
 
@@ -157,9 +157,9 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	public static final String RECORD_CLUSTER = "record_cluster";
 
-	public static final String TIMELINE = "timeline";
-
 	public static final String RECORD_TIME = "record_time";
+
+	public static final String TIMELINE = "timeline";
 
 	@Override
 	protected Serializable pkVal() {
@@ -176,8 +176,8 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 			", recordValue=" + recordValue +
 			", recordTuple=" + recordTuple +
 			", recordCluster=" + recordCluster +
-			", timeline=" + timeline +
 			", recordTime=" + recordTime +
+			", timeline=" + timeline +
 			"}";
 	}
 }

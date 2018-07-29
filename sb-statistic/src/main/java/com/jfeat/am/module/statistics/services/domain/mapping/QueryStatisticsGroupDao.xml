@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.statistics.services.domain.dao.QueryStatisticsGroupDao">
+    <sql id="Base_Column_List">
+        st_statistics_group.*
+    </sql>
+    <select id="findStatisticsGroupPage" resultType="StatisticsGroup" parameterType="StatisticsGroup">
+        SELECT st_statistics_group.*
+        FROM st_statistics_group
+        WHERE 1=1
+        <if test="statisticsGroup.id != null and statisticsGroup.id>0 ">
+            AND st_statistics_group.id LIKE CONCAT('%',#{statisticsGroup.id},'%')
+        </if>
+        <if test="statisticsGroup.name != null and statisticsGroup.name!= ''">
+            AND st_statistics_group.name LIKE CONCAT('%',#{statisticsGroup.name},'%')
+        </if>
+        <if test="statisticsGroup.pid != null and statisticsGroup.pid>0 ">
+            AND st_statistics_group.pid LIKE CONCAT('%',#{statisticsGroup.pid},'%')
+        </if>
+        <if test="statisticsGroup.desc != null and statisticsGroup.desc!= ''">
+            AND st_statistics_group.desc LIKE CONCAT('%',#{statisticsGroup.desc},'%')
+        </if>
+        <if test="statisticsGroup.chart != null and statisticsGroup.chart!= ''">
+            AND st_statistics_group.chart LIKE CONCAT('%',#{statisticsGroup.chart},'%')
+        </if>
+    </select>
+</mapper>

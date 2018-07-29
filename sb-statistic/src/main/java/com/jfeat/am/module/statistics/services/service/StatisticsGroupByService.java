@@ -1,8 +1,8 @@
 package com.jfeat.am.module.statistics.services.service;
 
 import com.jfeat.am.common.crud.CRUDServiceGroupBy;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsGroup;
 
 
 /**

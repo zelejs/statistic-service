@@ -1,7 +1,7 @@
 package com.jfeat.am.module.statistics.services.service;
             
 import com.jfeat.am.common.crud.CRUDServiceGroup;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsGroup;
 
 
 /**
@@ -14,5 +14,5 @@ import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup
  */
 
 public interface StatisticsGroupService extends CRUDServiceGroup<StatisticsGroup> {
-    StatisticsGroup getGroupByIdentifier(String identifier);
+    StatisticsGroup getGroupByName(String name);
 }

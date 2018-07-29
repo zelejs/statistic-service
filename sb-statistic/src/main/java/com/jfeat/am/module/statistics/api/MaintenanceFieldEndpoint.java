@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
-import com.jfeat.am.module.statistics.services.maintenance.dao.QueryStatisticsFieldDao;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.domain.dao.QueryStatisticsFieldDao;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,11 +90,11 @@ public class MaintenanceFieldEndpoint extends BaseController {
 
         StatisticsField statisticsField = new StatisticsField();
         statisticsField.setField(field);
-        statisticsField.setIndex(index);
+        statisticsField.setAttrIndex(index);
         statisticsField.setGroupId(groupId);
-        statisticsField.setInvisible(invisible);
+        statisticsField.setAttrInvisible(invisible);
         statisticsField.setChart(chart);
-        statisticsField.setPercent(percent);
+        statisticsField.setAttrPercent(percent);
         statisticsField.setName(name);
 
         page.setRecords(statisticsFieldDao.findStatisticsFieldPage(page, statisticsField));

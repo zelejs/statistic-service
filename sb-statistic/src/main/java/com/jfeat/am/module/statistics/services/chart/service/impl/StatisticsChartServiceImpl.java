@@ -8,8 +8,8 @@ import com.jfeat.am.module.statistics.services.chart.model.BarChartData;
 import com.jfeat.am.module.statistics.services.chart.model.LineChartData;
 import com.jfeat.am.module.statistics.services.chart.model.PieChartData;
 import com.jfeat.am.module.statistics.services.chart.service.StatisticsChartService;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecord;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.service.converter.StatisticConverter;
 import com.jfeat.am.module.statistics.services.service.converter.statistic.StatisticDataRate;
@@ -46,7 +46,7 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         pieChartBean.setData(new ArrayList<>());
 
         StatisticsFieldModel fieldModel = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(field);
-        if(fieldModel.getInvisible()==1){
+        if(fieldModel.getAttrInvisible()==1){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Current field is invisible");
         }
         if(fieldModel.getItems()==null){
@@ -86,7 +86,7 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         lineChartBean.setDataAxis(new ArrayList<>());
 
         StatisticsFieldModel fieldModel = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(field);
-        if(fieldModel.getInvisible()==1){
+        if(fieldModel.getAttrInvisible()==1){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Current field is invisible");
         }
         lineChartBean.setTitle(fieldModel.getName());
@@ -121,9 +121,8 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
         barChartBean.setData(new ArrayList<>());
         barChartBean.setDataAxis(new ArrayList<>());
 
-
         StatisticsFieldModel fieldModel = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(field);
-        if(fieldModel.getInvisible()==1){
+        if(fieldModel.getAttrInvisible()==1){
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Current field is invisible");
         }
         barChartBean.setTitle(fieldModel.getName());

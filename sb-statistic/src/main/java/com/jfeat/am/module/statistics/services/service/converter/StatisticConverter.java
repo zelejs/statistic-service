@@ -1,6 +1,6 @@
 package com.jfeat.am.module.statistics.services.service.converter;
 
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecord;
 import com.jfeat.am.module.statistics.services.service.converter.statistic.*;
 import com.jfeat.am.module.statistics.services.service.model.StatisticsFieldModel;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;

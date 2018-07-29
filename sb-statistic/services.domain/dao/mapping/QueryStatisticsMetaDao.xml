@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.statistics.services.domain.dao.QueryStatisticsMetaDao">
+    <sql id="Base_Column_List">
+            st_statistics_meta.*
+        </sql>
+    <select id="findStatisticsMetaPage" resultType="StatisticsMetaRecord" parameterType="StatisticsMetaRecord">
+      SELECT st_statistics_meta.*
+            FROM st_statistics_meta
+            WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+    AND st_statistics_meta.id LIKE CONCAT('%',#{record.id},'%')
+    </if>
+                        <if test="record.field != null and record.field!= ''">
+    AND st_statistics_meta.field LIKE CONCAT('%',#{record.field},'%')
+    </if>
+                                        
+                                                                                                     <if test="record.recordName != null and record.recordName!= ''">
+    AND st_statistics_meta.record_name LIKE CONCAT('%',#{record.recordName},'%')
+    </if>
+                                        
+                                                                                                     <if test="record.recordTuple != null and record.recordTuple!= ''">
+    AND st_statistics_meta.record_tuple LIKE CONCAT('%',#{record.recordTuple},'%')
+    </if>
+                                        
+                                                                                                     <if test="record.recordCluster != null and record.recordCluster!= ''">
+    AND st_statistics_meta.record_cluster LIKE CONCAT('%',#{record.recordCluster},'%')
+    </if>
+                        <if test="record.timeline != null and record.timeline!= ''">
+    AND st_statistics_meta.timeline LIKE CONCAT('%',#{record.timeline},'%')
+    </if>
+                                        
+                                                                                                     <if test="record.querySql != null and record.querySql!= ''">
+    AND st_statistics_meta.query_sql LIKE CONCAT('%',#{record.querySql},'%')
+    </if>
+                                        
+                                                                                                                         <if test="record.tmpRecordId != null and record.tmpRecordId>0 ">
+    AND st_statistics_meta.tmp_record_id LIKE CONCAT('%',#{record.tmpRecordId},'%')
+    </if>
+        </select>
+</mapper>

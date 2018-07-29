@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.statistics.services.service.persistence.dao.StatisticsMetaMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsMeta">
+		<id column="id" property="id" />
+		<result column="field" property="field" />
+		<result column="record_name" property="recordName" />
+		<result column="record_tuple" property="recordTuple" />
+		<result column="record_cluster" property="recordCluster" />
+		<result column="timeline" property="timeline" />
+		<result column="query_sql" property="querySql" />
+		<result column="tmp_record_id" property="tmpRecordId" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, field, record_name AS recordName, record_tuple AS recordTuple, record_cluster AS recordCluster, timeline, query_sql AS querySql, tmp_record_id AS tmpRecordId
+    </sql>
+
+</mapper>

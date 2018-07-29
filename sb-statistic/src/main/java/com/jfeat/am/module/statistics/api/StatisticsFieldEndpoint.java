@@ -6,7 +6,7 @@ import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.module.statement.services.statistics.service.GeneralStatisticService;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.service.converter.StatisticConverter;
 import com.jfeat.am.module.statistics.services.service.converter.statistic.StatisticData;

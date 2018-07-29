@@ -2,7 +2,7 @@ package com.jfeat.am.module.statistics.services.service;
 
 
 import com.jfeat.am.common.crud.CRUDServiceOnly;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecordAttr;
 
 /**
  * Created by Silent-Y on 2017/8/31.

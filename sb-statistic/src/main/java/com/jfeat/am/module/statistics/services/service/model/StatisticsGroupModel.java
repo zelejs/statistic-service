@@ -1,7 +1,7 @@
 package com.jfeat.am.module.statistics.services.service.model;
 
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsGroup;
 
 import java.util.List;
 

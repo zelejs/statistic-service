@@ -1,7 +1,7 @@
 package com.jfeat.am.module.statistics.services.notify;
 
-import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
+import com.jfeat.am.module.statistics.services.service.persistence.dao.StatisticsRecordMapper;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecord;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

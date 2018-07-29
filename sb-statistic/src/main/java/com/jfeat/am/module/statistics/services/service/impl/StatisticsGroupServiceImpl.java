@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.jfeat.am.common.crud.error.CRUDCode;
 import com.jfeat.am.common.crud.error.CRUDException;
 import com.jfeat.am.common.crud.impl.CRUDServiceGroupImpl;
-import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsGroupMapper;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
+import com.jfeat.am.module.statistics.services.service.persistence.dao.StatisticsGroupMapper;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsGroup;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
 import org.springframework.stereotype.Service;
 
@@ -33,10 +33,10 @@ public class StatisticsGroupServiceImpl  extends CRUDServiceGroupImpl<Statistics
     }
 
     @Override
-    public StatisticsGroup getGroupByIdentifier(String identifier) {
+    public StatisticsGroup getGroupByName(String name) {
         List<StatisticsGroup> list = statisticsGroupMapper.selectList(
                 new EntityWrapper<StatisticsGroup>()
-                .eq("identifier", identifier));
+                .eq("name", name));
         if(list==null || list.size()==0){
             return null;
         }

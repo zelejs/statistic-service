@@ -2,8 +2,8 @@ package com.jfeat.am.module.statistics.services.service.impl;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.jfeat.am.common.crud.impl.CRUDServiceOnlyImpl;
-import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordAttrMapper;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
+import com.jfeat.am.module.statistics.services.service.persistence.dao.StatisticsRecordAttrMapper;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecordAttr;
 import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrService;
 import org.springframework.stereotype.Service;
 

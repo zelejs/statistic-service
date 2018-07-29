@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.statistics.services.domain.dao.QueryStatisticsFieldDao">
+    <sql id="Base_Column_List">
+        st_statistics_field.*
+    </sql>
+    <select id="findStatisticsFieldPage" resultType="StatisticsField" parameterType="StatisticsField">
+        SELECT st_statistics_field.*
+        FROM st_statistics_field
+        WHERE 1=1
+        <if test="statisticsField.id != null and statisticsField.id>0 ">
+            AND st_statistics_field.id LIKE CONCAT('%',#{statisticsField.id},'%')
+        </if>
+        <if test="statisticsField.name != null and statisticsField.name!= ''">
+            AND st_statistics_field.name LIKE CONCAT('%',#{statisticsField.name},'%')
+        </if>
+        <if test="statisticsField.field != null and statisticsField.field!= ''">
+            AND st_statistics_field.field LIKE CONCAT('%',#{statisticsField.field},'%')
+        </if>
+        <if test="statisticsField.index != null and statisticsField.index>0 ">
+            AND st_statistics_field.index LIKE CONCAT('%',#{statisticsField.index},'%')
+        </if>
+        <if test="statisticsField.invisible != null and statisticsField.invisible>0 ">
+            AND st_statistics_field.invisible LIKE CONCAT('%',#{statisticsField.invisible},'%')
+        </if>
+        <if test="statisticsField.groupId != null and statisticsField.groupId>0 ">
+            AND st_statistics_field.group_id LIKE CONCAT('%',#{statisticsField.groupId},'%')
+        </if>
+        <if test="statisticsField.chart != null and statisticsField.chart!= ''">
+            AND st_statistics_field.chart LIKE CONCAT('%',#{statisticsField.chart},'%')
+        </if>
+    </select>
+</mapper>

@@ -11,8 +11,8 @@ import com.jfeat.am.module.statistics.services.chart.service.StatisticsChartServ
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupByService;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
 import com.jfeat.am.module.statistics.services.service.model.StatisticsGroupModel;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsGroup;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,8 +49,8 @@ public class StatisticsFieldGroupEndpoint extends BaseController {
 
     @ApiOperation("获取指定分组标识的数据域组")
     @GetMapping("/{identifier}/data")
-    public Tip getStatisticFieldByGroup(@PathVariable String identifier) {
-        StatisticsGroup group = statisticsGroupService.getGroupByIdentifier(identifier);
+    public Tip getStatisticFieldByGroup(@PathVariable String groupName) {
+        StatisticsGroup group = statisticsGroupService.getGroupByName(groupName);
         if (group == null) {
             throw new BusinessException(BusinessCode.BadRequest);
         }
@@ -64,8 +64,8 @@ public class StatisticsFieldGroupEndpoint extends BaseController {
 
     @ApiOperation("获取指定分组标识的数据域组 [pie]")
     @GetMapping("/{identifier}/chart/pie")
-    public Tip getStatisticChartPieByGroup(@PathVariable String identifier) {
-        StatisticsGroup group = statisticsGroupService.getGroupByIdentifier(identifier);
+    public Tip getStatisticChartPieByGroup(@PathVariable String groupName) {
+        StatisticsGroup group = statisticsGroupService.getGroupByName(groupName);
         if (group == null) {
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Invalid group identifier");
         }
@@ -92,8 +92,8 @@ public class StatisticsFieldGroupEndpoint extends BaseController {
 
     @ApiOperation("获取指定分组标识的数据域组 [bar]")
     @GetMapping("/{identifier}/chart/bar")
-    public Tip getStatisticChartBarByGroup(@PathVariable String identifier) {
-        StatisticsGroup group = statisticsGroupService.getGroupByIdentifier(identifier);
+    public Tip getStatisticChartBarByGroup(@PathVariable String groupName) {
+        StatisticsGroup group = statisticsGroupService.getGroupByName(groupName);
         if (group == null) {
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Invalid group identifier");
         }
@@ -120,8 +120,8 @@ public class StatisticsFieldGroupEndpoint extends BaseController {
 
     @ApiOperation("获取指定分组标识的数据域组 [line]")
     @GetMapping("/{identifier}/chart/line")
-    public Tip getStatisticChartLineByGroup(@PathVariable String identifier) {
-        StatisticsGroup group = statisticsGroupService.getGroupByIdentifier(identifier);
+    public Tip getStatisticChartLineByGroup(@PathVariable String groupName) {
+        StatisticsGroup group = statisticsGroupService.getGroupByName(groupName);
         if (group == null) {
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "Invalid group identifier");
         }

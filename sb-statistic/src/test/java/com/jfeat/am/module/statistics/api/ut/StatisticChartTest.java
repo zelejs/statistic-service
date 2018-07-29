@@ -5,15 +5,14 @@ package com.jfeat.am.module.statistics.api.ut;
  */
 
 import com.jfeat.am.base.BaseJunit;
-import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
 import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrService;
-import com.jfeat.am.module.statistics.services.chart.model.Charts;
+import com.jfeat.am.module.statistics.services.service.persistence.dao.StatisticsRecordMapper;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsGroup;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecord;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecordAttr;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +50,7 @@ public class StatisticChartTest extends BaseJunit {
         // define group
         statisticsGroup.setId(1l);
         statisticsGroup.setName("group1");
-        statisticsGroup.setChart(Charts.pie.toString());
-        statisticsGroup.setDescription("test");
-        statisticsGroup.setIdentifier("rates");
+        statisticsGroup.setNote("test");
         groupService.createGroup(statisticsGroup);
 
         /// set field
@@ -61,9 +58,9 @@ public class StatisticChartTest extends BaseJunit {
         statisticsField.setId(1l);
         statisticsField.setName("Done");
         statisticsField.setField("done_rate");
-        statisticsField.setInvisible(0);
-        statisticsField.setPercent(1);
-        statisticsField.setIndex(1);
+        statisticsField.setAttrInvisible(0);
+        statisticsField.setAttrPercent(1);
+        statisticsField.setAttrIndex(1);
         statisticsField.setChart("Pie");
         fieldService.createMaster(statisticsField);
 

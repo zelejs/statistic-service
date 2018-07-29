@@ -1,12 +1,11 @@
 package com.jfeat.am.module.statistics.services.service.model;
 
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecord;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecordAttr;
 
 /**
  * Created by Code Generator on 2017-11-25
  */
-@Deprecated
 public class StatisticsRecordModel extends StatisticsRecord{
     private StatisticsRecordAttr attr;
 

@@ -2,10 +2,10 @@ package com.jfeat.am.module.statistics.services.service.impl;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.jfeat.am.common.crud.impl.CRUDServiceGroupByImpl;
-import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsFieldMapper;
-import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsGroupMapper;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
+import com.jfeat.am.module.statistics.services.service.persistence.dao.StatisticsFieldMapper;
+import com.jfeat.am.module.statistics.services.service.persistence.dao.StatisticsGroupMapper;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsGroup;
 import com.jfeat.am.module.statistics.services.service.StatisticsGroupByService;
 import org.springframework.stereotype.Service;
 

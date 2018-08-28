@@ -25,7 +25,7 @@ CREATE TABLE `st_statistics_field` (
   `group_id` bigint(20) DEFAULT NULL COMMENT '所属分组ID',
   `group_name` varchar(50) NOT NULL COMMENT '所属分组',
   `name` varchar(50) NOT NULL COMMENT '指标名称',
-  `pattern` varchar(26) NOT NULL COMMENT '统计数据类型[Total,Rate,Tuple,Cluster]',
+  `pattern` varchar(26) NOT NULL COMMENT '统计数据类型[Count,Rate,Tuple,Cluster]',
   `chart` varchar(26) NOT NULL COMMENT '图表名称[Pie,Chain]环比',
   `attr_invisible` smallint DEFAULT 0 COMMENT '[属性]是否不可见',
   `attr_index` smallint DEFAULT 0 COMMENT '[属性]排序号',

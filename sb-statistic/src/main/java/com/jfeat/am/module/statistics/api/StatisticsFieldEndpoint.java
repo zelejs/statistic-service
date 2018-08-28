@@ -5,12 +5,11 @@ import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
-import com.jfeat.am.module.statement.services.statistics.service.GeneralStatisticService;
-import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsField;
-import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
-import com.jfeat.am.module.statistics.services.service.converter.StatisticConverter;
-import com.jfeat.am.module.statistics.services.service.converter.statistic.StatisticData;
-import com.jfeat.am.module.statistics.services.service.model.StatisticsFieldModel;
+import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
+import com.jfeat.am.module.statistics.services.crud.converter.StatisticConverter;
+import com.jfeat.am.module.statistics.services.crud.converter.statistic.StatisticData;
+import com.jfeat.am.module.statistics.services.crud.model.StatisticsFieldModel;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -30,8 +29,8 @@ public class StatisticsFieldEndpoint extends BaseController {
     @Resource
     StatisticsFieldService statisticsFieldService;
 
-    @Resource
-    GeneralStatisticService generalStatisticService;
+    //@Resource
+    //GeneralStatisticService generalStatisticService;
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "[total,rate,tuple,totalTimeline,rateTimeline,tupleTimeline]", paramType = "query", dataType = "string")

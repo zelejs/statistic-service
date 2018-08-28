@@ -1,6 +1,6 @@
 package com.jfeat.am.module.statistics.services.domain.dao;
 
-import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsGroup;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.mapper.BaseMapper;

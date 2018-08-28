@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by vincent on 2018/5/8.
+ * author: Created by vincent on 2018/5/8.
+ * when:
+ * modified:
  */
 @Service
 public class GeneralStatisticServiceImpl implements GeneralStatisticService {

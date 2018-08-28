@@ -1,12 +1,11 @@
 package com.jfeat.am.module.statistics.api;
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.module.statistics.services.domain.dao.QueryStatisticsGroupDao;
-import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsGroup;
-import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
+import com.jfeat.am.module.statistics.services.crud.StatisticsGroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

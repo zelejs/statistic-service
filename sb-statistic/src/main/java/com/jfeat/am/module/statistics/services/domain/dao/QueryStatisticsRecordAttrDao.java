@@ -1,6 +1,6 @@
 package com.jfeat.am.module.statistics.services.domain.dao;
 
-import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecordAttr;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.mapper.BaseMapper;

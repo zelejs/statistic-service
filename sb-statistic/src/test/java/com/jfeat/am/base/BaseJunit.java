@@ -1,9 +1,7 @@
 package com.jfeat.am.base;
 
-import com.jfeat.am.AmApplication;
-import com.jfeat.am.core.support.DateTimeKit;
+import com.jfeat.AmApplication;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,11 +40,5 @@ public class BaseJunit {
     @Before
     public void setupMockMvc(){
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
-
-    @Test
-    public void test(){
-        String endTimeNew = DateTimeKit.formatDateTime(new Date());
-        System.out.println("==================================================================================================="+endTimeNew);
     }
 }

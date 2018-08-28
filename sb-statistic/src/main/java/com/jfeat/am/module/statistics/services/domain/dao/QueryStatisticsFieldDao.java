@@ -2,7 +2,7 @@ package com.jfeat.am.module.statistics.services.domain.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

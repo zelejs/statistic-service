@@ -1,7 +1,7 @@
 package com.jfeat.am.module.statistics.services.domain;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecord;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 
 import java.util.List;
 import java.util.Map;

@@ -5,14 +5,14 @@ package com.jfeat.am.module.statistics.api.ut;
  */
 
 import com.jfeat.am.base.BaseJunit;
-import com.jfeat.am.module.statistics.services.service.StatisticsFieldService;
-import com.jfeat.am.module.statistics.services.service.StatisticsGroupService;
-import com.jfeat.am.module.statistics.services.service.StatisticsRecordAttrService;
-import com.jfeat.am.module.statistics.services.service.persistence.dao.StatisticsRecordMapper;
-import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsField;
-import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsGroup;
-import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecord;
-import com.jfeat.am.module.statistics.services.service.persistence.model.StatisticsRecordAttr;
+import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
+import com.jfeat.am.module.statistics.services.crud.StatisticsGroupService;
+import com.jfeat.am.module.statistics.services.crud.StatisticsRecordAttrService;
+import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +55,8 @@ public class StatisticChartTest extends BaseJunit {
 
         /// set field
         statisticsField.setGroupId(1l);
+        statisticsField.setGroupName("Dashboard");
+        statisticsField.setPattern("Count");
         statisticsField.setId(1l);
         statisticsField.setName("Done");
         statisticsField.setField("done_rate");
@@ -68,10 +70,9 @@ public class StatisticChartTest extends BaseJunit {
         statisticsRecord.setId(1l);
         statisticsRecord.setRecordName("rate");
         statisticsRecord.setRecordValue("0.75");
-        statisticsRecord.setFieldId(1l);
         statisticsRecord.setField("done_rate");
         statisticsRecord.setTimeline("M");
-        statisticsRecord.setRecordTime(new Date());
+        statisticsRecord.setCreateTime(new Date());
         recordMapper.insert(statisticsRecord);
 
         // attr

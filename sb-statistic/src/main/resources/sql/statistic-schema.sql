@@ -5,7 +5,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `st_statistics_group`;
 CREATE TABLE `st_statistics_group` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) AUTO_INCREMENT,
   `pid` bigint(20) DEFAULT NULL COMMENT '上级分组',
   `name` varchar(50) NOT NULL COMMENT '组名[唯一标记]',
   `title` varchar(26) DEFAULT NULL COMMENT '组标题',
@@ -20,13 +20,13 @@ CREATE TABLE `st_statistics_group` (
 -- ----------------------------
 DROP TABLE IF EXISTS `st_statistics_field`;
 CREATE TABLE `st_statistics_field` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) AUTO_INCREMENT,
   `field` varchar(80) NOT NULL COMMENT '数据域唯一标识符',
   `group_id` bigint(20) DEFAULT NULL COMMENT '所属分组ID',
   `group_name` varchar(50) NOT NULL COMMENT '所属分组',
   `name` varchar(50) NOT NULL COMMENT '指标名称',
   `pattern` varchar(26) NOT NULL COMMENT '统计数据类型[Count,Rate,Tuple,Cluster]',
-  `chart` varchar(26) NOT NULL COMMENT '图表名称[Pie,Chain]环比',
+  `chart` varchar(26) NOT NULL COMMENT '图表名称[Num,Pie,Chain]环比',
   `attr_invisible` smallint DEFAULT 0 COMMENT '[属性]是否不可见',
   `attr_index` smallint DEFAULT 0 COMMENT '[属性]排序号',
   `attr_percent` smallint DEFAULT 0 COMMENT '[属性]是否显示为百分比',
@@ -46,7 +46,7 @@ CREATE TABLE `st_statistics_field` (
 -- ----------------------------
 DROP TABLE IF EXISTS `st_statistics_record`;
 CREATE TABLE `st_statistics_record` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) AUTO_INCREMENT,
   `field` varchar(80) NOT NULL COMMENT '数据域标识符',
   `record_name` varchar(50) NOT NULL COMMENT '记录名称',
   `record_value` varchar(50) NOT NULL COMMENT '记录值',
@@ -64,7 +64,7 @@ CREATE TABLE `st_statistics_record` (
 -- ----------------------------
 DROP TABLE IF EXISTS `st_statistics_meta`;
 CREATE TABLE `st_statistics_meta` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) AUTO_INCREMENT,
   `field` varchar(80) NOT NULL COMMENT '数据指标唯一标识符',
   `record_name` varchar(50) NOT NULL COMMENT '记录名称',
   `record_tuple` varchar(50) DEFAULT NULL COMMENT '记录名称',

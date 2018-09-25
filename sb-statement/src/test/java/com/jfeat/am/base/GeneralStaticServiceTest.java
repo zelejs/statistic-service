@@ -1,6 +1,6 @@
 package com.jfeat.am.base;
 
-import com.jfeat.am.AmApplication;
+import com.jfeat.AmApplication;
 import com.jfeat.am.module.statement.services.statistics.*;
 import com.jfeat.am.module.statement.services.statistics.route.StatisticRouteData;
 import com.jfeat.am.module.statement.services.statistics.service.GeneralStatisticService;

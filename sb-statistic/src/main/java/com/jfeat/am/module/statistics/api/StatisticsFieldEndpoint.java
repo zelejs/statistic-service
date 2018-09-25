@@ -23,7 +23,7 @@ import javax.annotation.Resource;
  */
 @Api("统计 [Statistics]")
 @RestController
-@RequestMapping("/api/statistics/fields")
+@RequestMapping("/api/stat/fields")
 public class StatisticsFieldEndpoint extends BaseController {
 
     @Resource
@@ -32,11 +32,18 @@ public class StatisticsFieldEndpoint extends BaseController {
     //@Resource
     //GeneralStatisticService generalStatisticService;
 
+    @ApiOperation("获取指定数据域数据")
+    @GetMapping("/{field}")
+    public Tip getStatisticFieldRaw(@PathVariable String field) {
+        StatisticsField statisticsField = statisticsFieldService.getStatisticsFieldModel(field);
+        return SuccessTip.create(statisticsField);
+    }
+
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "[total,rate,tuple,totalTimeline,rateTimeline,tupleTimeline]", paramType = "query", dataType = "string")
     })
     @ApiOperation("获取指定数据域数据")
-    @GetMapping("/{field}")
+    @GetMapping("/{field}/statistic")
     public Tip getStatisticField(@PathVariable String field,
                                  @RequestParam(name = "type", required = false, defaultValue = "1") String type) {
         if(!StatisticData.checkStatisticType(type)){

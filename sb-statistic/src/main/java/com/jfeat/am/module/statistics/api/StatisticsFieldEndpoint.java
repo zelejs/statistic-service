@@ -46,8 +46,8 @@ public class StatisticsFieldEndpoint extends BaseController {
     @GetMapping("/{field}/statistic")
     public Tip getStatisticField(@PathVariable String field,
                                  @RequestParam(name = "type", required = false, defaultValue = "1") String type) {
-        if(!StatisticData.checkStatisticType(type)){
-            throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据类型错误:" + type);
+        if(type!=null && !StatisticData.checkStatisticType(type)){
+            throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据类型错误: select one in [total,rate,tuple,totalTimeline,rateTimeline,tupleTimeline] :" + type);
         }
 
         StatisticsField statisticsField = statisticsFieldService.getStatisticsFieldModel(field);

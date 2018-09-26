@@ -53,9 +53,10 @@ CREATE TABLE `st_statistics_record` (
   `record_tuple` varchar(30) DEFAULT NULL COMMENT '记录值所属行名称',
   `record_cluster` varchar(30) DEFAULT NULL COMMENT '记录值所属分类名称',
   `timeline` varchar(8) DEFAULT NULL COMMENT '统计时段说明[T,D,W,M,Y,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,TF]',
+  `identifier` varchar(80) DEFAULT NULL COMMENT '归属标识',
   `create_time` datetime NOT NULL DEFAULT current_timestamp COMMENT '记录创建时间',
   `tmp_field_id` bigint(20) DEFAULT NULL COMMENT '临时标记数据域ID',
-  UNIQUE(`field`,`record_name`,`record_tuple`,`record_cluster`,`timeline`),
+  UNIQUE(`field`,`record_name`,`record_tuple`,`record_cluster`,`timeline`,`identifier`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -10,7 +10,7 @@
         <module>sb-statistic</module>
         <module>sb-statement</module>
     </modules>
-    <distributionManagement>
+<!--    <distributionManagement>
         <repository>
             <id>archiva-internal</id>
             <name>Internal Repository</name>
@@ -25,5 +25,5 @@
             <url>http://114.215.187.140:8081/repository/internal</url>
         </repository>
     </repositories>
-
+-->
 </project>

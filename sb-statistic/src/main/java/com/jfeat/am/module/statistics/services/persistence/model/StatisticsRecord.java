@@ -2,7 +2,9 @@ package com.jfeat.am.module.statistics.services.persistence.model;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -14,13 +16,14 @@ import java.io.Serializable;
  * </p>
  *
  * @author Code Generator
- * @since 2018-08-28
+ * @since 2018-09-26
  */
 @TableName("st_statistics_record")
 public class StatisticsRecord extends Model<StatisticsRecord> {
 
     private static final long serialVersionUID = 1L;
 
+	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
     /**
      * 数据域标识符
@@ -50,6 +53,10 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
      * 统计时段说明[T,D,W,M,Y,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,TF]
      */
 	private String timeline;
+    /**
+     * 归属标识
+     */
+	private String identifier;
     /**
      * 记录创建时间
      */
@@ -125,6 +132,15 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 		return this;
 	}
 
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public StatisticsRecord setIdentifier(String identifier) {
+		this.identifier = identifier;
+		return this;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -157,6 +173,8 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	public static final String TIMELINE = "timeline";
 
+	public static final String IDENTIFIER = "identifier";
+
 	public static final String CREATE_TIME = "create_time";
 
 	public static final String TMP_FIELD_ID = "tmp_field_id";
@@ -176,6 +194,7 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 			", recordTuple=" + recordTuple +
 			", recordCluster=" + recordCluster +
 			", timeline=" + timeline +
+			", identifier=" + identifier +
 			", createTime=" + createTime +
 			", tmpFieldId=" + tmpFieldId +
 			"}";

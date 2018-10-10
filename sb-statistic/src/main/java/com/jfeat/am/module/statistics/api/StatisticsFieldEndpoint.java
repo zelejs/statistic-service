@@ -35,7 +35,7 @@ public class StatisticsFieldEndpoint extends BaseController {
     @ApiOperation("获取指定数据域数据")
     @GetMapping("/{field}")
     public Tip getStatisticFieldRaw(@PathVariable String field) {
-        StatisticsField statisticsField = statisticsFieldService.getStatisticsFieldModel(field);
+        StatisticsField statisticsField = statisticsFieldService.getStatisticsFieldModel(field, null);
         return SuccessTip.create(statisticsField);
     }
 
@@ -50,7 +50,7 @@ public class StatisticsFieldEndpoint extends BaseController {
             throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据类型错误: select one in [total,rate,tuple,totalTimeline,rateTimeline,tupleTimeline] :" + type);
         }
 
-        StatisticsField statisticsField = statisticsFieldService.getStatisticsFieldModel(field);
+        StatisticsField statisticsField = statisticsFieldService.getStatisticsFieldModel(field, null);
 
         Object statistic = null;
 

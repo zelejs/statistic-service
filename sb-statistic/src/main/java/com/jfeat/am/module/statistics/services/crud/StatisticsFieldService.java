@@ -25,6 +25,6 @@ public interface StatisticsFieldService extends CRUDServiceOnly<StatisticsField>
      * @param field
      * @return StatisticsField 域数据列表
      */
-    StatisticsField getStatisticsFieldModel(String field);
+    StatisticsField getStatisticsFieldModel(String field, String identifier);
 }
 

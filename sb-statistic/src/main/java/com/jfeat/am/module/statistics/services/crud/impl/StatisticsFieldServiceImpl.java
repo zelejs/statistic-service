@@ -1,6 +1,7 @@
 package com.jfeat.am.module.statistics.services.crud.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.jfeat.am.common.crud.CRUD;
 import com.jfeat.am.common.crud.CRUDFilter;
 import com.jfeat.am.common.exception.BusinessCode;
@@ -43,7 +44,7 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
     }
 
     @Override
-    public StatisticsField getStatisticsFieldModel(String field) {
+    public StatisticsField getStatisticsFieldModel(String field, String identifier) {
         StatisticsField statisticsField = getStatisticFieldByName(field);
         if (statisticsField == null) {
             throw new BusinessException(BusinessCode.BadRequest);
@@ -56,7 +57,11 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
 
         StatisticsFieldModel model = CRUD.castObject(statisticsField, StatisticsFieldModel.class);
 
-        List<StatisticsRecord> items = statisticsRecordMapper.selectList(new EntityWrapper<StatisticsRecord>().eq("field", field));
+        Wrapper<StatisticsRecord> wrapper = new EntityWrapper<StatisticsRecord>().eq("field", field);
+        if(identifier != null && !"".equals(identifier)) {
+            wrapper.eq("identifier", identifier);
+        }
+        List<StatisticsRecord> items = statisticsRecordMapper.selectList(wrapper);
         model.setItems(items);
 
         /// update record name by record attr

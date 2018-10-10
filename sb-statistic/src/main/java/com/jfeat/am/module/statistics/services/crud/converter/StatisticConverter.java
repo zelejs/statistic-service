@@ -16,7 +16,11 @@ public class StatisticConverter {
     public static StatisticDataTotal convertStatisticTotal(StatisticsFieldModel model){
         StatisticDataTotal total = new StatisticDataTotal();
         total.setName(model.getName());
-        total.setValue(model.getItems().get(0).getRecordValue());
+        String itemValue = null;
+        if(model.getItems() != null && !model.getItems().isEmpty()) {
+            itemValue = model.getItems().get(0).getRecordValue();
+        }
+        total.setValue(itemValue);
         return total;
     }
 

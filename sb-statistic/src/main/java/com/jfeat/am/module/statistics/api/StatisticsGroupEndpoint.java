@@ -48,7 +48,8 @@ public class StatisticsGroupEndpoint extends BaseController {
 
     @ApiOperation("获取指定分组的统计域")
     @GetMapping("/{group}")
-    public Tip getStatisticFieldByGroup(@PathVariable String group) {
+    public Tip getStatisticFieldByGroup(@PathVariable String group,
+                                        @RequestParam("identifier") String identifier) {
         StatisticsGroup statisticsGroup = statisticsGroupService.getGroupByName(group);
         if (statisticsGroup == null) {
             throw new BusinessException(BusinessCode.BadRequest);
@@ -63,7 +64,7 @@ public class StatisticsGroupEndpoint extends BaseController {
 
         for(StatisticsField field : fields) {
             String fieldName = field.getField();
-            StatisticsFieldModel statisticsField = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName);
+            StatisticsFieldModel statisticsField = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName, identifier);
 
             modelFields.add(statisticsField);
         }
@@ -76,7 +77,8 @@ public class StatisticsGroupEndpoint extends BaseController {
     @ApiOperation("获取指定分组的统计数据")
     @GetMapping("/{group}/statistic")
     public Tip getStatisticFieldStatisticByGroup(@PathVariable String group,
-                                                 @RequestParam(name = "type", required = true, defaultValue = "total") String type) {
+                                                 @RequestParam(name = "type", required = true, defaultValue = "total") String type,
+                                                 @RequestParam(name = "identifier", required = false) String identifier) {
         StatisticsGroup statisticsGroup = statisticsGroupService.getGroupByName(group);
         if (statisticsGroup == null) {
             throw new BusinessException(BusinessCode.BadRequest);
@@ -95,7 +97,7 @@ public class StatisticsGroupEndpoint extends BaseController {
 
         for(StatisticsField field : fields) {
             String fieldName = field.getField();
-            StatisticsFieldModel statisticsField = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName);
+            StatisticsFieldModel statisticsField = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName, identifier);
 
             StatisticData statisticData = convertStatisticFieldModel(statisticsField, type);
             dataFields.add(statisticData);

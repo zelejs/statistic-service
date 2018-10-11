@@ -8,21 +8,21 @@ import java.util.Map;
  */
 public class StatisticDataCountCluster extends StatisticData {
     private String name;
-    private Map<String, StatisticDataCount> cluster;
+    private Map<String, StatisticDataNameValue> cluster;
 
-    public Map<String, StatisticDataCount> getTimeline() {
+    public Map<String, StatisticDataNameValue> getCluster() {
         return cluster;
     }
 
-    public void setTimeline(Map<String, StatisticDataCount> timeline) {
-        this.cluster = timeline;
+    public void setTimeline(Map<String, StatisticDataNameValue> cluster) {
+        this.cluster = cluster;
     }
 
-    public StatisticDataCountCluster addTotal(String timeline, String name, String value){
+    public StatisticDataCountCluster addCount(String id, String cluster, String name, String value){
         if(this.cluster == null){
             this.cluster = new HashMap<>();
         }
-        this.cluster.put(timeline, new StatisticDataCount(name,value));
+        this.cluster.put(cluster, new StatisticDataNameValue(id, name, value));
 
         return this;
     }

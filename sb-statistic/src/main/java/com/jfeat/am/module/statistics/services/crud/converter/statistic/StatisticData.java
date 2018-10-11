@@ -76,6 +76,7 @@ public class StatisticData {
     private String field;
     private String pattern;
     private String chart;
+    private String identifier;
 
     public String getPattern() {
         return pattern;
@@ -99,5 +100,13 @@ public class StatisticData {
 
     public void setField(String field) {
         this.field = field;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 }

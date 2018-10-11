@@ -8,13 +8,13 @@ import com.jfeat.am.module.statistics.services.chart.model.BarChartData;
 import com.jfeat.am.module.statistics.services.chart.model.LineChartData;
 import com.jfeat.am.module.statistics.services.chart.model.PieChartData;
 import com.jfeat.am.module.statistics.services.chart.service.StatisticsChartService;
-import com.jfeat.am.module.statistics.services.crud.converter.statistic.StatisticDataCount;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.crud.converter.StatisticConverter;
+import com.jfeat.am.module.statistics.services.crud.converter.statistic.StatisticDataNameValue;
 import com.jfeat.am.module.statistics.services.crud.converter.statistic.StatisticDataRate;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsFieldModel;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -61,7 +61,7 @@ public class StatisticsChartServiceImpl implements StatisticsChartService {
 
         /// convert data
         List<PieChartData.KeyValue> data = pieChartBean.getData();
-        for (StatisticDataCount rate : statisticDataRate.getRates()) {
+        for (StatisticDataNameValue rate : statisticDataRate.getRates()) {
 
             PieChartData.KeyValue keyValue = new PieChartData.KeyValue();
             keyValue.setName(rate.getName());

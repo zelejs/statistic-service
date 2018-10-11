@@ -27,11 +27,15 @@ public class StatisticConverter {
         counter.setChart(model.getChart());
 
         counter.setName(model.getName());
+
         String itemValue = null;
         if(model.getItems() != null && !model.getItems().isEmpty()) {
-            itemValue = model.getItems().get(0).getRecordValue();
+            StatisticsRecord record = model.getItems().get(0);
+            itemValue = record.getRecordValue();
+            counter.setIdentifier(record.getIdentifier());
         }
         counter.setValue(itemValue);
+
         return counter;
     }
     public static StatisticDataCountTimeline convertStatisticCountTimeline(StatisticsFieldModel model){
@@ -40,10 +44,13 @@ public class StatisticConverter {
         timeline.setTimeline(new HashMap<>());
 
         /// add rate
-        java.util.Map<String,StatisticDataCount> timelineMap = new HashMap<>();
+        java.util.Map<String,StatisticDataNameValue> timelineMap = new HashMap<>();
         for (StatisticsRecord record : model.getItems()){
+            if(timeline.getIdentifier()==null){
+                timeline.setIdentifier(record.getIdentifier());
+            }
             String timelineName = record.getTimeline();
-            timelineMap.put(timelineName, new StatisticDataCount(timelineName, record.getRecordValue()));
+            timelineMap.put(timelineName, new StatisticDataNameValue(record.getIdentifier(), timelineName, record.getRecordValue()));
         }
 
         return timeline;
@@ -65,12 +72,18 @@ public class StatisticConverter {
     public static StatisticDataRate convertStatisticRate(StatisticsFieldModel model){
         StatisticDataRate rate = new StatisticDataRate();
         rate.setName(model.getName());
-        List<StatisticDataCount> rates = new ArrayList<>();
+
+        List<StatisticDataNameValue> rates = new ArrayList<>();
         rate.setRates(rates);
 
         /// add rate
-        for (StatisticsRecord record : model.getItems()){
-            rates.add(new StatisticDataCount(record.getRecordName(), record.getRecordValue()));
+        if(model.getItems()!=null && model.getItems().size()>0) {
+            for (StatisticsRecord record : model.getItems()) {
+                if(rate.getIdentifier()==null){
+                    rate.setIdentifier(record.getIdentifier());
+                }
+                rates.add(new StatisticDataNameValue(record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
+            }
         }
 
         return rate;
@@ -83,13 +96,18 @@ public class StatisticConverter {
         /// add rate
         java.util.Map<String,StatisticDataRate> timelineMap = new HashMap<>();
         for (StatisticsRecord record : model.getItems()){
+            if(timeline.getIdentifier()==null){
+                timeline.setIdentifier(record.getIdentifier());
+            }
+
             String timelineName = record.getTimeline();
             if(!timelineMap.containsKey(timelineName)){
                 timelineMap.put(timelineName, new StatisticDataRate(timelineName, new ArrayList<>()));
             }
 
             StatisticDataRate currentTimelineRate = timelineMap.get(timelineName);
-            currentTimelineRate.getRates().add(new StatisticDataCount(record.getRecordName(), record.getRecordValue()));
+            currentTimelineRate.getRates().add(new StatisticDataNameValue(
+                    record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
         }
 
         return timeline;
@@ -114,16 +132,20 @@ public class StatisticConverter {
         List<StatisticDataTuple.Tuple> tuples = new ArrayList<>();
         tuple.setTuples(tuples);
 
-        /// add rate
+        /// add tuple
         java.util.Map<String,StatisticDataTuple.Tuple> tupleMap = new HashMap<>();
         for (StatisticsRecord record : model.getItems()){
+            if(tuple.getIdentifier()==null){
+                tuple.setIdentifier(tuple.getIdentifier());
+            }
+
             String tupleName = record.getRecordTuple();
             if(!tupleMap.containsKey(tupleName)){
                 tupleMap.put(tupleName, new StatisticDataTuple.Tuple(tupleName, new ArrayList<>()));
             }
 
             StatisticDataTuple.Tuple tuple1 = tupleMap.get(tupleName);
-            tuple1.getRates().add(new StatisticDataCount(record.getRecordName(), record.getRecordValue()));
+            tuple1.getRates().add(new StatisticDataNameValue(record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
         }
 
         /// convert tupleMap to tuple

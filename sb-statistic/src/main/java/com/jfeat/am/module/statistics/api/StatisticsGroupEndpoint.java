@@ -87,35 +87,44 @@ public class StatisticsGroupEndpoint extends BaseController {
         //if(type!=null && !StatisticData.checkStatisticType(type)){
         //    throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据类型错误: select one in [total,rate,tuple,totalTimeline,rateTimeline,tupleTimeline] :" + type);
         //}
+        StatisticsGroupData groupData = handleGroupStatistic(statisticsGroup, identifier);
+
+        /// handle sub groups
         List<StatisticsGroup> subgroups = statisticsGroupService.getGroupChildren(statisticsGroup.getId());
-        if(subgroups==null || subgroups.size()==0){
-            //TODO, handle sub groups
+        if(subgroups.size()>0){
+            for (StatisticsGroup g : subgroups){
+                StatisticsGroupData gdata = handleGroupStatistic(g, identifier);
+                groupData.addGroup(gdata);
+            }
         }
 
+        return SuccessTip.create(groupData);
+    }
+
+    private StatisticsGroupData handleGroupStatistic(StatisticsGroup statisticsGroup, String identifier){
         StatisticsGroupData groupModel = CRUD.castObject(statisticsGroup, StatisticsGroupData.class);
 
         //每个域的数据
         List<StatisticsField> fields = statisticsGroupByService.getGroupItems(statisticsGroup.getId());
+        if(fields.size()>0) {
+            // result
+            List<StatisticData> dataFields = new ArrayList<>();
 
-        // result
-        List<StatisticData> dataFields = new ArrayList<>();
+            for (StatisticsField field : fields) {
+                if (!StatisticData.checkStatisticPattern(field.getPattern())) {
+                    throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据模式错误: Select One in [Count,Rate,Tuple or combine with [Timeline,Cluster]] :" + field.getPattern());
+                }
 
-        for(StatisticsField field : fields) {
-            if(!StatisticData.checkStatisticPattern(field.getPattern())){
-                throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据模式错误: Select One in [Count,Rate,Tuple or combine with [Timeline,Cluster]] :" + field.getPattern());
+                String fieldName = field.getField();
+                StatisticsFieldModel statisticsField = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName, identifier);
+
+                String pattern = field.getPattern();
+                StatisticData statisticData = convertStatisticFieldModel(statisticsField, pattern);
+                dataFields.add(statisticData);
             }
-
-            String fieldName = field.getField();
-            StatisticsFieldModel statisticsField = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName, identifier);
-
-            String pattern = field.getPattern();
-            StatisticData statisticData = convertStatisticFieldModel(statisticsField, pattern);
-            dataFields.add(statisticData);
+            groupModel.setFields(dataFields);
         }
-
-        groupModel.setFields(dataFields);
-
-        return SuccessTip.create(groupModel);
+        return groupModel;
     }
 
     private StatisticData convertStatisticFieldModel(StatisticsFieldModel fieldModel, String pattern) {
@@ -126,41 +135,41 @@ public class StatisticsGroupEndpoint extends BaseController {
         if (StatisticData.STAT_PATTERN_COUNT.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticCount(fieldModel);
         }
-        if (StatisticData.STAT_PATTERN_COUNT_TIMELINE.equals(pattern)) {
+        else if (StatisticData.STAT_PATTERN_COUNT_TIMELINE.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticCountTimeline(fieldModel);
         }
-        if (StatisticData.STAT_PATTERN_COUNT_CLUSTER.equals(pattern)) {
+        else if (StatisticData.STAT_PATTERN_COUNT_CLUSTER.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticCountCluster(fieldModel);
         }
-        if (StatisticData.STAT_PATTERN_COUNT_TIMELINE_CLUSTER.equals(pattern)) {
+        else if (StatisticData.STAT_PATTERN_COUNT_TIMELINE_CLUSTER.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticCountTimelineCluster(fieldModel);
         }
 
         /// Rate pattern
-        if (StatisticData.STAT_PATTERN_RATE.equals(pattern)) {
+        else if (StatisticData.STAT_PATTERN_RATE.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticRate(fieldModel);
         }
-        if (StatisticData.STAT_PATTERN_RATE_TIMELINE.equals(pattern)) {
+        else if (StatisticData.STAT_PATTERN_RATE_TIMELINE.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticRateTimeline(fieldModel);
         }
-        if (StatisticData.STAT_PATTERN_RATE_CLUSTER.equals(pattern)) {
+        else if (StatisticData.STAT_PATTERN_RATE_CLUSTER.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticRateCluster(fieldModel);
         }
-        if (StatisticData.STAT_PATTERN_RATE_TIMELINE_CLUSTER.equals(pattern)) {
+        else if (StatisticData.STAT_PATTERN_RATE_TIMELINE_CLUSTER.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticRateTimelineCluster(fieldModel);
         }
 
         /// Tuple pattern
-        if (StatisticData.STAT_PATTERN_TUPLE.equals(pattern)) {
+        else if (StatisticData.STAT_PATTERN_TUPLE.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticTuple(fieldModel);
         }
-        if (StatisticData.STAT_PATTERN_TUPLE_TIMELINE.equals(pattern)) {
+        else if (StatisticData.STAT_PATTERN_TUPLE_TIMELINE.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticTupleTimeline(fieldModel);
         }
-        if (StatisticData.STAT_PATTERN_TUPLE_CLUSTER.equals(pattern)) {
+        else if (StatisticData.STAT_PATTERN_TUPLE_CLUSTER.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticTupleCluster(fieldModel);
         }
-        if (StatisticData.STAT_PATTERN_TUPLE_TIMELINE_CLUSTER.equals(pattern)) {
+        else if (StatisticData.STAT_PATTERN_TUPLE_TIMELINE_CLUSTER.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticTupleTimelineCluster(fieldModel);
         }
 

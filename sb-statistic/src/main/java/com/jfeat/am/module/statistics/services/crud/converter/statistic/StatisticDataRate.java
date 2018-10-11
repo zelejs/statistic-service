@@ -9,20 +9,20 @@ public class StatisticDataRate extends StatisticData{
 
     private String name;
 
-    private List<StatisticDataCount> rates;
+    private List<StatisticDataNameValue> rates;
 
     public StatisticDataRate(){}
 
-    public StatisticDataRate(String name, List<StatisticDataCount> rates){
+    public StatisticDataRate(String name, List<StatisticDataNameValue> rates){
         this.name = name;
         this.rates = rates;
     }
 
-    public List<StatisticDataCount> getRates() {
+    public List<StatisticDataNameValue> getRates() {
         return rates;
     }
 
-    public void setRates(List<StatisticDataCount> rates) {
+    public void setRates(List<StatisticDataNameValue> rates) {
         this.rates = rates;
     }
 

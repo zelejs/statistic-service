@@ -31,11 +31,11 @@ public class StatisticDataTuple extends StatisticData {
      */
     public static class Tuple{
         private String name;
-        private List<StatisticDataRate.Rate> rates;
+        private List<StatisticDataCount> rates;
 
         public Tuple(){}
 
-        public Tuple(String name, List<StatisticDataRate.Rate> rates){
+        public Tuple(String name, List<StatisticDataCount> rates){
             this.name = name;
             this.rates = rates;
         }
@@ -48,11 +48,11 @@ public class StatisticDataTuple extends StatisticData {
             this.name = name;
         }
 
-        public List<StatisticDataRate.Rate> getRates() {
+        public List<StatisticDataCount> getRates() {
             return rates;
         }
 
-        public void setRates(List<StatisticDataRate.Rate> rates) {
+        public void setRates(List<StatisticDataCount> rates) {
             this.rates = rates;
         }
     }

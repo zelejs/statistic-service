@@ -6,23 +6,23 @@ import java.util.Map;
 /**
  * Created by vincent on 2018/5/25.
  */
-public class StatisticDataTotalTimeline extends StatisticData {
+public class StatisticDataCountTimeline extends StatisticData {
     private String name;
-    private java.util.Map<String, StatisticDataTotal> timeline;
+    private java.util.Map<String, StatisticDataCount> timeline;
 
-    public Map<String, StatisticDataTotal> getTimeline() {
+    public Map<String, StatisticDataCount> getTimeline() {
         return timeline;
     }
 
-    public void setTimeline(Map<String, StatisticDataTotal> timeline) {
+    public void setTimeline(Map<String, StatisticDataCount> timeline) {
         this.timeline = timeline;
     }
 
-    public StatisticDataTotalTimeline addTotal(String timeline, String name, String value){
+    public StatisticDataCountTimeline addTotal(String timeline, String name, String value){
         if(this.timeline == null){
             this.timeline = new HashMap<>();
         }
-        this.timeline.put(timeline, new StatisticDataTotal(name,value));
+        this.timeline.put(timeline, new StatisticDataCount(name,value));
 
         return this;
     }

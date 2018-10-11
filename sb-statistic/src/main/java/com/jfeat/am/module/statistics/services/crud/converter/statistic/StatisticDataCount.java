@@ -3,14 +3,13 @@ package com.jfeat.am.module.statistics.services.crud.converter.statistic;
 /**
  * Created by vincent on 2018/5/25.
  */
-public class StatisticDataTotal  extends StatisticData {
+public class StatisticDataCount extends StatisticData {
     private String name;
     private String value;
 
-    public StatisticDataTotal(){
-    }
+    public StatisticDataCount(){}
 
-    public StatisticDataTotal(String name, String value){
+    public StatisticDataCount(String name, String value){
         this.name = name;
         this.value = value;
     }

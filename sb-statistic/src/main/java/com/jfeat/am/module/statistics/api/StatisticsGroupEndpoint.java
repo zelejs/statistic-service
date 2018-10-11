@@ -49,7 +49,7 @@ public class StatisticsGroupEndpoint extends BaseController {
     @ApiOperation("获取指定分组的统计域")
     @GetMapping("/{group}")
     public Tip getStatisticFieldByGroup(@PathVariable String group,
-                                        @RequestParam("identifier") String identifier) {
+                                        @RequestParam(value = "identifier", required = false) String identifier) {
         StatisticsGroup statisticsGroup = statisticsGroupService.getGroupByName(group);
         if (statisticsGroup == null) {
             throw new BusinessException(BusinessCode.BadRequest);
@@ -64,7 +64,8 @@ public class StatisticsGroupEndpoint extends BaseController {
 
         for(StatisticsField field : fields) {
             String fieldName = field.getField();
-            StatisticsFieldModel statisticsField = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName, identifier);
+            StatisticsFieldModel statisticsField =
+                    (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName, identifier);
 
             modelFields.add(statisticsField);
         }
@@ -77,14 +78,18 @@ public class StatisticsGroupEndpoint extends BaseController {
     @ApiOperation("获取指定分组的统计数据")
     @GetMapping("/{group}/statistic")
     public Tip getStatisticFieldStatisticByGroup(@PathVariable String group,
-                                                 @RequestParam(name = "type", required = true, defaultValue = "total") String type,
                                                  @RequestParam(name = "identifier", required = false) String identifier) {
         StatisticsGroup statisticsGroup = statisticsGroupService.getGroupByName(group);
         if (statisticsGroup == null) {
             throw new BusinessException(BusinessCode.BadRequest);
         }
-        if(type!=null && !StatisticData.checkStatisticType(type)){
-            throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据类型错误: select one in [total,rate,tuple,totalTimeline,rateTimeline,tupleTimeline] :" + type);
+        // group 内无法固定统计数据类型
+        //if(type!=null && !StatisticData.checkStatisticType(type)){
+        //    throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据类型错误: select one in [total,rate,tuple,totalTimeline,rateTimeline,tupleTimeline] :" + type);
+        //}
+        List<StatisticsGroup> subgroups = statisticsGroupService.getGroupChildren(statisticsGroup.getId());
+        if(subgroups==null || subgroups.size()==0){
+            //TODO, handle sub groups
         }
 
         StatisticsGroupData groupModel = CRUD.castObject(statisticsGroup, StatisticsGroupData.class);
@@ -96,10 +101,15 @@ public class StatisticsGroupEndpoint extends BaseController {
         List<StatisticData> dataFields = new ArrayList<>();
 
         for(StatisticsField field : fields) {
+            if(!StatisticData.checkStatisticPattern(field.getPattern())){
+                throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据模式错误: Select One in [Count,Rate,Tuple or combine with [Timeline,Cluster]] :" + field.getPattern());
+            }
+
             String fieldName = field.getField();
             StatisticsFieldModel statisticsField = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName, identifier);
 
-            StatisticData statisticData = convertStatisticFieldModel(statisticsField, type);
+            String pattern = field.getPattern();
+            StatisticData statisticData = convertStatisticFieldModel(statisticsField, pattern);
             dataFields.add(statisticData);
         }
 
@@ -108,28 +118,39 @@ public class StatisticsGroupEndpoint extends BaseController {
         return SuccessTip.create(groupModel);
     }
 
-    private StatisticData convertStatisticFieldModel(StatisticsFieldModel fieldModel, String type) {
+    private StatisticData convertStatisticFieldModel(StatisticsFieldModel fieldModel, String pattern) {
 
         StatisticData statistic = null;
 
-        if (StatisticData.STAT_TYPE_TOTAL.equals(type)) {
-            statistic = StatisticConverter.convertStatisticTotal(fieldModel);
+        /// Count pattern
+        if (StatisticData.STAT_PATTERN_COUNT.equals(pattern)) {
+            statistic = StatisticConverter.convertStatisticCount(fieldModel);
         }
-        if (StatisticData.STAT_TYPE_TOTAL_TIMELINE.equals(type)) {
-            statistic = StatisticConverter.convertStatisticTotalTimeline(fieldModel);
+        if (StatisticData.STAT_PATTERN_COUNT_TIMELINE.equals(pattern)) {
+            statistic = StatisticConverter.convertStatisticCountTimeline(fieldModel);
         }
-        if (StatisticData.STAT_TYPE_RATE.equals(type)) {
+        if (StatisticData.STAT_PATTERN_COUNT_CLUSTER.equals(pattern)) {
+            statistic = StatisticConverter.convertStatisticCountCluster(fieldModel);
+        }
+        if (StatisticData.STAT_PATTERN_COUNT_TIMELINE_CLUSTER.equals(pattern)) {
+            statistic = StatisticConverter.convertStatisticCountTimelineCluster(fieldModel);
+        }
+
+        /// Rate pattern
+        if (StatisticData.STAT_PATTERN_RATE.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticRate(fieldModel);
         }
-        if (StatisticData.STAT_TYPE_RATE_TIMELINE.equals(type)) {
+        if (StatisticData.STAT_PATTERN_RATE_TIMELINE.equals(pattern)) {
             statistic = StatisticConverter.convertStatisticRateTimeline(fieldModel);
         }
-        if (StatisticData.STAT_TYPE_TUPLE.equals(type)) {
-            statistic = StatisticConverter.convertStatisticTuple(fieldModel);
+        if (StatisticData.STAT_PATTERN_RATE_CLUSTER.equals(pattern)) {
+            statistic = StatisticConverter.convertStatisticRateCluster(fieldModel);
         }
-        if (StatisticData.STAT_TYPE_TUPLE_TIMELINE.equals(type)) {
-            statistic = StatisticConverter.convertStatisticTupleTimeline(fieldModel);
+        if (StatisticData.STAT_PATTERN_RATE_TIMELINE_CLUSTER.equals(pattern)) {
+            statistic = StatisticConverter.convertStatisticRateTimelineCluster(fieldModel);
         }
+
+        /// Tuple pattern
 
         return statistic;
     }

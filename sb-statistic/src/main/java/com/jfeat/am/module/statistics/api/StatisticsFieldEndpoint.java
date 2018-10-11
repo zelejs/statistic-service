@@ -44,44 +44,63 @@ public class StatisticsFieldEndpoint extends BaseController {
     })
     @ApiOperation("获取指定数据域数据")
     @GetMapping("/{field}/statistic")
-    public Tip getStatisticField(@PathVariable String field,
-                                 @RequestParam(name = "type", required = false, defaultValue = "1") String type) {
-        if(type!=null && !StatisticData.checkStatisticType(type)){
-            throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据类型错误: select one in [total,rate,tuple,totalTimeline,rateTimeline,tupleTimeline] :" + type);
-        }
-
+    public Tip getStatisticField(@PathVariable String field) {
         StatisticsField statisticsField = statisticsFieldService.getStatisticsFieldModel(field, null);
+
+        String pattern = statisticsField.getPattern();
 
         Object statistic = null;
 
-        if(type!=null) {
-            if(statisticsField instanceof StatisticsFieldModel) {
-                StatisticsFieldModel fieldModel = (StatisticsFieldModel) statisticsField;
+        if (statisticsField instanceof StatisticsFieldModel) {
+            StatisticsFieldModel fieldModel = (StatisticsFieldModel) statisticsField;
 
-                if (StatisticData.STAT_TYPE_TOTAL.equals(type)) {
-                    statistic = StatisticConverter.convertStatisticTotal(fieldModel);
-                }
-                if (StatisticData.STAT_TYPE_TOTAL_TIMELINE.equals(type)) {
-                    statistic = StatisticConverter.convertStatisticTotalTimeline(fieldModel);
-                }
-                if (StatisticData.STAT_TYPE_RATE.equals(type)) {
-                    statistic = StatisticConverter.convertStatisticRate(fieldModel);
-                }
-                if (StatisticData.STAT_TYPE_RATE_TIMELINE.equals(type)) {
-                    statistic = StatisticConverter.convertStatisticRateTimeline(fieldModel);
-                }
-                if (StatisticData.STAT_TYPE_TUPLE.equals(type)) {
-                    statistic = StatisticConverter.convertStatisticTuple(fieldModel);
-                }
-                if (StatisticData.STAT_TYPE_TUPLE_TIMELINE.equals(type)) {
-                    statistic = StatisticConverter.convertStatisticTupleTimeline(fieldModel);
-                }
-            }//else if(statisticsField.getQuerySql()!=null){
-                //TODO, 考虑StatisticData 与 statement 中的 StatisticRate 区别
-            //}
-            else{
-                throw new BusinessException(BusinessCode.BadRequest.getCode(), "无效的统计域，请检查统计域的querySql字段");
+            // pattern count
+            if (StatisticData.STAT_PATTERN_COUNT.equals(pattern)) {
+                statistic = StatisticConverter.convertStatisticCount(fieldModel);
             }
+            if (StatisticData.STAT_PATTERN_COUNT_TIMELINE.equals(pattern)) {
+                statistic = StatisticConverter.convertStatisticCountTimeline(fieldModel);
+            }
+            if (StatisticData.STAT_PATTERN_COUNT_CLUSTER.equals(pattern)) {
+                statistic = StatisticConverter.convertStatisticCountCluster(fieldModel);
+            }
+            if (StatisticData.STAT_PATTERN_COUNT_TIMELINE_CLUSTER.equals(pattern)) {
+                statistic = StatisticConverter.convertStatisticCountTimelineCluster(fieldModel);
+            }
+
+            //pattern rate
+            if (StatisticData.STAT_PATTERN_RATE.equals(pattern)) {
+                statistic = StatisticConverter.convertStatisticRate(fieldModel);
+            }
+            if (StatisticData.STAT_PATTERN_RATE_TIMELINE.equals(pattern)) {
+                statistic = StatisticConverter.convertStatisticRateTimeline(fieldModel);
+            }
+            if (StatisticData.STAT_PATTERN_RATE_CLUSTER.equals(pattern)) {
+                statistic = StatisticConverter.convertStatisticRateCluster(fieldModel);
+            }
+            if (StatisticData.STAT_PATTERN_RATE_TIMELINE_CLUSTER.equals(pattern)) {
+                statistic = StatisticConverter.convertStatisticRateTimelineCluster(fieldModel);
+            }
+
+            //pattern tuple
+            if (StatisticData.STAT_PATTERN_TUPLE.equals(pattern)) {
+                statistic = StatisticConverter.convertStatisticTuple(fieldModel);
+            }
+            if (StatisticData.STAT_PATTERN_TUPLE_TIMELINE.equals(pattern)) {
+                statistic = StatisticConverter.convertStatisticTupleTimeline(fieldModel);
+            }
+            if (StatisticData.STAT_PATTERN_TUPLE_CLUSTER.equals(pattern)) {
+                statistic = StatisticConverter.convertStatisticTupleCluster(fieldModel);
+            }
+            if (StatisticData.STAT_PATTERN_TUPLE_TIMELINE_CLUSTER.equals(pattern)) {
+                statistic = StatisticConverter.convertStatisticTupleTimelineCluster(fieldModel);
+            }
+
+        }//else if(statisticsField.getQuerySql()!=null){
+        //TODO, 考虑StatisticData 与 statement 中的 StatisticRate 区别
+        //}
+        else {
+            throw new BusinessException(BusinessCode.BadRequest.getCode(), "无效的统计域，请检查统计域的querySql字段");
         }
 
         return SuccessTip.create(statistic);

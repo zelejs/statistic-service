@@ -151,6 +151,18 @@ public class StatisticsGroupEndpoint extends BaseController {
         }
 
         /// Tuple pattern
+        if (StatisticData.STAT_PATTERN_TUPLE.equals(pattern)) {
+            statistic = StatisticConverter.convertStatisticTuple(fieldModel);
+        }
+        if (StatisticData.STAT_PATTERN_TUPLE_TIMELINE.equals(pattern)) {
+            statistic = StatisticConverter.convertStatisticTupleTimeline(fieldModel);
+        }
+        if (StatisticData.STAT_PATTERN_TUPLE_CLUSTER.equals(pattern)) {
+            statistic = StatisticConverter.convertStatisticTupleCluster(fieldModel);
+        }
+        if (StatisticData.STAT_PATTERN_TUPLE_TIMELINE_CLUSTER.equals(pattern)) {
+            statistic = StatisticConverter.convertStatisticTupleTimelineCluster(fieldModel);
+        }
 
         return statistic;
     }

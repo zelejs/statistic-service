@@ -55,7 +55,9 @@ public class StatisticConverter {
             }
 
             Map<String,StatisticDataNameValue> stat = new HashMap<>();
-            stat.put(record.getRecordTimeline(), new StatisticDataNameValue(record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
+            stat.put(record.getRecordTimeline(),
+                    new StatisticDataNameValue(record.getSeq(), record.getIdentifier(),
+                            record.getRecordName(), record.getRecordValue()));
 
             timeline.add(stat);
         }
@@ -93,7 +95,9 @@ public class StatisticConverter {
                 if(rate.getIdentifier()==null){
                     rate.setIdentifier(record.getIdentifier());
                 }
-                rates.add(new StatisticDataNameValue(record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
+                rates.add(new StatisticDataNameValue(
+                        record.getSeq(), record.getIdentifier(),
+                        record.getRecordName(), record.getRecordValue()));
             }
         }
 
@@ -110,28 +114,35 @@ public class StatisticConverter {
         rateTimeline.setTimeline(new ArrayList<>());
 
         /// add rate
-        List<Map<String,StatisticDataRate>> timeline = rateTimeline.getTimeline();
+        Map<String,StatisticDataRate> hashTemp = new HashMap<>();
+
+        List<StatisticDataRate> timeline = rateTimeline.getTimeline();
         for (StatisticsRecord record : model.getItems()){
             //从record 获取identifier名称
             if(rateTimeline.getIdentifier()==null){
                 rateTimeline.setIdentifier(record.getIdentifier());
             }
 
-            // create timeline stat
+            // add new timeline
             String timelineName = record.getRecordTimeline();
-            Map<String,StatisticDataRate> stat = new HashMap<>();
-            stat.put(timelineName, new StatisticDataRate(timelineName, new ArrayList<>()));
+            {
+                if (!hashTemp.containsKey(timelineName)) {
+                    hashTemp.put(timelineName, new StatisticDataRate(timelineName, new ArrayList<>()));
 
-            timeline.add(stat);
+                    //add new tuple
+                    timeline.add(hashTemp.get(timelineName));
+                }
+            }
 
             /// append timeline stat
-            StatisticDataRate currentTimelineRate = stat.get(timelineName);
-            currentTimelineRate.getRates().add(new StatisticDataNameValue(
+            StatisticDataRate currentTimelineRate = hashTemp.get(timelineName);
+
+            currentTimelineRate.getRates().add(new StatisticDataNameValue(record.getSeq(),
                     record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
         }
-
         return rateTimeline;
     }
+
     public static StatisticDataRateCluster convertStatisticRateCluster(StatisticsFieldModel model){
         //TODO,
         throw new NotImplementedException();
@@ -180,7 +191,9 @@ public class StatisticConverter {
 
             // 增加 name value
             StatisticDataRate rate = hashTemp.get(tupleName);
-            rate.getRates().add(new StatisticDataNameValue(record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
+            rate.getRates().add(
+                    new StatisticDataNameValue(record.getSeq(), record.getIdentifier(),
+                            record.getRecordName(), record.getRecordValue()));
         }
 
         return tuple;

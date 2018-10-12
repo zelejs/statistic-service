@@ -1,22 +1,20 @@
 package com.jfeat.am.module.statistics.services.crud.converter.statistic;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by vincent on 2018/5/25.
  */
 public class StatisticDataRateTimeline extends StatisticData {
     private String name;
-    private List<Map<String,StatisticDataRate>> timeline;
+    private List<StatisticDataRate> timeline;
 
-    public List<Map<String,StatisticDataRate>> getTimeline() {
+    public List<StatisticDataRate> getTimeline() {
         return timeline;
     }
 
-    public void setTimeline(List<Map<String,StatisticDataRate>> timeline) {
+    public void setTimeline(List<StatisticDataRate> timeline) {
         this.timeline = timeline;
     }
 
@@ -24,12 +22,9 @@ public class StatisticDataRateTimeline extends StatisticData {
         if(this.timeline == null){
             this.timeline = new ArrayList<>();
         }
+        rate.setName(timeline);
 
-        Map<String,StatisticDataRate> stat = new HashMap<>();
-        stat.put(timeline, rate);
-
-        this.timeline.add(stat);
-
+        this.timeline.add(rate);
         return this;
     }
 

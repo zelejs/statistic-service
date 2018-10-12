@@ -7,11 +7,12 @@ public class StatisticDataNameValue{
     private String id;
     private String name;
     private String value;
-    private String seq; //排序号
+    private int seq; //排序号
 
     public StatisticDataNameValue(){}
 
-    public StatisticDataNameValue(String id, String name, String value){
+    public StatisticDataNameValue(int seq, String id, String name, String value){
+        this.seq = seq;
         this.id = id;
         this.name = name;
         this.value = value;
@@ -41,11 +42,11 @@ public class StatisticDataNameValue{
         this.id = id;
     }
 
-    public String getSeq() {
+    public int getSeq() {
         return seq;
     }
 
-    public void setSeq(String seq) {
+    public void setSeq(int seq) {
         this.seq = seq;
     }
 }

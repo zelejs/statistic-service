@@ -20,13 +20,13 @@ public class StatisticDataCountTimeline extends StatisticData {
         this.timeline = timeline;
     }
 
-    public StatisticDataCountTimeline addCount(String id, String timeline, String name, String value){
+    public StatisticDataCountTimeline addCount(int seq, String id, String timeline, String name, String value){
         if(this.timeline == null){
             this.timeline = new ArrayList<>();
         }
 
         Map<String,StatisticDataNameValue> stat = new HashMap<>();
-        stat.put(timeline, new StatisticDataNameValue(id, name,value));
+        stat.put(timeline, new StatisticDataNameValue(seq, id, name,value));
 
         this.timeline.add(stat);
 

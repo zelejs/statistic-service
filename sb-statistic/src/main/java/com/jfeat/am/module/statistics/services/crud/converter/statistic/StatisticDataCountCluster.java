@@ -20,13 +20,13 @@ public class StatisticDataCountCluster extends StatisticData {
         this.cluster = cluster;
     }
 
-    public StatisticDataCountCluster addCount(String id, String cluster, String name, String value){
+    public StatisticDataCountCluster addCount(int seq, String id, String cluster, String name, String value){
         if(this.cluster == null){
             this.cluster = new ArrayList<>();
         }
 
         Map<String,StatisticDataNameValue> stat = new HashMap<>();
-        stat.put(cluster, new StatisticDataNameValue(id, name, value));
+        stat.put(cluster, new StatisticDataNameValue(seq, id, name, value));
 
         this.cluster.add(stat);
         return this;

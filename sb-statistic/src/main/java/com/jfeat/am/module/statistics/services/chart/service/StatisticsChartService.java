@@ -13,8 +13,4 @@ public interface StatisticsChartService {
     PieChartData getPieData(String field);
     BarChartData getBarData(String field);
     LineChartData getLineData(String field);
-
-    /// 时间节点折线图
-    @Deprecated
-    Map<String, Object> getStatisticLineData(String field, String startTime, String endTime);
 }

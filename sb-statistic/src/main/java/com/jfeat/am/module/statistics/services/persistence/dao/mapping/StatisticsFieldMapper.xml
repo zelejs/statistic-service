@@ -11,16 +11,15 @@
 		<result column="name" property="name" />
 		<result column="pattern" property="pattern" />
 		<result column="chart" property="chart" />
-		<result column="runtime" property="runtime" />
 		<result column="attr_invisible" property="attrInvisible" />
-		<result column="attr_index" property="attrIndex" />
-		<result column="attr_percent" property="attrPercent" />
+		<result column="attr_runtime" property="attrRuntime" />
 		<result column="attr_span" property="attrSpan" />
+		<result column="attr_index" property="attrIndex" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, field, group_id AS groupId, group_name AS groupName, name, pattern, chart, runtime, attr_invisible AS attrInvisible, attr_index AS attrIndex, attr_percent AS attrPercent, attr_span AS attrSpan
+        id, field, group_id AS groupId, group_name AS groupName, name, pattern, chart, attr_invisible AS attrInvisible, attr_runtime AS attrRuntime, attr_span AS attrSpan, attr_index AS attrIndex
     </sql>
 
 </mapper>

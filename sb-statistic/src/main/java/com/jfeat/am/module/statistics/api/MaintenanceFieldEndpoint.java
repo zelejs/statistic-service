@@ -81,21 +81,19 @@ public class MaintenanceFieldEndpoint extends BaseController {
                                      @RequestParam(name = "field", required = false) String field,
                                      @RequestParam(name = "name", required = false) String name,
                                      @RequestParam(name = "index", required = false) Integer index,
-                                     @RequestParam(name = "groupId", required = false) Long groupId,
+                                     @RequestParam(name = "groupId", required = false) String groupName,
                                      @RequestParam(name = "invisible", required = false) Integer invisible,
-                                     @RequestParam(name = "chart", required = false) String chart,
-                                     @RequestParam(name = "percent", required = false) Integer percent) {
+                                     @RequestParam(name = "chart", required = false) String chart) {
         page.setCurrent(pageNum);
         page.setSize(pageSize);
 
         StatisticsField statisticsField = new StatisticsField();
+        statisticsField.setGroupName(groupName);
         statisticsField.setField(field);
-        statisticsField.setAttrIndex(index);
-        statisticsField.setGroupId(groupId);
-        statisticsField.setAttrInvisible(invisible);
-        statisticsField.setChart(chart);
-        statisticsField.setAttrPercent(percent);
         statisticsField.setName(name);
+        statisticsField.setChart(chart);
+        statisticsField.setAttrInvisible(invisible);
+        statisticsField.setAttrIndex(index);
 
         page.setRecords(statisticsFieldDao.findStatisticsFieldPage(page, statisticsField));
         return SuccessTip.create(page);

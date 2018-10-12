@@ -1,8 +1,10 @@
 package com.jfeat.am.module.statistics.services.crud.model;
 
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsMeta;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +12,19 @@ import java.util.List;
  */
 public class StatisticsFieldModel extends StatisticsField{
 
+    /**
+     * 统计域辅助元数据
+     */
+    private StatisticsMeta meta;
+
     private List<StatisticsRecord> items;
+
+    public void addItem(StatisticsRecord item){
+        if(this.items==null){
+            this.items = new ArrayList<>();
+        }
+        this.items.add(item);
+    }
 
     public List<StatisticsRecord> getItems() {
         return items;
@@ -18,5 +32,13 @@ public class StatisticsFieldModel extends StatisticsField{
 
     public void setItems(List<StatisticsRecord> items) {
         this.items = items;
+    }
+
+    public StatisticsMeta getMeta() {
+        return meta;
+    }
+
+    public void setMeta(StatisticsMeta meta) {
+        this.meta = meta;
     }
 }

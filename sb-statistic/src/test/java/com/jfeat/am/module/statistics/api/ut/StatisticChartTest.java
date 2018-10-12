@@ -7,12 +7,10 @@ package com.jfeat.am.module.statistics.api.ut;
 import com.jfeat.am.base.BaseJunit;
 import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.crud.StatisticsGroupService;
-import com.jfeat.am.module.statistics.services.crud.StatisticsRecordAttrService;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecordAttr;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +33,11 @@ public class StatisticChartTest extends BaseJunit {
     StatisticsFieldService fieldService;
     @Autowired
     StatisticsRecordMapper recordMapper;
-    @Autowired
-    StatisticsRecordAttrService attrService;
 
     //  数据域api
     StatisticsGroup statisticsGroup = new StatisticsGroup();
     StatisticsField statisticsField = new StatisticsField();
-
     StatisticsRecord statisticsRecord = new StatisticsRecord();
-    StatisticsRecordAttr statisticsRecordAttr = new StatisticsRecordAttr();
 
     @Before
     public void initData() {
@@ -61,7 +55,6 @@ public class StatisticChartTest extends BaseJunit {
         statisticsField.setName("Done");
         statisticsField.setField("done_rate");
         statisticsField.setAttrInvisible(0);
-        statisticsField.setAttrPercent(1);
         statisticsField.setAttrIndex(1);
         statisticsField.setChart("Pie");
         fieldService.createMaster(statisticsField);
@@ -74,13 +67,6 @@ public class StatisticChartTest extends BaseJunit {
         statisticsRecord.setTimeline("M");
         statisticsRecord.setCreateTime(new Date());
         recordMapper.insert(statisticsRecord);
-
-        // attr
-        statisticsRecordAttr.setId(1l);
-        statisticsRecordAttr.setLegend("完成率");
-        statisticsRecordAttr.setField("done_rate");
-        statisticsRecordAttr.setRecordName("rate");
-        attrService.createMaster(statisticsRecordAttr);
     }
 
     @Test

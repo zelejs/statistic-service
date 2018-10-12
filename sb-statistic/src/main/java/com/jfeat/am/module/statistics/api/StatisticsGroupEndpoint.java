@@ -9,11 +9,10 @@ import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.crud.StatisticsGroupByService;
 import com.jfeat.am.module.statistics.services.crud.StatisticsGroupService;
-import com.jfeat.am.module.statistics.services.crud.converter.StatisticConverter;
-import com.jfeat.am.module.statistics.services.crud.converter.statistic.StatisticData;
+import com.jfeat.am.module.statistics.services.converter.StatisticConverter;
+import com.jfeat.am.module.statistics.services.converter.statistic.StatisticData;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsFieldModel;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsGroupModel;
-import com.jfeat.am.module.statistics.services.domain.model.StatisticsGroupData;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 import io.swagger.annotations.Api;
@@ -22,7 +21,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -58,6 +59,12 @@ public class StatisticsGroupEndpoint extends BaseController {
         StatisticsGroupModel groupModel = CRUD.castObject(statisticsGroup, StatisticsGroupModel.class);
 
         List<StatisticsField> fields = statisticsGroupByService.getGroupItems(statisticsGroup.getId());
+
+        //过虑不可见
+        fields = fields.stream().filter(u->u.getAttrInvisible()==0).collect(Collectors.toList());
+        //排序
+        fields = fields.stream().sorted(Comparator.comparing(StatisticsField::getAttrIndex)).collect(Collectors.toList());
+
 
         //每个域的数据
         List<StatisticsField> modelFields = new ArrayList<>();
@@ -106,6 +113,13 @@ public class StatisticsGroupEndpoint extends BaseController {
 
         //每个域的数据
         List<StatisticsField> fields = statisticsGroupByService.getGroupItems(statisticsGroup.getId());
+
+        //过虑不可见
+        fields = fields.stream().filter(u->u.getAttrInvisible()==0).collect(Collectors.toList());
+        /// 排序
+        fields = fields.stream().sorted(Comparator.comparing(StatisticsField::getAttrIndex)).collect(Collectors.toList());
+
+
         if(fields.size()>0) {
             // result
             List<StatisticData> dataFields = new ArrayList<>();

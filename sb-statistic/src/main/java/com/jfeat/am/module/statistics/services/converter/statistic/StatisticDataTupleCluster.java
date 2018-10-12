@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services.crud.converter.statistic;
+package com.jfeat.am.module.statistics.services.converter.statistic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,25 +8,25 @@ import java.util.Map;
 /**
  * Created by vincent on 2018/5/25.
  */
-public class StatisticDataRateCluster extends StatisticData {
+public class StatisticDataTupleCluster extends StatisticData {
     private String name;
-    private List<Map<String,StatisticDataRate>> cluster;
+    private List<Map<String,StatisticDataTuple>> cluster;
 
-    public List<Map<String,StatisticDataRate>> getCluster() {
+    public List<Map<String,StatisticDataTuple>> getCluster() {
         return cluster;
     }
 
-    public void setCluster(List<Map<String,StatisticDataRate>> cluster) {
+    public void setCluster(List<Map<String,StatisticDataTuple>> cluster) {
         this.cluster = cluster;
     }
 
-    public StatisticDataRateCluster addTotal(String timeline, StatisticDataRate rate){
+    public StatisticDataTupleCluster addTotal(String timeline, StatisticDataTuple tuple){
         if(this.cluster == null){
             this.cluster = new ArrayList<>();
         }
 
-        Map<String,StatisticDataRate> stat = new HashMap<>();
-        stat.put(timeline, rate);
+        Map<String,StatisticDataTuple> stat = new HashMap<>();
+        stat.put(timeline, tuple);
 
         this.cluster.add(stat);
         return this;

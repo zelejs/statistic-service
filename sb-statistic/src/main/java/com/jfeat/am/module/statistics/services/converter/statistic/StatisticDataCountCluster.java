@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services.crud.converter.statistic;
+package com.jfeat.am.module.statistics.services.converter.statistic;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,7 +1,7 @@
-package com.jfeat.am.module.statistics.services.crud.converter;
+package com.jfeat.am.module.statistics.services.converter;
 
+import com.jfeat.am.module.statistics.services.converter.statistic.*;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
-import com.jfeat.am.module.statistics.services.crud.converter.statistic.*;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsFieldModel;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

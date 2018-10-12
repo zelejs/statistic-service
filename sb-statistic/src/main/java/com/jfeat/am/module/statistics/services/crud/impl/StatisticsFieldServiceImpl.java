@@ -7,14 +7,18 @@ import com.jfeat.am.common.crud.CRUDFilter;
 import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
+import com.jfeat.am.module.statistics.services.crud.StatisticsMetaService;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsFieldModel;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsFieldMapper;
+import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsMetaMapper;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsMeta;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.Map;
 
@@ -28,10 +32,17 @@ import java.util.Map;
  */
 @Service
 public class StatisticsFieldServiceImpl implements StatisticsFieldService {
+
     @Resource
     StatisticsFieldMapper statisticsFieldMapper;
     @Resource
+    StatisticsMetaMapper statisticsMetaMapper;
+    @Resource
     StatisticsRecordMapper statisticsRecordMapper;
+
+    @Resource
+    DataSource dataSource;
+
 
     /**
      * 通过域名获取域数据
@@ -50,13 +61,40 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
             throw new BusinessException(BusinessCode.BadRequest);
         }
 
-        /// 如果需要实时查询，跳过获取统计项
-        //if(statisticsField.getQuerySql()!=null){
-        //    return statisticsField;
-        //}
-
         StatisticsFieldModel model = CRUD.castObject(statisticsField, StatisticsFieldModel.class);
 
+
+        /// query meta
+        StatisticsMeta meta = new StatisticsMeta();
+        meta.setField(field);
+        meta = statisticsMetaMapper.selectOne(meta);
+
+        if(meta!=null) {
+
+            model.setMeta(meta);
+
+            /// 如果需要实时查询，跳过获取统计项
+            if (statisticsField.getAttrRuntime() > 0) {
+
+                String sql = meta.getQuerySql();
+
+                if (sql.length() > 0) {
+                    //TODO, execute sql
+                    //dataSource.
+
+                    StatisticsRecord record = new StatisticsRecord();
+                    //TODO,
+
+                    model.addItem(record);
+                }
+
+                return statisticsField;
+            }
+        }
+
+
+        // query items
+        //
         Wrapper<StatisticsRecord> wrapper = new EntityWrapper<StatisticsRecord>().eq("field", field);
         if(identifier != null && !"".equals(identifier)) {
             wrapper.eq("identifier", identifier);
@@ -65,20 +103,6 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
         List<StatisticsRecord> items = statisticsRecordMapper.selectList(wrapper);
         model.setItems(items);
 
-        /// update record name by record attr
-        /*if(model!=null){
-            List<StatisticsRecord> records = model.getItems();
-
-            if(records!=null) {
-
-                for (StatisticsRecord record : records) {
-                    StatisticsRecordModel recordModel = statisticsRecordService.getStatisticsRecordModel(record);
-                    if (recordModel.getAttr() != null) {
-                        record.setRecordName(recordModel.getAttr().getLegend());
-                    }
-                }
-            }
-        }*/
 
         return model;
     }

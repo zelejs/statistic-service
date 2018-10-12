@@ -1,7 +1,6 @@
 package com.jfeat.am.module.statistics.services.notify;
 
 /**
- * Created by jackyhuang on 2017/9/6.
  * 传递信息
  */
 public class StatisticChunk {
@@ -19,7 +18,6 @@ public class StatisticChunk {
     public void setKey(String key) {
         this.key = key;
     }
-
 
     private String name;        // 统计数据名称
     private String value;       // 统计数据

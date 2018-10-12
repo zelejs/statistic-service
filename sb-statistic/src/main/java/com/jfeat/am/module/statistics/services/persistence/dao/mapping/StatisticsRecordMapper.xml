@@ -6,6 +6,7 @@
 	<resultMap id="BaseResultMap" type="com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord">
 		<id column="id" property="id" />
 		<result column="field" property="field" />
+		<result column="identifier" property="identifier" />
 		<result column="seq" property="seq" />
 		<result column="record_name" property="recordName" />
 		<result column="record_value" property="recordValue" />
@@ -13,14 +14,13 @@
 		<result column="record_cluster" property="recordCluster" />
 		<result column="record_timeline" property="recordTimeline" />
 		<result column="timeline" property="timeline" />
-		<result column="identifier" property="identifier" />
 		<result column="create_time" property="createTime" />
 		<result column="tmp_field_id" property="tmpFieldId" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, field, seq, record_name AS recordName, record_value AS recordValue, record_tuple AS recordTuple, record_cluster AS recordCluster, record_timeline AS recordTimeline, timeline, identifier, create_time AS createTime, tmp_field_id AS tmpFieldId
+        id, field, identifier, seq, record_name AS recordName, record_value AS recordValue, record_tuple AS recordTuple, record_cluster AS recordCluster, record_timeline AS recordTimeline, timeline, create_time AS createTime, tmp_field_id AS tmpFieldId
     </sql>
 
 </mapper>

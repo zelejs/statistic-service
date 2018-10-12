@@ -2,6 +2,8 @@ package com.jfeat.am.module.statistics.services.persistence.model;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -13,47 +15,44 @@ import java.io.Serializable;
  * </p>
  *
  * @author Code Generator
- * @since 2018-08-28
+ * @since 2018-10-12
  */
 @TableName("st_statistics_meta")
 public class StatisticsMeta extends Model<StatisticsMeta> {
 
     private static final long serialVersionUID = 1L;
 
+	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
     /**
      * 数据指标唯一标识符
      */
 	private String field;
     /**
-     * 记录名称
-     */
-	@TableField("record_name")
-	private String recordName;
-    /**
-     * 记录名称
-     */
-	@TableField("record_tuple")
-	private String recordTuple;
-    /**
-     * 记录值所属分类名称
-     */
-	@TableField("record_cluster")
-	private String recordCluster;
-    /**
-     * 统计时段标记
-     */
-	private String timeline;
-    /**
      * 实时查询sql
      */
 	@TableField("query_sql")
 	private String querySql;
     /**
-     * 临时指标记录ID
+     * 是否显示为百分比
      */
-	@TableField("tmp_record_id")
-	private Long tmpRecordId;
+	private Integer percent;
+    /**
+     * 图标路径
+     */
+	private String icon;
+    /**
+     * 图表标题
+     */
+	private String title;
+    /**
+     * 保留字段1
+     */
+	private String field1;
+    /**
+     * 保留字段2
+     */
+	private String field2;
 
 
 	public Long getId() {
@@ -74,42 +73,6 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
 		return this;
 	}
 
-	public String getRecordName() {
-		return recordName;
-	}
-
-	public StatisticsMeta setRecordName(String recordName) {
-		this.recordName = recordName;
-		return this;
-	}
-
-	public String getRecordTuple() {
-		return recordTuple;
-	}
-
-	public StatisticsMeta setRecordTuple(String recordTuple) {
-		this.recordTuple = recordTuple;
-		return this;
-	}
-
-	public String getRecordCluster() {
-		return recordCluster;
-	}
-
-	public StatisticsMeta setRecordCluster(String recordCluster) {
-		this.recordCluster = recordCluster;
-		return this;
-	}
-
-	public String getTimeline() {
-		return timeline;
-	}
-
-	public StatisticsMeta setTimeline(String timeline) {
-		this.timeline = timeline;
-		return this;
-	}
-
 	public String getQuerySql() {
 		return querySql;
 	}
@@ -119,12 +82,48 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
 		return this;
 	}
 
-	public Long getTmpRecordId() {
-		return tmpRecordId;
+	public Integer getPercent() {
+		return percent;
 	}
 
-	public StatisticsMeta setTmpRecordId(Long tmpRecordId) {
-		this.tmpRecordId = tmpRecordId;
+	public StatisticsMeta setPercent(Integer percent) {
+		this.percent = percent;
+		return this;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public StatisticsMeta setIcon(String icon) {
+		this.icon = icon;
+		return this;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public StatisticsMeta setTitle(String title) {
+		this.title = title;
+		return this;
+	}
+
+	public String getField1() {
+		return field1;
+	}
+
+	public StatisticsMeta setField1(String field1) {
+		this.field1 = field1;
+		return this;
+	}
+
+	public String getField2() {
+		return field2;
+	}
+
+	public StatisticsMeta setField2(String field2) {
+		this.field2 = field2;
 		return this;
 	}
 
@@ -132,17 +131,17 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
 
 	public static final String FIELD = "field";
 
-	public static final String RECORD_NAME = "record_name";
-
-	public static final String RECORD_TUPLE = "record_tuple";
-
-	public static final String RECORD_CLUSTER = "record_cluster";
-
-	public static final String TIMELINE = "timeline";
-
 	public static final String QUERY_SQL = "query_sql";
 
-	public static final String TMP_RECORD_ID = "tmp_record_id";
+	public static final String PERCENT = "percent";
+
+	public static final String ICON = "icon";
+
+	public static final String TITLE = "title";
+
+	public static final String FIELD1 = "field1";
+
+	public static final String FIELD2 = "field2";
 
 	@Override
 	protected Serializable pkVal() {
@@ -154,12 +153,12 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
 		return "StatisticsMeta{" +
 			"id=" + id +
 			", field=" + field +
-			", recordName=" + recordName +
-			", recordTuple=" + recordTuple +
-			", recordCluster=" + recordCluster +
-			", timeline=" + timeline +
 			", querySql=" + querySql +
-			", tmpRecordId=" + tmpRecordId +
+			", percent=" + percent +
+			", icon=" + icon +
+			", title=" + title +
+			", field1=" + field1 +
+			", field2=" + field2 +
 			"}";
 	}
 }

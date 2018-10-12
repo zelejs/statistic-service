@@ -1,13 +1,14 @@
 package com.jfeat.am.module.statistics.services.persistence.model;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
-
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -28,6 +29,10 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
      * 数据域标识符
      */
 	private String field;
+    /**
+     * 统计归属标识
+     */
+	private String identifier;
     /**
      * 记录排序号
      */
@@ -62,10 +67,6 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
      */
 	private String timeline;
     /**
-     * 统计归属标识
-     */
-	private String identifier;
-    /**
      * 记录创建时间
      */
 	@TableField("create_time")
@@ -92,6 +93,15 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	public StatisticsRecord setField(String field) {
 		this.field = field;
+		return this;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public StatisticsRecord setIdentifier(String identifier) {
+		this.identifier = identifier;
 		return this;
 	}
 
@@ -158,15 +168,6 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 		return this;
 	}
 
-	public String getIdentifier() {
-		return identifier;
-	}
-
-	public StatisticsRecord setIdentifier(String identifier) {
-		this.identifier = identifier;
-		return this;
-	}
-
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -189,6 +190,8 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	public static final String FIELD = "field";
 
+	public static final String IDENTIFIER = "identifier";
+
 	public static final String SEQ = "seq";
 
 	public static final String RECORD_NAME = "record_name";
@@ -202,8 +205,6 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 	public static final String RECORD_TIMELINE = "record_timeline";
 
 	public static final String TIMELINE = "timeline";
-
-	public static final String IDENTIFIER = "identifier";
 
 	public static final String CREATE_TIME = "create_time";
 
@@ -219,6 +220,7 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 		return "StatisticsRecord{" +
 			"id=" + id +
 			", field=" + field +
+			", identifier=" + identifier +
 			", seq=" + seq +
 			", recordName=" + recordName +
 			", recordValue=" + recordValue +
@@ -226,7 +228,6 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 			", recordCluster=" + recordCluster +
 			", recordTimeline=" + recordTimeline +
 			", timeline=" + timeline +
-			", identifier=" + identifier +
 			", createTime=" + createTime +
 			", tmpFieldId=" + tmpFieldId +
 			"}";

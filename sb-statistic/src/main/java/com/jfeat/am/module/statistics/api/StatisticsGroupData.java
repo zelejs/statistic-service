@@ -1,6 +1,6 @@
-package com.jfeat.am.module.statistics.services.domain.model;
+package com.jfeat.am.module.statistics.api;
 
-import com.jfeat.am.module.statistics.services.crud.converter.statistic.StatisticData;
+import com.jfeat.am.module.statistics.services.converter.statistic.StatisticData;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 
 import java.util.ArrayList;

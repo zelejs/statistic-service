@@ -6,17 +6,17 @@
 	<resultMap id="BaseResultMap" type="com.jfeat.am.module.statistics.services.persistence.model.StatisticsMeta">
 		<id column="id" property="id" />
 		<result column="field" property="field" />
-		<result column="record_name" property="recordName" />
-		<result column="record_tuple" property="recordTuple" />
-		<result column="record_cluster" property="recordCluster" />
-		<result column="timeline" property="timeline" />
 		<result column="query_sql" property="querySql" />
-		<result column="tmp_record_id" property="tmpRecordId" />
+		<result column="percent" property="percent" />
+		<result column="icon" property="icon" />
+		<result column="title" property="title" />
+		<result column="field1" property="field1" />
+		<result column="field2" property="field2" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, field, record_name AS recordName, record_tuple AS recordTuple, record_cluster AS recordCluster, timeline, query_sql AS querySql, tmp_record_id AS tmpRecordId
+        id, field, query_sql AS querySql, percent, icon, title, field1, field2
     </sql>
 
 </mapper>

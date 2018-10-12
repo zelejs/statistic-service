@@ -47,33 +47,29 @@ public class StatisticsField extends Model<StatisticsField> {
      */
 	private String pattern;
     /**
-     * 图表名称[Num,Array,Pie,Column,Chain,Line] Chain-环比
+     * 标准组件图表名称
      */
 	private String chart;
-    /**
-     * 是否实时查询[via meta]
-     */
-	private Integer runtime;
     /**
      * [属性]是否不可见
      */
 	@TableField("attr_invisible")
 	private Integer attrInvisible;
     /**
-     * [属性]排序号
+     * 是否实时查询[via meta]
      */
-	@TableField("attr_index")
-	private Integer attrIndex;
-    /**
-     * [属性]是否显示为百分比
-     */
-	@TableField("attr_percent")
-	private Integer attrPercent;
+	@TableField("attr_runtime")
+	private Integer attrRuntime;
     /**
      * [属性]所占布局跨列数
      */
 	@TableField("attr_span")
 	private Integer attrSpan;
+    /**
+     * [属性]排序号
+     */
+	@TableField("attr_index")
+	private Integer attrIndex;
 
 
 	public Long getId() {
@@ -139,15 +135,6 @@ public class StatisticsField extends Model<StatisticsField> {
 		return this;
 	}
 
-	public Integer getRuntime() {
-		return runtime;
-	}
-
-	public StatisticsField setRuntime(Integer runtime) {
-		this.runtime = runtime;
-		return this;
-	}
-
 	public Integer getAttrInvisible() {
 		return attrInvisible;
 	}
@@ -157,21 +144,12 @@ public class StatisticsField extends Model<StatisticsField> {
 		return this;
 	}
 
-	public Integer getAttrIndex() {
-		return attrIndex;
+	public Integer getAttrRuntime() {
+		return attrRuntime;
 	}
 
-	public StatisticsField setAttrIndex(Integer attrIndex) {
-		this.attrIndex = attrIndex;
-		return this;
-	}
-
-	public Integer getAttrPercent() {
-		return attrPercent;
-	}
-
-	public StatisticsField setAttrPercent(Integer attrPercent) {
-		this.attrPercent = attrPercent;
+	public StatisticsField setAttrRuntime(Integer attrRuntime) {
+		this.attrRuntime = attrRuntime;
 		return this;
 	}
 
@@ -181,6 +159,15 @@ public class StatisticsField extends Model<StatisticsField> {
 
 	public StatisticsField setAttrSpan(Integer attrSpan) {
 		this.attrSpan = attrSpan;
+		return this;
+	}
+
+	public Integer getAttrIndex() {
+		return attrIndex;
+	}
+
+	public StatisticsField setAttrIndex(Integer attrIndex) {
+		this.attrIndex = attrIndex;
 		return this;
 	}
 
@@ -198,15 +185,13 @@ public class StatisticsField extends Model<StatisticsField> {
 
 	public static final String CHART = "chart";
 
-	public static final String RUNTIME = "runtime";
-
 	public static final String ATTR_INVISIBLE = "attr_invisible";
 
-	public static final String ATTR_INDEX = "attr_index";
-
-	public static final String ATTR_PERCENT = "attr_percent";
+	public static final String ATTR_RUNTIME = "attr_runtime";
 
 	public static final String ATTR_SPAN = "attr_span";
+
+	public static final String ATTR_INDEX = "attr_index";
 
 	@Override
 	protected Serializable pkVal() {
@@ -223,11 +208,10 @@ public class StatisticsField extends Model<StatisticsField> {
 			", name=" + name +
 			", pattern=" + pattern +
 			", chart=" + chart +
-			", runtime=" + runtime +
 			", attrInvisible=" + attrInvisible +
-			", attrIndex=" + attrIndex +
-			", attrPercent=" + attrPercent +
+			", attrRuntime=" + attrRuntime +
 			", attrSpan=" + attrSpan +
+			", attrIndex=" + attrIndex +
 			"}";
 	}
 }

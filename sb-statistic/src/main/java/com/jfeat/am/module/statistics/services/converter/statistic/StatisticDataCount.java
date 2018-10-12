@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services.crud.converter.statistic;
+package com.jfeat.am.module.statistics.services.converter.statistic;
 
 /**
  * Created by vincent on 2018/5/25.

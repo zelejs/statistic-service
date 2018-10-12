@@ -10,11 +10,12 @@
 		<result column="title" property="title" />
 		<result column="note" property="note" />
 		<result column="index" property="index" />
+		<result column="layout" property="layout" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, pid, name, title, note, index
+        id, pid, name, title, note, index, layout
     </sql>
 
 </mapper>

@@ -2,6 +2,8 @@ package com.jfeat.am.module.statistics.services.persistence.model;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -13,13 +15,14 @@ import java.io.Serializable;
  * </p>
  *
  * @author Code Generator
- * @since 2018-08-28
+ * @since 2018-10-12
  */
 @TableName("st_statistics_field")
 public class StatisticsField extends Model<StatisticsField> {
 
     private static final long serialVersionUID = 1L;
 
+	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
     /**
      * 数据域唯一标识符
@@ -31,22 +34,26 @@ public class StatisticsField extends Model<StatisticsField> {
 	@TableField("group_id")
 	private Long groupId;
     /**
-     * 所属分组
+     * 所属分组名称
      */
 	@TableField("group_name")
 	private String groupName;
     /**
-     * 指标名称
+     * 数据域名称
      */
 	private String name;
     /**
-     * 统计数据类型[Count,Rate,Tuple,Cluster]
+     * 统计数据类型[Count,Rate,Tuple [Timeline,Cluster]]
      */
 	private String pattern;
     /**
-     * 图表名称[Pie,Chain]环比
+     * 图表名称[Num,Array,Pie,Column,Chain,Line] Chain-环比
      */
 	private String chart;
+    /**
+     * 是否实时查询[via meta]
+     */
+	private Integer runtime;
     /**
      * [属性]是否不可见
      */
@@ -63,9 +70,10 @@ public class StatisticsField extends Model<StatisticsField> {
 	@TableField("attr_percent")
 	private Integer attrPercent;
     /**
-     * 是否实时查询[via meta]
+     * [属性]所占布局跨列数
      */
-	private Integer runtime;
+	@TableField("attr_span")
+	private Integer attrSpan;
 
 
 	public Long getId() {
@@ -131,6 +139,15 @@ public class StatisticsField extends Model<StatisticsField> {
 		return this;
 	}
 
+	public Integer getRuntime() {
+		return runtime;
+	}
+
+	public StatisticsField setRuntime(Integer runtime) {
+		this.runtime = runtime;
+		return this;
+	}
+
 	public Integer getAttrInvisible() {
 		return attrInvisible;
 	}
@@ -158,12 +175,12 @@ public class StatisticsField extends Model<StatisticsField> {
 		return this;
 	}
 
-	public Integer getRuntime() {
-		return runtime;
+	public Integer getAttrSpan() {
+		return attrSpan;
 	}
 
-	public StatisticsField setRuntime(Integer runtime) {
-		this.runtime = runtime;
+	public StatisticsField setAttrSpan(Integer attrSpan) {
+		this.attrSpan = attrSpan;
 		return this;
 	}
 
@@ -181,13 +198,15 @@ public class StatisticsField extends Model<StatisticsField> {
 
 	public static final String CHART = "chart";
 
+	public static final String RUNTIME = "runtime";
+
 	public static final String ATTR_INVISIBLE = "attr_invisible";
 
 	public static final String ATTR_INDEX = "attr_index";
 
 	public static final String ATTR_PERCENT = "attr_percent";
 
-	public static final String RUNTIME = "runtime";
+	public static final String ATTR_SPAN = "attr_span";
 
 	@Override
 	protected Serializable pkVal() {
@@ -204,10 +223,11 @@ public class StatisticsField extends Model<StatisticsField> {
 			", name=" + name +
 			", pattern=" + pattern +
 			", chart=" + chart +
+			", runtime=" + runtime +
 			", attrInvisible=" + attrInvisible +
 			", attrIndex=" + attrIndex +
 			", attrPercent=" + attrPercent +
-			", runtime=" + runtime +
+			", attrSpan=" + attrSpan +
 			"}";
 	}
 }

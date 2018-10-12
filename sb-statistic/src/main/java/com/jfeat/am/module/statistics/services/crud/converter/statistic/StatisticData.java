@@ -69,13 +69,13 @@ public class StatisticData {
         return false;
     }
 
-
     /**
      * 记录数据属性
      */
     private String field;
     private String pattern;
     private String chart;
+    private int span;  // 所占跨列
     private String identifier;
 
     public String getPattern() {
@@ -108,5 +108,13 @@ public class StatisticData {
 
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
+    }
+
+    public int getSpan() {
+        return span;
+    }
+
+    public void setSpan(int span) {
+        this.span = span;
     }
 }

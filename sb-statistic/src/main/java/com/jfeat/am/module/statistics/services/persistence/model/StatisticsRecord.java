@@ -16,7 +16,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author Code Generator
- * @since 2018-09-26
+ * @since 2018-10-12
  */
 @TableName("st_statistics_record")
 public class StatisticsRecord extends Model<StatisticsRecord> {

@@ -2,6 +2,8 @@ package com.jfeat.am.module.statistics.services.persistence.model;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
@@ -12,13 +14,14 @@ import java.io.Serializable;
  * </p>
  *
  * @author Code Generator
- * @since 2018-08-28
+ * @since 2018-10-12
  */
 @TableName("st_statistics_group")
 public class StatisticsGroup extends Model<StatisticsGroup> {
 
     private static final long serialVersionUID = 1L;
 
+	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
     /**
      * 上级分组
@@ -40,6 +43,10 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
      * 分组排序号
      */
 	private Integer index;
+    /**
+     * 布局名称
+     */
+	private String layout;
 
 
 	public Long getId() {
@@ -96,6 +103,15 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 		return this;
 	}
 
+	public String getLayout() {
+		return layout;
+	}
+
+	public StatisticsGroup setLayout(String layout) {
+		this.layout = layout;
+		return this;
+	}
+
 	public static final String ID = "id";
 
 	public static final String PID = "pid";
@@ -107,6 +123,8 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 	public static final String NOTE = "note";
 
 	public static final String INDEX = "index";
+
+	public static final String LAYOUT = "layout";
 
 	@Override
 	protected Serializable pkVal() {
@@ -122,6 +140,7 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 			", title=" + title +
 			", note=" + note +
 			", index=" + index +
+			", layout=" + layout +
 			"}";
 	}
 }

@@ -11,6 +11,7 @@ CREATE TABLE `st_statistics_group` (
   `title` varchar(26) DEFAULT NULL COMMENT '组标题',
   `note` text DEFAULT NULL COMMENT '分组描述',
   `index` smallint(5) DEFAULT 0 COMMENT '分组排序号',
+  `layout` varchar(26) DEFAULT NULL COMMENT '布局名称',
   UNIQUE(`name`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -27,10 +28,11 @@ CREATE TABLE `st_statistics_field` (
   `name` varchar(50) NOT NULL COMMENT '数据域名称',
   `pattern` varchar(26) NOT NULL COMMENT '统计数据类型[Count,Rate,Tuple [Timeline,Cluster]]',
   `chart` varchar(26) NOT NULL COMMENT '图表名称[Num,Array,Pie,Column,Chain,Line] Chain-环比',
+  `runtime` smallint DEFAULT 0 COMMENT '是否实时查询[via meta]',
   `attr_invisible` smallint DEFAULT 0 COMMENT '[属性]是否不可见',
   `attr_index` smallint DEFAULT 0 COMMENT '[属性]排序号',
   `attr_percent` smallint DEFAULT 0 COMMENT '[属性]是否显示为百分比',
-  `runtime` smallint DEFAULT 0 COMMENT '是否实时查询[via meta]',
+  `attr_span` smallint DEFAULT 1 COMMENT '[属性]所占布局跨列数',
   UNIQUE(`field`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

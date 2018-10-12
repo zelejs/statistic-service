@@ -1,6 +1,8 @@
 package com.jfeat.am.module.statistics.services.crud.converter.statistic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -8,22 +10,25 @@ import java.util.Map;
  */
 public class StatisticDataCountCluster extends StatisticData {
     private String name;
-    private Map<String, StatisticDataNameValue> cluster;
+    private List<Map<String,StatisticDataNameValue>> cluster;
 
-    public Map<String, StatisticDataNameValue> getCluster() {
+    public List<Map<String,StatisticDataNameValue>> getCluster() {
         return cluster;
     }
 
-    public void setTimeline(Map<String, StatisticDataNameValue> cluster) {
+    public void setTimeline(List<Map<String,StatisticDataNameValue>> cluster) {
         this.cluster = cluster;
     }
 
     public StatisticDataCountCluster addCount(String id, String cluster, String name, String value){
         if(this.cluster == null){
-            this.cluster = new HashMap<>();
+            this.cluster = new ArrayList<>();
         }
-        this.cluster.put(cluster, new StatisticDataNameValue(id, name, value));
 
+        Map<String,StatisticDataNameValue> stat = new HashMap<>();
+        stat.put(cluster, new StatisticDataNameValue(id, name, value));
+
+        this.cluster.add(stat);
         return this;
     }
 

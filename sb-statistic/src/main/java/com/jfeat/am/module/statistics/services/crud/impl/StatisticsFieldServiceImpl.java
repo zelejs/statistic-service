@@ -61,6 +61,7 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
         if(identifier != null && !"".equals(identifier)) {
             wrapper.eq("identifier", identifier);
         }
+        wrapper.orderBy("seq,record_tuple");
         List<StatisticsRecord> items = statisticsRecordMapper.selectList(wrapper);
         model.setItems(items);
 

@@ -7,6 +7,7 @@ public class StatisticDataNameValue{
     private String id;
     private String name;
     private String value;
+    private String seq; //排序号
 
     public StatisticDataNameValue(){}
 
@@ -38,5 +39,13 @@ public class StatisticDataNameValue{
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getSeq() {
+        return seq;
+    }
+
+    public void setSeq(String seq) {
+        this.seq = seq;
     }
 }

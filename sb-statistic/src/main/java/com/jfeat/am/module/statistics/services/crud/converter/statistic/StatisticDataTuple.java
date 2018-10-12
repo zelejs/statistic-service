@@ -8,13 +8,13 @@ import java.util.List;
 public class StatisticDataTuple extends StatisticData {
     private String name;
 
-    private List<StatisticDataTuple.Tuple> tuples;
+    private List<StatisticDataRate> tuples;
 
-    public List<StatisticDataTuple.Tuple> getRates() {
+    public List<StatisticDataRate> getRates() {
         return tuples;
     }
 
-    public void setTuples(List<StatisticDataTuple.Tuple> tuples) {
+    public void setTuples(List<StatisticDataRate> tuples) {
         this.tuples = tuples;
     }
 
@@ -24,36 +24,5 @@ public class StatisticDataTuple extends StatisticData {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * class RateItem
-     */
-    public static class Tuple{
-        private String name;
-        private List<StatisticDataNameValue> rates;
-
-        public Tuple(){}
-
-        public Tuple(String name, List<StatisticDataNameValue> rates){
-            this.name = name;
-            this.rates = rates;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public List<StatisticDataNameValue> getRates() {
-            return rates;
-        }
-
-        public void setRates(List<StatisticDataNameValue> rates) {
-            this.rates = rates;
-        }
     }
 }

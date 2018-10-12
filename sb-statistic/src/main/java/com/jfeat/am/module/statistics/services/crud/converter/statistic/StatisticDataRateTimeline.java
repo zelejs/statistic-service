@@ -1,6 +1,8 @@
 package com.jfeat.am.module.statistics.services.crud.converter.statistic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -8,21 +10,25 @@ import java.util.Map;
  */
 public class StatisticDataRateTimeline extends StatisticData {
     private String name;
-    private java.util.Map<String, StatisticDataRate> timeline;
+    private List<Map<String,StatisticDataRate>> timeline;
 
-    public Map<String, StatisticDataRate> getTimeline() {
+    public List<Map<String,StatisticDataRate>> getTimeline() {
         return timeline;
     }
 
-    public void setTimeline(Map<String, StatisticDataRate> timeline) {
+    public void setTimeline(List<Map<String,StatisticDataRate>> timeline) {
         this.timeline = timeline;
     }
 
     public StatisticDataRateTimeline addTotal(String timeline, StatisticDataRate rate){
         if(this.timeline == null){
-            this.timeline = new HashMap<>();
+            this.timeline = new ArrayList<>();
         }
-        this.timeline.put(timeline, rate);
+
+        Map<String,StatisticDataRate> stat = new HashMap<>();
+        stat.put(timeline, rate);
+
+        this.timeline.add(stat);
 
         return this;
     }

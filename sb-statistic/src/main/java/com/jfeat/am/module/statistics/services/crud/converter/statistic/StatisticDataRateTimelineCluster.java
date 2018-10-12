@@ -1,5 +1,6 @@
 package com.jfeat.am.module.statistics.services.crud.converter.statistic;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -7,6 +8,5 @@ import java.util.Map;
  */
 public class StatisticDataRateTimelineCluster extends StatisticData {
     private String name;
-    private Map<String,Map<String, StatisticDataRate>> cluster;
-
+    private List<Map<String,List<Map<String, StatisticDataRate>>>> cluster;
 }

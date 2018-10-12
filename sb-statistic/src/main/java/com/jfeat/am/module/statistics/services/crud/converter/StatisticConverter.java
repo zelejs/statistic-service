@@ -8,6 +8,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Code Generator on 2017-11-25
@@ -37,27 +38,29 @@ public class StatisticConverter {
         return counter;
     }
     public static StatisticDataCountTimeline convertStatisticCountTimeline(StatisticsFieldModel model){
-        StatisticDataCountTimeline timeline = new StatisticDataCountTimeline();
-        timeline.setField(model.getField());
-        timeline.setPattern(model.getPattern());
-        timeline.setChart(model.getChart());
-        timeline.setSpan(model.getAttrSpan());
+        StatisticDataCountTimeline countTimeline = new StatisticDataCountTimeline();
+        countTimeline.setField(model.getField());
+        countTimeline.setPattern(model.getPattern());
+        countTimeline.setChart(model.getChart());
+        countTimeline.setSpan(model.getAttrSpan());
 
-        timeline.setName(model.getName());
-        timeline.setTimeline(new HashMap<>());
+        countTimeline.setName(model.getName());
+        countTimeline.setTimeline(new ArrayList<>());
 
         /// add rate
-        java.util.Map<String,StatisticDataNameValue> timelineMap = timeline.getTimeline();
+        List<Map<String,StatisticDataNameValue>> timeline = countTimeline.getTimeline();
         for (StatisticsRecord record : model.getItems()){
-            if(timeline.getIdentifier()==null){
-                timeline.setIdentifier(record.getIdentifier());
+            if(countTimeline.getIdentifier()==null){
+                countTimeline.setIdentifier(record.getIdentifier());
             }
 
-            String timelineName = record.getTimeline();
-            timelineMap.put(timelineName, new StatisticDataNameValue(record.getIdentifier(), timelineName, record.getRecordValue()));
+            Map<String,StatisticDataNameValue> stat = new HashMap<>();
+            stat.put(record.getRecordTimeline(), new StatisticDataNameValue(record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
+
+            timeline.add(stat);
         }
 
-        return timeline;
+        return countTimeline;
     }
     public static StatisticDataCountCluster convertStatisticCountCluster(StatisticsFieldModel model){
         //TODO,
@@ -97,33 +100,37 @@ public class StatisticConverter {
         return rate;
     }
     public static StatisticDataRateTimeline convertStatisticRateTimeline(StatisticsFieldModel model){
-        StatisticDataRateTimeline timeline = new StatisticDataRateTimeline();
-        timeline.setField(model.getField());
-        timeline.setPattern(model.getPattern());
-        timeline.setChart(model.getChart());
-        timeline.setSpan(model.getAttrSpan());
+        StatisticDataRateTimeline rateTimeline = new StatisticDataRateTimeline();
+        rateTimeline.setField(model.getField());
+        rateTimeline.setPattern(model.getPattern());
+        rateTimeline.setChart(model.getChart());
+        rateTimeline.setSpan(model.getAttrSpan());
 
-        timeline.setName(model.getName());  ///报表数据域
-        timeline.setTimeline(new HashMap<>());
+        rateTimeline.setName(model.getName());  ///报表数据域
+        rateTimeline.setTimeline(new ArrayList<>());
 
         /// add rate
-        java.util.Map<String,StatisticDataRate> timelineMap = timeline.getTimeline();
+        List<Map<String,StatisticDataRate>> timeline = rateTimeline.getTimeline();
         for (StatisticsRecord record : model.getItems()){
-            if(timeline.getIdentifier()==null){
-                timeline.setIdentifier(record.getIdentifier());
+            //从record 获取identifier名称
+            if(rateTimeline.getIdentifier()==null){
+                rateTimeline.setIdentifier(record.getIdentifier());
             }
 
-            String timelineName = record.getTimeline();
-            if(!timelineMap.containsKey(timelineName)){
-                timelineMap.put(timelineName, new StatisticDataRate(timelineName, new ArrayList<>()));
-            }
+            // create timeline stat
+            String timelineName = record.getRecordTimeline();
+            Map<String,StatisticDataRate> stat = new HashMap<>();
+            stat.put(timelineName, new StatisticDataRate(timelineName, new ArrayList<>()));
 
-            StatisticDataRate currentTimelineRate = timelineMap.get(timelineName);
+            timeline.add(stat);
+
+            /// append timeline stat
+            StatisticDataRate currentTimelineRate = stat.get(timelineName);
             currentTimelineRate.getRates().add(new StatisticDataNameValue(
                     record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
         }
 
-        return timeline;
+        return rateTimeline;
     }
     public static StatisticDataRateCluster convertStatisticRateCluster(StatisticsFieldModel model){
         //TODO,
@@ -149,26 +156,31 @@ public class StatisticConverter {
         tuple.setName(model.getName());
         tuple.setTuples(new ArrayList<>());
 
+        List<StatisticDataRate> rates = tuple.getRates();
+
         /// add tuple
-        java.util.Map<String,StatisticDataTuple.Tuple> tupleMap = new HashMap<>();
+        Map<String,StatisticDataRate> hashTemp = new HashMap<>();
+
         for (StatisticsRecord record : model.getItems()){
+            // 从record中获取identifier
             if(tuple.getIdentifier()==null){
                 tuple.setIdentifier(tuple.getIdentifier());
             }
 
+            /// 增加tuple
             String tupleName = record.getRecordTuple();
-            if(!tupleMap.containsKey(tupleName)){
-                tupleMap.put(tupleName, new StatisticDataTuple.Tuple(tupleName, new ArrayList<>()));
+            {
+                if (!hashTemp.containsKey(tupleName)) {
+                    hashTemp.put(tupleName, new StatisticDataRate(tupleName, new ArrayList<>()));
+
+                    //add new tuple
+                    rates.add(hashTemp.get(tupleName));
+                }
             }
 
-            StatisticDataTuple.Tuple tuple1 = tupleMap.get(tupleName);
-            tuple1.getRates().add(new StatisticDataNameValue(record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
-        }
-
-        /// convert tupleMap to tuple
-        List<StatisticDataTuple.Tuple> rates = tuple.getRates();
-        for (StatisticDataTuple.Tuple tp : tupleMap.values()){
-            rates.add(tp);
+            // 增加 name value
+            StatisticDataRate rate = hashTemp.get(tupleName);
+            rate.getRates().add(new StatisticDataNameValue(record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
         }
 
         return tuple;

@@ -1,14 +1,13 @@
 package com.jfeat.am.module.statistics.services.persistence.model;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -30,6 +29,10 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
      */
 	private String field;
     /**
+     * 记录排序号
+     */
+	private Integer seq;
+    /**
      * 记录名称
      */
 	@TableField("record_name")
@@ -50,11 +53,16 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 	@TableField("record_cluster")
 	private String recordCluster;
     /**
+     * 记录值所属时间区间名称
+     */
+	@TableField("record_timeline")
+	private String recordTimeline;
+    /**
      * 统计时段说明[T,D,W,M,Y,LD3,LW1,LM1,LM3,Q1,Q2,Q3,Q4,TF]
      */
 	private String timeline;
     /**
-     * 归属标识
+     * 统计归属标识
      */
 	private String identifier;
     /**
@@ -84,6 +92,15 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	public StatisticsRecord setField(String field) {
 		this.field = field;
+		return this;
+	}
+
+	public Integer getSeq() {
+		return seq;
+	}
+
+	public StatisticsRecord setSeq(Integer seq) {
+		this.seq = seq;
 		return this;
 	}
 
@@ -120,6 +137,15 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	public StatisticsRecord setRecordCluster(String recordCluster) {
 		this.recordCluster = recordCluster;
+		return this;
+	}
+
+	public String getRecordTimeline() {
+		return recordTimeline;
+	}
+
+	public StatisticsRecord setRecordTimeline(String recordTimeline) {
+		this.recordTimeline = recordTimeline;
 		return this;
 	}
 
@@ -163,6 +189,8 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 
 	public static final String FIELD = "field";
 
+	public static final String SEQ = "seq";
+
 	public static final String RECORD_NAME = "record_name";
 
 	public static final String RECORD_VALUE = "record_value";
@@ -170,6 +198,8 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 	public static final String RECORD_TUPLE = "record_tuple";
 
 	public static final String RECORD_CLUSTER = "record_cluster";
+
+	public static final String RECORD_TIMELINE = "record_timeline";
 
 	public static final String TIMELINE = "timeline";
 
@@ -189,10 +219,12 @@ public class StatisticsRecord extends Model<StatisticsRecord> {
 		return "StatisticsRecord{" +
 			"id=" + id +
 			", field=" + field +
+			", seq=" + seq +
 			", recordName=" + recordName +
 			", recordValue=" + recordValue +
 			", recordTuple=" + recordTuple +
 			", recordCluster=" + recordCluster +
+			", recordTimeline=" + recordTimeline +
 			", timeline=" + timeline +
 			", identifier=" + identifier +
 			", createTime=" + createTime +

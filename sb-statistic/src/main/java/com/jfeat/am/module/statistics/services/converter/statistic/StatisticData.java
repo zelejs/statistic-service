@@ -73,9 +73,10 @@ public class StatisticData {
      * 记录数据属性
      */
     private String field;
-    private String pattern;
-    private String chart;
-    private int span;  // 所占跨列
+    private String title;   //域名称
+    private String pattern; //数据模式
+    private String chart;   //图标名称，与前端富组件名称协议
+    private int span;       // 所占跨列
     private String identifier;
 
     public String getPattern() {
@@ -116,5 +117,13 @@ public class StatisticData {
 
     public void setSpan(int span) {
         this.span = span;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

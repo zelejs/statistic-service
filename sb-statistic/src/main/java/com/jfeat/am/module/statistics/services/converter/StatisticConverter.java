@@ -23,6 +23,7 @@ public class StatisticConverter {
     public static StatisticDataCount convertStatisticCount(StatisticsFieldModel model){
         StatisticDataCount counter = new StatisticDataCount();
         counter.setField(model.getField());
+        counter.setTitle(model.getName());
         counter.setPattern(model.getPattern());
         counter.setChart(model.getChart());
         counter.setSpan(model.getAttrSpan());
@@ -40,6 +41,7 @@ public class StatisticConverter {
     public static StatisticDataCountTimeline convertStatisticCountTimeline(StatisticsFieldModel model){
         StatisticDataCountTimeline countTimeline = new StatisticDataCountTimeline();
         countTimeline.setField(model.getField());
+        countTimeline.setTitle(model.getName());
         countTimeline.setPattern(model.getPattern());
         countTimeline.setChart(model.getChart());
         countTimeline.setSpan(model.getAttrSpan());
@@ -81,6 +83,7 @@ public class StatisticConverter {
     public static StatisticDataRate convertStatisticRate(StatisticsFieldModel model){
         StatisticDataRate rate = new StatisticDataRate();
         rate.setField(model.getField());
+        rate.setTitle(model.getName());
         rate.setPattern(model.getPattern());
         rate.setChart(model.getChart());
         rate.setSpan(model.getAttrSpan());
@@ -106,6 +109,7 @@ public class StatisticConverter {
     public static StatisticDataRateTimeline convertStatisticRateTimeline(StatisticsFieldModel model){
         StatisticDataRateTimeline rateTimeline = new StatisticDataRateTimeline();
         rateTimeline.setField(model.getField());
+        rateTimeline.setName(model.getName());
         rateTimeline.setPattern(model.getPattern());
         rateTimeline.setChart(model.getChart());
         rateTimeline.setSpan(model.getAttrSpan());
@@ -160,6 +164,7 @@ public class StatisticConverter {
     public static StatisticDataTuple convertStatisticTuple(StatisticsFieldModel model){
         StatisticDataTuple tuple = new StatisticDataTuple();
         tuple.setField(model.getField());
+        tuple.setTitle(model.getName());
         tuple.setPattern(model.getPattern());
         tuple.setChart(model.getChart());
         tuple.setSpan(model.getAttrSpan());

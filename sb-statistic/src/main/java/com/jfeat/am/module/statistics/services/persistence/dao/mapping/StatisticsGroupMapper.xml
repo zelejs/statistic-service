@@ -8,14 +8,15 @@
 		<result column="pid" property="pid" />
 		<result column="name" property="name" />
 		<result column="title" property="title" />
-		<result column="note" property="note" />
-		<result column="index" property="index" />
 		<result column="layout" property="layout" />
+		<result column="span" property="span" />
+		<result column="index" property="index" />
+		<result column="note" property="note" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, pid, name, title, note, index, layout
+        id, pid, name, title, layout, span, index, note
     </sql>
 
 </mapper>

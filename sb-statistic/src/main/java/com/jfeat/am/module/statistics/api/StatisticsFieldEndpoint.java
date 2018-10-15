@@ -7,7 +7,7 @@ import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.converter.StatisticConverter;
-import com.jfeat.am.module.statistics.services.converter.statistic.StatisticData;
+import com.jfeat.am.module.statistics.services.converter.StatisticData;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsFieldModel;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import io.swagger.annotations.Api;

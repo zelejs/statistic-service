@@ -1,9 +1,9 @@
-package com.jfeat.am.module.statistics.services.converter.statistic;
+package com.jfeat.am.module.statistics.services.converter;
 
 /**
  * Created by vincent on 2018/5/28.
  */
-public class StatisticData {
+public class StatisticData implements StatisticDataBase {
     public static final String STAT_PATTERN_COUNT = "Count";
     public static final String STAT_PATTERN_COUNT_TIMELINE = "CountTimeline";
     public static final String STAT_PATTERN_COUNT_CLUSTER = "CountCluster";
@@ -73,11 +73,12 @@ public class StatisticData {
      * 记录数据属性
      */
     private String field;
-    private String title;   //域名称
     private String pattern; //数据模式
+    private String identifier;
+    // 图标规范属性 (需要返回)
+    private String title;   //域名称
     private String chart;   //图标名称，与前端富组件名称协议
     private int span;       // 所占跨列
-    private String identifier;
 
     public String getPattern() {
         return pattern;

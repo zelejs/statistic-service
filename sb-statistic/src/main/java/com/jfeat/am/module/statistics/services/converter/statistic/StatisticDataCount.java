@@ -1,5 +1,7 @@
 package com.jfeat.am.module.statistics.services.converter.statistic;
 
+import com.jfeat.am.module.statistics.services.converter.StatisticData;
+
 /**
  * Created by vincent on 2018/5/25.
  */

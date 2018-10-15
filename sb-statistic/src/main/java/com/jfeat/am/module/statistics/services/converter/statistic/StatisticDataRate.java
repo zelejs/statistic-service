@@ -1,11 +1,13 @@
 package com.jfeat.am.module.statistics.services.converter.statistic;
 
+import com.jfeat.am.module.statistics.services.converter.StatisticData;
+
 import java.util.List;
 
 /**
  * Created by vincent on 2018/5/25.
  */
-public class StatisticDataRate extends StatisticData{
+public class StatisticDataRate extends StatisticData {
 
     private String name;
 

@@ -6,11 +6,12 @@ import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.crud.CRUD;
 import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
+import com.jfeat.am.module.statistics.services.converter.StatisticConverter;
+import com.jfeat.am.module.statistics.services.converter.StatisticGroupData;
+import com.jfeat.am.module.statistics.services.converter.StatisticData;
 import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.crud.StatisticsGroupByService;
 import com.jfeat.am.module.statistics.services.crud.StatisticsGroupService;
-import com.jfeat.am.module.statistics.services.converter.StatisticConverter;
-import com.jfeat.am.module.statistics.services.converter.statistic.StatisticData;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsFieldModel;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsGroupModel;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
@@ -38,78 +39,49 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/stat/groups")
 public class StatisticsGroupEndpoint extends BaseController {
-
     @Resource
     StatisticsGroupService statisticsGroupService;
     @Resource
     StatisticsGroupByService statisticsGroupByService;
-
     @Resource
     StatisticsFieldService statisticsFieldService;
 
-    @ApiOperation("获取指定分组的统计域")
-    @GetMapping("/{group}")
-    public Tip getStatisticFieldByGroup(@PathVariable String group,
-                                        @RequestParam(value = "identifier", required = false) String identifier) {
-        StatisticsGroup statisticsGroup = statisticsGroupService.getGroupByName(group);
-        if (statisticsGroup == null) {
-            throw new BusinessException(BusinessCode.BadRequest);
-        }
-
-        StatisticsGroupModel groupModel = CRUD.castObject(statisticsGroup, StatisticsGroupModel.class);
-
-        List<StatisticsField> fields = statisticsGroupByService.getGroupItems(statisticsGroup.getId());
-
-        //过虑不可见
-        fields = fields.stream().filter(u->u.getAttrInvisible()==0).collect(Collectors.toList());
-        //排序
-        fields = fields.stream().sorted(Comparator.comparing(StatisticsField::getAttrIndex)).collect(Collectors.toList());
-
-
-        //每个域的数据
-        List<StatisticsField> modelFields = new ArrayList<>();
-
-        for(StatisticsField field : fields) {
-            String fieldName = field.getField();
-            StatisticsFieldModel statisticsField =
-                    (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName, identifier);
-
-            modelFields.add(statisticsField);
-        }
-
-        groupModel.setFields(modelFields);
-
-        return SuccessTip.create(groupModel);
-    }
-
     @ApiOperation("获取指定分组的统计数据")
-    @GetMapping("/{group}/statistic")
+    @GetMapping("/{group}")
     public Tip getStatisticFieldStatisticByGroup(@PathVariable String group,
                                                  @RequestParam(name = "identifier", required = false) String identifier) {
         StatisticsGroup statisticsGroup = statisticsGroupService.getGroupByName(group);
         if (statisticsGroup == null) {
             throw new BusinessException(BusinessCode.BadRequest);
         }
-        // group 内无法固定统计数据类型
-        //if(type!=null && !StatisticData.checkStatisticType(type)){
-        //    throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据类型错误: select one in [total,rate,tuple,totalTimeline,rateTimeline,tupleTimeline] :" + type);
-        //}
-        StatisticsGroupData groupData = handleGroupStatistic(statisticsGroup, identifier);
+        /// handle specific group
+        StatisticGroupData groupData = handleGroupStatistic(statisticsGroup, identifier);
 
         /// handle sub groups
         List<StatisticsGroup> subgroups = statisticsGroupService.getGroupChildren(statisticsGroup.getId());
+
         if(subgroups.size()>0){
+            // sort sub group first
+            if(subgroups.size()>1) {
+                subgroups = subgroups.stream().sorted(Comparator.comparing(StatisticsGroup::getIndex)).collect(Collectors.toList());
+            }
+
             for (StatisticsGroup g : subgroups){
-                StatisticsGroupData gdata = handleGroupStatistic(g, identifier);
-                groupData.addGroup(gdata);
+                StatisticGroupData gdata = handleGroupStatistic(g, identifier);
+                groupData.addItem(gdata);
             }
         }
 
         return SuccessTip.create(groupData);
     }
 
-    private StatisticsGroupData handleGroupStatistic(StatisticsGroup statisticsGroup, String identifier){
-        StatisticsGroupData groupModel = CRUD.castObject(statisticsGroup, StatisticsGroupData.class);
+    private StatisticGroupData handleGroupStatistic(StatisticsGroup statisticsGroup, String identifier){
+        StatisticGroupData groupData = new StatisticGroupData();
+            groupData.setGroup(statisticsGroup.getName());
+            groupData.setTitle(statisticsGroup.getTitle());
+            groupData.setLayout(statisticsGroup.getLayout());
+            groupData.setSpan(statisticsGroup.getSpan());
+            groupData.setIndex(statisticsGroup.getIndex());
 
         //每个域的数据
         List<StatisticsField> fields = statisticsGroupByService.getGroupItems(statisticsGroup.getId());
@@ -119,11 +91,7 @@ public class StatisticsGroupEndpoint extends BaseController {
         /// 排序
         fields = fields.stream().sorted(Comparator.comparing(StatisticsField::getAttrIndex)).collect(Collectors.toList());
 
-
         if(fields.size()>0) {
-            // result
-            List<StatisticData> dataFields = new ArrayList<>();
-
             for (StatisticsField field : fields) {
                 if (!StatisticData.checkStatisticPattern(field.getPattern())) {
                     throw new BusinessException(BusinessCode.BadRequest.getCode(), "统计数据模式错误: Select One in [Count,Rate,Tuple or combine with [Timeline,Cluster]] :" + field.getPattern());
@@ -134,11 +102,12 @@ public class StatisticsGroupEndpoint extends BaseController {
 
                 String pattern = field.getPattern();
                 StatisticData statisticData = convertStatisticFieldModel(statisticsField, pattern);
-                dataFields.add(statisticData);
+
+                // add item
+                groupData.addItem(statisticData);
             }
-            groupModel.setFields(dataFields);
         }
-        return groupModel;
+        return groupData;
     }
 
     private StatisticData convertStatisticFieldModel(StatisticsFieldModel fieldModel, String pattern) {
@@ -188,5 +157,41 @@ public class StatisticsGroupEndpoint extends BaseController {
         }
 
         return statistic;
+    }
+
+
+    @ApiOperation("获取指定分组的统计域(原始数据)")
+    @GetMapping("/{group}/origin")
+    @Deprecated
+    public Tip getStatisticFieldByGroup(@PathVariable String group,
+                                        @RequestParam(value = "identifier", required = false) String identifier) {
+        StatisticsGroup statisticsGroup = statisticsGroupService.getGroupByName(group);
+        if (statisticsGroup == null) {
+            throw new BusinessException(BusinessCode.BadRequest);
+        }
+
+        StatisticsGroupModel groupModel = CRUD.castObject(statisticsGroup, StatisticsGroupModel.class);
+
+        List<StatisticsField> fields = statisticsGroupByService.getGroupItems(statisticsGroup.getId());
+
+        //过虑不可见
+        fields = fields.stream().filter(u->u.getAttrInvisible()==0).collect(Collectors.toList());
+        //排序
+        fields = fields.stream().sorted(Comparator.comparing(StatisticsField::getAttrIndex)).collect(Collectors.toList());
+
+        //每个域的数据
+        List<StatisticsField> modelFields = new ArrayList<>();
+
+        for(StatisticsField field : fields) {
+            String fieldName = field.getField();
+            StatisticsFieldModel statisticsField =
+                    (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName, identifier);
+
+            modelFields.add(statisticsField);
+        }
+
+        groupModel.setFields(modelFields);
+
+        return SuccessTip.create(groupModel);
     }
 }

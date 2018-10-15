@@ -1,11 +1,10 @@
 package com.jfeat.am.module.statistics.services.persistence.model;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -31,23 +30,26 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
      * 组名[唯一标记]
      */
 	private String name;
-    /**
-     * 组标题
-     */
+	/**
+	 * 组标题
+	 */
 	private String title;
-    /**
-     * 分组描述
-     */
-	private String note;
+	/**
+	 * 布局名称
+	 */
+	private String layout;
+	/**
+	 * 子分组占父分组的列跨度
+	 */
+	private Integer span;
     /**
      * 分组排序号
      */
 	private Integer index;
-    /**
-     * 布局名称
-     */
-	private String layout;
-
+	/**
+	 * 分组描述
+	 */
+	private String note;
 
 	public Long getId() {
 		return id;
@@ -85,13 +87,21 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 		return this;
 	}
 
-	public String getNote() {
-		return note;
+	public String getLayout() {
+		return layout;
 	}
 
-	public StatisticsGroup setNote(String note) {
-		this.note = note;
+	public StatisticsGroup setLayout(String layout) {
+		this.layout = layout;
 		return this;
+	}
+
+	public Integer getSpan() {
+		return span;
+	}
+
+	public void setSpan(Integer span) {
+		this.span = span;
 	}
 
 	public Integer getIndex() {
@@ -103,12 +113,12 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 		return this;
 	}
 
-	public String getLayout() {
-		return layout;
+	public String getNote() {
+		return note;
 	}
 
-	public StatisticsGroup setLayout(String layout) {
-		this.layout = layout;
+	public StatisticsGroup setNote(String note) {
+		this.note = note;
 		return this;
 	}
 
@@ -120,11 +130,13 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 
 	public static final String TITLE = "title";
 
-	public static final String NOTE = "note";
+	public static final String LAYOUT = "layout";
+
+	public static final String SPAN = "span";
 
 	public static final String INDEX = "index";
 
-	public static final String LAYOUT = "layout";
+	public static final String NOTE = "note";
 
 	@Override
 	protected Serializable pkVal() {
@@ -138,9 +150,10 @@ public class StatisticsGroup extends Model<StatisticsGroup> {
 			", pid=" + pid +
 			", name=" + name +
 			", title=" + title +
-			", note=" + note +
-			", index=" + index +
 			", layout=" + layout +
-			"}";
+			", span=" + span +
+			", index=" + index +
+			", note=" + note +
+				"}";
 	}
 }

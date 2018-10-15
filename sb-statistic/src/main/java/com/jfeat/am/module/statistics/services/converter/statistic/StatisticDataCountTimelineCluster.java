@@ -1,5 +1,7 @@
 package com.jfeat.am.module.statistics.services.converter.statistic;
 
+import com.jfeat.am.module.statistics.services.converter.StatisticData;
+
 import java.util.List;
 import java.util.Map;
 

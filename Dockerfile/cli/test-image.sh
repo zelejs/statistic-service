@@ -19,5 +19,5 @@ fi
 
 
 ## run image
-docker run -v ${WEBAPPS_DIR}:/webapps -p $binding:8080 -it app/stat/openjre8 bash
+docker run -v ${WEBAPPS_DIR}:/webapps -p $binding:8080 -it stat/openjre8 bash
 

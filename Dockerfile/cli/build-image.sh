@@ -1,4 +1,4 @@
 #!/bin/sh
 
-docker build -t app/stat/openjre8 .
+docker build -t app/openjre8 .
 

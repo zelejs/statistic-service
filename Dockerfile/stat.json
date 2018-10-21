@@ -1,0 +1,10 @@
+{
+    “environment”:  “jfeat@112.74.26.228:/home/jfeat/git/dockerfile/app-openjre8.git”,
+    “name” : “app-stat”,
+    "binding“:8264,
+    “host” : “qiaotong@gmsar.com”
+    "volume":“/home/qiaotong/webapps”,
+    “local” : “../sb-statistic/target”,
+    "phrase":"init|greenfield|update"
+}
+

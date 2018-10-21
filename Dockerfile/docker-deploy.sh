@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 ## default binding port for statistic
+
+APP_DOCKER_REPO='jfeat@112.74.26.228:/home/jfeat/git/dockerfile/app-openjre8.git'
+
 ## 8264  ############################
 BINDING_PORT=8264                  ##
 ## ##################################
@@ -47,7 +50,10 @@ appdir=$cli/app-openjre8
 ## clone app-openjre8
 if [ ! -d $appdir ];then
    cd $cli
-   git clone jfeat@112.74.26.228:/home/jfeat/git/dockerfile/app-openjre8.git
+   git clone $APP_DOCKER_REPO
+else
+   cd $appdir
+   git pull origin master
 fi
 
 ## build image first

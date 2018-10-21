@@ -1,15 +1,19 @@
 package com.jfeat.am.module.statistics.api;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.constant.tips.Ids;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
+import com.jfeat.am.common.exception.BusinessCode;
+import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.module.statistics.services.domain.dao.QueryStatisticsFieldDao;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+import sun.rmi.rmic.iiop.ValueType;
 
 import javax.annotation.Resource;
 
@@ -23,7 +27,7 @@ import javax.annotation.Resource;
  */
 @Api("统计 [Statistics]")
 @RestController
-@RequestMapping("/api/adm/statistics/fields")
+@RequestMapping("/api/adm/stat/fields")
 public class MaintenanceFieldEndpoint extends BaseController {
 
     @Resource
@@ -32,46 +36,25 @@ public class MaintenanceFieldEndpoint extends BaseController {
     @Resource
     private QueryStatisticsFieldDao statisticsFieldDao;
 
-    @ApiOperation("设置数据据域分组 [转移数据域至其他分组]")
-    @PostMapping("/{id}/assignTo/{groupId}")
-    public Tip createStatisticsField(@PathVariable Long id, @PathVariable Long groupId) {
-        StatisticsField entity = new StatisticsField();
-        entity.setId(id);
-        entity.setGroupId(groupId);
-        return SuccessTip.create(statisticsFieldService.updateMaster(entity));
-    }
 
-    @ApiOperation("增加数据域")
-    @PostMapping("/{recordId}/attr")
-    public Tip createStatisticsField(@PathVariable Long recordId, @RequestBody StatisticsField entity){
+    @ApiOperation(value = "增加统计域", response = StatisticsField.class)
+    @PostMapping
+    public Tip createStatisticsField(@RequestBody StatisticsField entity){
         return SuccessTip.create(statisticsFieldService.createMaster(entity));
     }
 
-    @ApiOperation("获取数据域")
+    @ApiOperation("获取统计域")
     @GetMapping("/{id}")
     public Tip getStatisticsField(@PathVariable Long id) {
         return SuccessTip.create(statisticsFieldService.retrieveMaster(id));
     }
 
-    @ApiOperation("修改数据域")
+    @ApiOperation(value = "修改统计域", response = StatisticsField.class)
     @PutMapping("/{id}")
     public Tip updateStatisticsField(@PathVariable Long id, @RequestBody StatisticsField entity) {
         entity.setId(id);
-        return SuccessTip.create(statisticsFieldService.updateMaster(entity));
+        return SuccessTip.create(statisticsFieldService.updateMaster(entity, true));
     }
-
-    @ApiOperation("使数据域可见")
-    @PostMapping("/{id}/visible")
-    public Tip setFieldVisible(@PathVariable Long id) {
-        return SuccessTip.create(statisticsFieldService.deleteMaster(id));
-    }
-
-    @ApiOperation("使数据域不可见")
-    @PostMapping("/{id}/invisible")
-    public Tip setFieldInVisible(@PathVariable Long id) {
-        return SuccessTip.create(statisticsFieldService.deleteMaster(id));
-    }
-
 
     @ApiOperation("分页返回所有图表数据域")
     @GetMapping
@@ -98,4 +81,79 @@ public class MaintenanceFieldEndpoint extends BaseController {
         page.setRecords(statisticsFieldDao.findStatisticsFieldPage(page, statisticsField));
         return SuccessTip.create(page);
     }
+
+
+    /**
+     * 修改统计域属性
+     * @param id
+     * @return
+     */
+
+    @ApiOperation("设置统计域分组 [指转移经计域至其他分组]")
+    @PostMapping("/{id}/attr/group/{groupId}")
+    public Tip changeStatisticsFieldGroup(@PathVariable Long id, @PathVariable Long groupId) {
+        StatisticsField entity = new StatisticsField();
+        entity.setId(id);
+        entity.setGroupId(groupId);
+
+        return SuccessTip.create(statisticsFieldService.updateMaster(entity, false));
+    }
+
+    @ApiOperation("使统计域可见")
+    @PostMapping("/{id}/attr/visible")
+    public Tip setFieldVisible(@PathVariable Long id) {
+        StatisticsField entity = new StatisticsField();
+        entity.setId(id);
+        entity.setAttrInvisible(0);
+
+        return SuccessTip.create(statisticsFieldService.updateMaster(entity, false));
+    }
+
+    @ApiOperation("使统计域不可见")
+    @PostMapping("/{id}/attr/invisible")
+    public Tip setFieldInvisible(@PathVariable Long id) {
+        StatisticsField entity = new StatisticsField();
+        entity.setId(id);
+        entity.setAttrInvisible(1);
+
+        return SuccessTip.create(statisticsFieldService.updateMaster(entity, false));
+    }
+
+    @ApiOperation("设置统计域 图表名称 [通常由前端定义]")
+    @PostMapping("/{id}/attr/chart/{chart}")
+    public Tip changeStatisticsFieldChart(@PathVariable Long id, @PathVariable String chart) {
+        StatisticsField entity = new StatisticsField();
+        entity.setId(id);
+        entity.setChart(chart);
+
+        return SuccessTip.create(statisticsFieldService.updateMaster(entity, false));
+    }
+
+    @ApiOperation("设备统计域排序号")
+    @PostMapping("/{id}/attr/index/{index}")
+    public Tip setFieldIndex(@PathVariable Long id, @PathVariable Integer index) {
+        StatisticsField entity = new StatisticsField();
+        entity.setId(id);
+        entity.setAttrIndex(index);
+
+        return SuccessTip.create(statisticsFieldService.updateMaster(entity, false));
+    }
+
+    @ApiOperation("设备统计域占组布局的列数")
+    @PostMapping("/{id}/attr/span/{span}")
+    public Tip setFieldLayoutSpan(@PathVariable Long id, @PathVariable Integer span) {
+        StatisticsField entity = new StatisticsField();
+        entity.setId(id);
+        entity.setAttrSpan(span);
+
+        return SuccessTip.create(statisticsFieldService.updateMaster(entity, false));
+    }
+
+
+    @ApiOperation("使统计域不可见")
+    @PostMapping("/{id}/attr/runtime")
+    public Tip setFieldRuntime(@PathVariable Long id) {
+        throw new BusinessException(BusinessCode.NotImplement.getCode(), "未实现运行时查询，需要支持SQL设置");
+    }
+
 }

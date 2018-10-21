@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 /**
  * Created by Silent-Y on 2017/10/16.
  */
+@Deprecated //原则上无需单独获取域数据
 @Api("统计 [Statistics]")
 @RestController
 @RequestMapping("/api/stat/fields")

@@ -43,7 +43,6 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
     @Resource
     DataSource dataSource;
 
-
     /**
      * 通过域名获取域数据
      */

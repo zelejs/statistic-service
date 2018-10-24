@@ -162,25 +162,25 @@ public class StatisticConverter {
      * @return
      */
     public static StatisticDataTuple convertStatisticTuple(StatisticsFieldModel model){
-        StatisticDataTuple tuple = new StatisticDataTuple();
-        tuple.setField(model.getField());
-        tuple.setTitle(model.getName());
-        tuple.setPattern(model.getPattern());
-        tuple.setChart(model.getChart());
-        tuple.setSpan(model.getAttrSpan());
+        StatisticDataTuple statisticDataTuple = new StatisticDataTuple();
+        statisticDataTuple.setField(model.getField());
+        statisticDataTuple.setTitle(model.getName());
+        statisticDataTuple.setPattern(model.getPattern());
+        statisticDataTuple.setChart(model.getChart());
+        statisticDataTuple.setSpan(model.getAttrSpan());
 
-        tuple.setName(model.getName());
-        tuple.setTuples(new ArrayList<>());
+        statisticDataTuple.setName(model.getName());
+        statisticDataTuple.setTuple(new ArrayList<>());
 
-        List<StatisticDataRate> rates = tuple.getRates();
+        List<StatisticDataRate> tuple = statisticDataTuple.getTuple();
 
         /// add tuple
         Map<String,StatisticDataRate> hashTemp = new HashMap<>();
 
         for (StatisticsRecord record : model.getItems()){
             // 从record中获取identifier
-            if(tuple.getIdentifier()==null){
-                tuple.setIdentifier(tuple.getIdentifier());
+            if(statisticDataTuple.getIdentifier()==null){
+                statisticDataTuple.setIdentifier(statisticDataTuple.getIdentifier());
             }
 
             /// 增加tuple
@@ -190,7 +190,7 @@ public class StatisticConverter {
                     hashTemp.put(tupleName, new StatisticDataRate(tupleName, new ArrayList<>()));
 
                     //add new tuple
-                    rates.add(hashTemp.get(tupleName));
+                    tuple.add(hashTemp.get(tupleName));
                 }
             }
 
@@ -201,7 +201,7 @@ public class StatisticConverter {
                             record.getRecordName(), record.getRecordValue()));
         }
 
-        return tuple;
+        return statisticDataTuple;
     }
 
     public static StatisticDataTupleTimeline convertStatisticTupleTimeline(StatisticsFieldModel model){

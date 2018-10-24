@@ -10,14 +10,14 @@ import java.util.List;
 public class StatisticDataTuple extends StatisticData {
     private String name;
 
-    private List<StatisticDataRate> tuples;
+    private List<StatisticDataRate> tuple;
 
-    public List<StatisticDataRate> getRates() {
-        return tuples;
+    public List<StatisticDataRate> getTuple() {
+        return tuple;
     }
 
-    public void setTuples(List<StatisticDataRate> tuples) {
-        this.tuples = tuples;
+    public void setTuple(List<StatisticDataRate> tuple) {
+        this.tuple = tuple;
     }
 
     public String getName() {

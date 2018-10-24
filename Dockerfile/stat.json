@@ -3,7 +3,7 @@
     “name” : “app-stat”,
     "binding“:8264,
     “host” : “qiaotong@gmsar.com”
-    "volume":“/home/qiaotong/webapps”,
+    "remote":“/home/qiaotong/webapps”,
     “local” : “../sb-statistic/target”,
     "phrase":"init|greenfield|update"
 }

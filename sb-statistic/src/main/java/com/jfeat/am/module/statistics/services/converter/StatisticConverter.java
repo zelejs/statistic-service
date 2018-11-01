@@ -63,7 +63,6 @@ public class StatisticConverter {
 
             timeline.add(stat);
         }
-
         return countTimeline;
     }
     public static StatisticDataCountCluster convertStatisticCountCluster(StatisticsFieldModel model){
@@ -121,9 +120,9 @@ public class StatisticConverter {
         Map<String,StatisticDataRate> hashTemp = new HashMap<>();
 
         List<StatisticDataRate> timeline = rateTimeline.getTimeline();
-        for (StatisticsRecord record : model.getItems()){
+        for (StatisticsRecord record : model.getItems()) {
             //从record 获取identifier名称
-            if(rateTimeline.getIdentifier()==null){
+            if (rateTimeline.getIdentifier() == null) {
                 rateTimeline.setIdentifier(record.getIdentifier());
             }
 
@@ -140,10 +139,12 @@ public class StatisticConverter {
 
             /// append timeline stat
             StatisticDataRate currentTimelineRate = hashTemp.get(timelineName);
+            currentTimelineRate.setTl(record.getTimeline());
 
             currentTimelineRate.getRates().add(new StatisticDataNameValue(record.getSeq(),
                     record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
         }
+        timeline.sort((item1, item2) -> item1.getTl().compareTo(item2.getTl()));
         return rateTimeline;
     }
 

@@ -79,6 +79,15 @@ public class StatisticData implements StatisticDataBase {
     private String title;   //域名称
     private String chart;   //图标名称，与前端富组件名称协议
     private int span;       // 所占跨列
+    private String tl;
+
+    public String getTl() {
+        return tl;
+    }
+
+    public void setTl(String tl) {
+        this.tl = tl;
+    }
 
     public String getPattern() {
         return pattern;

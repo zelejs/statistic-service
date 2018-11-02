@@ -12,17 +12,22 @@ import java.util.Map;
  */
 public class StatisticDataTupleTimeline extends StatisticData {
     private String name;
-    private List<Map<String,StatisticDataTuple>> timeline;
+    private List<StatisticDataTuple> timeline;
 
-    public List<Map<String,StatisticDataTuple>> getTimeline() {
+    public StatisticDataTupleTimeline() { }
+    public StatisticDataTupleTimeline(String name, List<StatisticDataTuple> timeline) {
+        this.name = name;
+        this.timeline = timeline;
+    }
+    public List<StatisticDataTuple> getTimeline() {
         return timeline;
     }
 
-    public void setTimeline(List<Map<String,StatisticDataTuple>> timeline) {
+    public void setTimeline(List<StatisticDataTuple> timeline) {
         this.timeline = timeline;
     }
 
-    public StatisticDataTupleTimeline addTotal(String timeline, StatisticDataTuple tuple){
+/*    public StatisticDataTupleTimeline addTotal(String timeline, StatisticDataTuple tuple){
         if(this.timeline == null){
             this.timeline = new ArrayList<>();
         }
@@ -32,7 +37,7 @@ public class StatisticDataTupleTimeline extends StatisticData {
 
         this.timeline.add(stat);
         return this;
-    }
+    }*/
 
     public String getName() {
         return name;

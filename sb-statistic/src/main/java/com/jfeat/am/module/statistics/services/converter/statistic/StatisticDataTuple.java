@@ -10,13 +10,19 @@ import java.util.List;
 public class StatisticDataTuple extends StatisticData {
     private String name;
 
-    private List<StatisticDataRate> tuple;
+    private List<StatisticDataNameValue> tuple;
+    public StatisticDataTuple() { }
 
-    public List<StatisticDataRate> getTuple() {
+    public StatisticDataTuple(String name, List<StatisticDataNameValue> tuple){
+        this.name = name;
+        this.tuple = tuple;
+    }
+
+    public List<StatisticDataNameValue> getTuple() {
         return tuple;
     }
 
-    public void setTuple(List<StatisticDataRate> tuple) {
+    public void setTuple(List<StatisticDataNameValue> tuple) {
         this.tuple = tuple;
     }
 

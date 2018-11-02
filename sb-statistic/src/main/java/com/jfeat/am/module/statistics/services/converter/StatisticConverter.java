@@ -3,12 +3,12 @@ package com.jfeat.am.module.statistics.services.converter;
 import com.jfeat.am.module.statistics.services.converter.statistic.*;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsFieldModel;
+import org.apache.commons.collections.list.TreeList;
+import org.apache.commons.collections.map.HashedMap;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Array;
+import java.util.*;
 
 /**
  * Created by Code Generator on 2017-11-25
@@ -173,10 +173,7 @@ public class StatisticConverter {
         statisticDataTuple.setName(model.getName());
         statisticDataTuple.setTuple(new ArrayList<>());
 
-        List<StatisticDataRate> tuple = statisticDataTuple.getTuple();
-
-        /// add tuple
-        Map<String,StatisticDataRate> hashTemp = new HashMap<>();
+        List<StatisticDataNameValue> tuple = statisticDataTuple.getTuple();
 
         for (StatisticsRecord record : model.getItems()){
             // 从record中获取identifier
@@ -184,37 +181,130 @@ public class StatisticConverter {
                 statisticDataTuple.setIdentifier(statisticDataTuple.getIdentifier());
             }
 
-            /// 增加tuple
-            String tupleName = record.getRecordTuple();
-            {
-                if (!hashTemp.containsKey(tupleName)) {
-                    hashTemp.put(tupleName, new StatisticDataRate(tupleName, new ArrayList<>()));
-
-                    //add new tuple
-                    tuple.add(hashTemp.get(tupleName));
-                }
-            }
-
-            // 增加 name value
-            StatisticDataRate rate = hashTemp.get(tupleName);
-            rate.getRates().add(
-                    new StatisticDataNameValue(record.getSeq(), record.getIdentifier(),
-                            record.getRecordName(), record.getRecordValue()));
+            tuple.add(new StatisticDataNameValue(
+                    record.getSeq(), record.getIdentifier(),
+                    record.getRecordName(), record.getRecordValue()));
         }
 
         return statisticDataTuple;
     }
 
     public static StatisticDataTupleTimeline convertStatisticTupleTimeline(StatisticsFieldModel model){
-        //TODO,
-        throw new NotImplementedException();
+        StatisticDataTupleTimeline tupleTimeline = new StatisticDataTupleTimeline();
+        tupleTimeline.setField(model.getField());
+        tupleTimeline.setTitle(model.getName());
+        tupleTimeline.setPattern(model.getPattern());
+        tupleTimeline.setChart(model.getChart());
+        tupleTimeline.setSpan(model.getAttrSpan());
+
+        tupleTimeline.setName(model.getName());
+        tupleTimeline.setTimeline(new ArrayList<>());
+        List<StatisticDataTuple> timeline = tupleTimeline.getTimeline();
+
+        Map<String,StatisticDataTuple> hashTemp = new HashMap<>();
+
+        for(StatisticsRecord record : model.getItems()) {
+            //从record 获取identifier名称
+            if (tupleTimeline.getIdentifier() == null) {
+                tupleTimeline.setIdentifier(record.getIdentifier());
+            }
+
+            // add new timeline
+            String timelineName = record.getRecordTimeline();
+            {
+                if (!hashTemp.containsKey(timelineName)) {
+                    hashTemp.put(timelineName, new StatisticDataTuple(timelineName, new ArrayList<>()));
+
+                    //add new tuple
+                    timeline.add(hashTemp.get(timelineName));
+                }
+            }
+
+            /// append timeline stat
+            StatisticDataTuple currentTimelineTupe = hashTemp.get(timelineName);
+            currentTimelineTupe.setTl(record.getTimeline());
+
+            currentTimelineTupe.getTuple().add(new StatisticDataNameValue(record.getSeq(),
+                    record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
+        }
+        timeline.sort((item1, item2) -> (item1.getTl().compareTo(item2.getTl())));
+        return tupleTimeline;
     }
     public static StatisticDataTupleCluster convertStatisticTupleCluster(StatisticsFieldModel model){
         //TODO,
         throw new NotImplementedException();
     }
+
+
+
     public static StatisticDataTupleTimelineCluster convertStatisticTupleTimelineCluster(StatisticsFieldModel model){
-        //TODO,
-        throw new NotImplementedException();
+        StatisticDataTupleTimelineCluster tupleTimelineCluster = new StatisticDataTupleTimelineCluster();
+        tupleTimelineCluster.setField(model.getField());
+        tupleTimelineCluster.setTitle(model.getName());
+        tupleTimelineCluster.setPattern(model.getPattern());
+        tupleTimelineCluster.setChart(model.getChart());
+        tupleTimelineCluster.setSpan(model.getAttrSpan());
+
+        tupleTimelineCluster.setName(model.getName());
+
+        Map<String, Map<String,StatisticDataTuple>> hashTemp = new HashMap<>();
+
+
+        for(StatisticsRecord record : model.getItems()) {
+            //从record 获取identifier名称
+            if (tupleTimelineCluster.getIdentifier() == null) {
+                tupleTimelineCluster.setIdentifier(record.getIdentifier());
+            }
+
+            // add new cluster
+            String clusterName = record.getRecordCluster();
+            if(!hashTemp.containsKey(clusterName)) {
+
+                hashTemp.put(clusterName, new HashMap<>());
+            }
+
+            // add new timeline
+            Map<String,StatisticDataTuple> clusterTemp = hashTemp.get(clusterName);
+            String timelineName = record.getRecordTimeline();
+            if(!clusterTemp.containsKey(timelineName)) {
+                clusterTemp.put(timelineName, new StatisticDataTuple(timelineName, new ArrayList<>()));
+            }
+
+            /// append timeline stat
+            StatisticDataTuple currentTimelineTupe = clusterTemp.get(timelineName);
+
+            currentTimelineTupe.setTl(record.getTimeline());
+
+            currentTimelineTupe.getTuple().add(new StatisticDataNameValue(record.getSeq(),
+                    record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
+        }
+
+
+        // put
+        // Map<String, Map<String,StatisticDataTuple>> hashTemp
+        // private List<Map<String,StatisticDataTupleTimeline>> cluster
+        //Set<Map.Entry<String, Map<String,StatisticDataTuple>>> entry = hashTemp.entrySet();
+
+        //        List clusterMap = tupleTimelineCluster.getCluster();
+        Map<String,StatisticDataTupleTimeline> clusterTemp = new HashedMap();
+        tupleTimelineCluster.setCluster(clusterTemp);
+        for(Map.Entry<String, Map<String,StatisticDataTuple>> entry : hashTemp.entrySet()) {
+            String clusterName = entry.getKey();
+            if(!clusterTemp.containsKey(clusterName)) {
+                StatisticDataTupleTimeline tupleTimelineTemp = new StatisticDataTupleTimeline();
+                tupleTimelineTemp.setTimeline(new ArrayList<>());
+                clusterTemp.put(clusterName, tupleTimelineTemp);
+            }
+            StatisticDataTupleTimeline tupleTimeline = clusterTemp.get(clusterName);
+            for(Map.Entry<String,StatisticDataTuple> values : entry.getValue().entrySet()) {
+                String timelineName = values.getKey();
+                tupleTimeline.setName("");
+                tupleTimeline.getTimeline().add(values.getValue());
+            }
+        }
+
+        // sort
+
+        return tupleTimelineCluster;
     }
 }

@@ -12,26 +12,14 @@ import java.util.Map;
  */
 public class StatisticDataTupleCluster extends StatisticData {
     private String name;
-    private List<Map<String,StatisticDataTuple>> cluster;
+    private Map<String,StatisticDataTuple> cluster;
 
-    public List<Map<String,StatisticDataTuple>> getCluster() {
+    public Map<String,StatisticDataTuple> getCluster() {
         return cluster;
     }
 
-    public void setCluster(List<Map<String,StatisticDataTuple>> cluster) {
+    public void setCluster(Map<String,StatisticDataTuple> cluster) {
         this.cluster = cluster;
-    }
-
-    public StatisticDataTupleCluster addTotal(String timeline, StatisticDataTuple tuple){
-        if(this.cluster == null){
-            this.cluster = new ArrayList<>();
-        }
-
-        Map<String,StatisticDataTuple> stat = new HashMap<>();
-        stat.put(timeline, tuple);
-
-        this.cluster.add(stat);
-        return this;
     }
 
     public String getName() {

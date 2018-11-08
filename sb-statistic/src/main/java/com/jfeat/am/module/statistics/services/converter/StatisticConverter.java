@@ -231,8 +231,29 @@ public class StatisticConverter {
         return tupleTimeline;
     }
     public static StatisticDataTupleCluster convertStatisticTupleCluster(StatisticsFieldModel model){
-        //TODO,
-        throw new NotImplementedException();
+        StatisticDataTupleCluster tupleCluster = new StatisticDataTupleCluster();
+        tupleCluster.setField(model.getField());
+        tupleCluster.setTitle(model.getName());
+        tupleCluster.setPattern(model.getPattern());
+        tupleCluster.setChart(model.getChart());
+        tupleCluster.setSpan(model.getAttrSpan());
+        tupleCluster.setCluster(new HashedMap());
+        for(StatisticsRecord record : model.getItems()) {
+            //从record 获取identifier名称
+            if (tupleCluster.getIdentifier() == null) {
+                tupleCluster.setIdentifier(record.getIdentifier());
+            }
+            // add new cluster
+            String clusterName = record.getRecordCluster();
+            if(!tupleCluster.getCluster().containsKey(clusterName)) {
+                tupleCluster.getCluster().put(clusterName, new StatisticDataTuple());
+                tupleCluster.getCluster().get(clusterName).setTuple(new ArrayList());
+            }
+            StatisticDataTuple statisticDataTuple = tupleCluster.getCluster().get(clusterName);
+            statisticDataTuple.getTuple().add(new StatisticDataNameValue(record.getSeq(),
+                    record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
+        }
+        return tupleCluster;
     }
 
 
@@ -279,13 +300,7 @@ public class StatisticConverter {
                     record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
         }
 
-
         // put
-        // Map<String, Map<String,StatisticDataTuple>> hashTemp
-        // private List<Map<String,StatisticDataTupleTimeline>> cluster
-        //Set<Map.Entry<String, Map<String,StatisticDataTuple>>> entry = hashTemp.entrySet();
-
-        //        List clusterMap = tupleTimelineCluster.getCluster();
         Map<String,StatisticDataTupleTimeline> clusterTemp = new HashedMap();
         tupleTimelineCluster.setCluster(clusterTemp);
         for(Map.Entry<String, Map<String,StatisticDataTuple>> entry : hashTemp.entrySet()) {

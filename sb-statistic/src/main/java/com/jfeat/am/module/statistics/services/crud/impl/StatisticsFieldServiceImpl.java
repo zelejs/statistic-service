@@ -9,6 +9,7 @@ import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.crud.StatisticsMetaService;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsFieldModel;
+import com.jfeat.am.module.statistics.services.domain.dao.QueryStatisticsRecordDao;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsFieldMapper;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsMetaMapper;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsRecordMapper;
@@ -39,9 +40,10 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
     StatisticsMetaMapper statisticsMetaMapper;
     @Resource
     StatisticsRecordMapper statisticsRecordMapper;
-
     @Resource
     DataSource dataSource;
+    @Resource
+    QueryStatisticsRecordDao queryStatisticsRecordDao;
 
     /**
      * 通过域名获取域数据
@@ -78,16 +80,11 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
                 String sql = meta.getQuerySql();
 
                 if (sql.length() > 0) {
-                    //TODO, execute sql
-                    //dataSource.
-
-                    StatisticsRecord record = new StatisticsRecord();
-                    //TODO,
-
-                    model.addItem(record);
+                    List<StatisticsRecord> records = queryStatisticsRecordDao.querySql(sql);
+                    records.forEach(record -> model.addItem(record));
                 }
 
-                return statisticsField;
+                return model;
             }
         }
 

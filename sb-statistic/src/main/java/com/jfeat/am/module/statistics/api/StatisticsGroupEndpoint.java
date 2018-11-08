@@ -12,8 +12,10 @@ import com.jfeat.am.module.statistics.services.converter.StatisticData;
 import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
 import com.jfeat.am.module.statistics.services.crud.StatisticsGroupByService;
 import com.jfeat.am.module.statistics.services.crud.StatisticsGroupService;
+import com.jfeat.am.module.statistics.services.crud.StatisticsMetaService;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsFieldModel;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsGroupModel;
+import com.jfeat.am.module.statistics.services.domain.dao.QueryStatisticsRecordDao;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsGroup;
 import io.swagger.annotations.Api;
@@ -45,6 +47,10 @@ public class StatisticsGroupEndpoint extends BaseController {
     StatisticsGroupByService statisticsGroupByService;
     @Resource
     StatisticsFieldService statisticsFieldService;
+    @Resource
+    StatisticsMetaService statisticsMetaService;
+    @Resource
+    QueryStatisticsRecordDao queryStatisticsRecordDao;
 
     @ApiOperation("获取指定分组的统计数据")
     @GetMapping("/{group}")
@@ -52,7 +58,7 @@ public class StatisticsGroupEndpoint extends BaseController {
                                                  @RequestParam(name = "identifier", required = false) String identifier) {
         StatisticsGroup statisticsGroup = statisticsGroupService.getGroupByName(group);
         if (statisticsGroup == null) {
-            throw new BusinessException(BusinessCode.BadRequest);
+            throw new BusinessException(BusinessCode.BadRequest.getCode(), "statisticsGroup = " + statisticsGroup);
         }
         /// handle specific group
         StatisticGroupData groupData = handleGroupStatistic(statisticsGroup, identifier);
@@ -98,6 +104,8 @@ public class StatisticsGroupEndpoint extends BaseController {
                 }
 
                 String fieldName = field.getField();
+                Integer isRuntime = field.getAttrRuntime();
+
                 StatisticsFieldModel statisticsField = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName, identifier);
 
                 String pattern = field.getPattern();

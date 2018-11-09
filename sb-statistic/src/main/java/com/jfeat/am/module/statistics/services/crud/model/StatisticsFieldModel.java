@@ -15,7 +15,7 @@ public class StatisticsFieldModel extends StatisticsField{
     /**
      * 统计域辅助元数据
      */
-    private StatisticsMeta meta;
+    private List<StatisticsMeta> metas;
 
     private List<StatisticsRecord> items;
 
@@ -34,11 +34,11 @@ public class StatisticsFieldModel extends StatisticsField{
         this.items = items;
     }
 
-    public StatisticsMeta getMeta() {
-        return meta;
+    public List<StatisticsMeta> getMetas() {
+        return metas;
     }
 
-    public void setMeta(StatisticsMeta meta) {
-        this.meta = meta;
+    public void setMetas(List<StatisticsMeta> metas) {
+        this.metas = metas;
     }
 }

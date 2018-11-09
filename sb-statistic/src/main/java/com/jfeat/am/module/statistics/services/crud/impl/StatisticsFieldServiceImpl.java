@@ -66,28 +66,24 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
 
 
         /// query meta
-        StatisticsMeta meta = new StatisticsMeta();
-        meta.setField(field);
-        meta = statisticsMetaMapper.selectOne(meta);
+        List<StatisticsMeta> metas = statisticsMetaMapper.selectList(new EntityWrapper<StatisticsMeta>().eq(StatisticsMeta.FIELD, field));
+        if(metas != null && !metas.isEmpty()) {
 
-        if(meta!=null) {
-
-            model.setMeta(meta);
+            model.setMetas(metas);
 
             /// 如果需要实时查询，跳过获取统计项
             if (statisticsField.getAttrRuntime() > 0) {
+                metas.forEach(meta -> {
+                    String sql = meta.getQuerySql();
 
-                String sql = meta.getQuerySql();
-
-                if (sql.length() > 0) {
-                    List<StatisticsRecord> records = queryStatisticsRecordDao.querySql(sql);
-                    records.forEach(record -> model.addItem(record));
-                }
-
+                    if (sql.length() > 0) {
+                        List<StatisticsRecord> records = queryStatisticsRecordDao.querySql(sql);
+                        records.forEach(record -> model.addItem(record));
+                    }
+                });
                 return model;
             }
         }
-
 
         // query items
         //

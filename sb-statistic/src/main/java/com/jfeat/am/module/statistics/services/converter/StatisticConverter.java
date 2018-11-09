@@ -149,8 +149,31 @@ public class StatisticConverter {
     }
 
     public static StatisticDataRateCluster convertStatisticRateCluster(StatisticsFieldModel model){
-        //TODO,
-        throw new NotImplementedException();
+        StatisticDataRateCluster rateCluster = new StatisticDataRateCluster();
+        rateCluster.setField(model.getField());
+        rateCluster.setName(model.getName());
+        rateCluster.setPattern(model.getPattern());
+        rateCluster.setChart(model.getChart());
+        rateCluster.setSpan(model.getAttrSpan());
+
+        rateCluster.setName(model.getName());  ///报表数据域
+        rateCluster.setCluster(new HashedMap());
+        for (StatisticsRecord record : model.getItems()) {
+            if(rateCluster.getIdentifier() == null) {
+                rateCluster.setIdentifier(record.getIdentifier());
+            }
+
+            if(!rateCluster.getCluster().containsKey(record.getRecordCluster())) {
+                rateCluster.getCluster().put(record.getRecordCluster(), new StatisticDataRate());
+                rateCluster.getCluster().get(record.getRecordCluster()).setRates(new ArrayList<>());
+            }
+
+            StatisticDataRate statisticDataRate = rateCluster.getCluster().get(record.getRecordCluster());
+
+            statisticDataRate.getRates().add(new StatisticDataNameValue(record.getSeq(),
+                    record.getIdentifier(), record.getRecordName(), record.getRecordValue()));
+        }
+        return rateCluster;
     }
     public static StatisticDataRateTimelineCluster convertStatisticRateTimelineCluster(StatisticsFieldModel model){
         //TODO,

@@ -107,7 +107,6 @@ public class StatisticsGroupEndpoint extends BaseController {
                 Integer isRuntime = field.getAttrRuntime();
 
                 StatisticsFieldModel statisticsField = (StatisticsFieldModel) statisticsFieldService.getStatisticsFieldModel(fieldName, identifier);
-
                 String pattern = field.getPattern();
                 StatisticData statisticData = convertStatisticFieldModel(statisticsField, pattern);
 

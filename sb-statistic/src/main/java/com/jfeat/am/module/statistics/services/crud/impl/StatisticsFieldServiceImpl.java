@@ -7,7 +7,6 @@ import com.jfeat.am.common.crud.CRUDFilter;
 import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
-import com.jfeat.am.module.statistics.services.crud.StatisticsMetaService;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsFieldModel;
 import com.jfeat.am.module.statistics.services.domain.dao.QueryStatisticsRecordDao;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsFieldMapper;
@@ -78,7 +77,11 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
 
                     if (sql.length() > 0) {
                         List<StatisticsRecord> records = queryStatisticsRecordDao.querySql(sql);
-                        records.forEach(record -> model.addItem(record));
+                        records.forEach(record -> {
+                           if(identifier.equals(record.getIdentifier())) {
+                                model.addItem(record);
+                            }
+                        });
                     }
                 });
                 return model;

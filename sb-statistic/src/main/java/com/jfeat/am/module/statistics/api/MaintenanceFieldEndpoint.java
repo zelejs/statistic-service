@@ -1,7 +1,6 @@
 package com.jfeat.am.module.statistics.api;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.jfeat.am.common.constant.tips.Ids;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
 import com.jfeat.am.common.controller.BaseController;
@@ -13,7 +12,6 @@ import com.jfeat.am.module.statistics.services.crud.StatisticsFieldService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
-import sun.rmi.rmic.iiop.ValueType;
 
 import javax.annotation.Resource;
 

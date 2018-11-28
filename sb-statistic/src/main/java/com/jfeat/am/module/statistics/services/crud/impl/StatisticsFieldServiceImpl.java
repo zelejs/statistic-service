@@ -78,7 +78,7 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
                     if (sql.length() > 0) {
                         List<StatisticsRecord> records = queryStatisticsRecordDao.querySql(sql);
                         records.forEach(record -> {
-                           if(identifier.equals(record.getIdentifier())) {
+                            if(identifier == null ||identifier.equals(record.getIdentifier())) {
                                 model.addItem(record);
                             }
                         });

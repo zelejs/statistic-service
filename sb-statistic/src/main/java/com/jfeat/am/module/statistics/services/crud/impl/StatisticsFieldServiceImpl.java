@@ -19,8 +19,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -77,11 +79,10 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
 
                     if (sql.length() > 0) {
                         List<StatisticsRecord> records = queryStatisticsRecordDao.querySql(sql);
-                        records.forEach(record -> {
-                            if(identifier == null ||identifier.equals(record.getIdentifier())) {
-                                model.addItem(record);
-                            }
-                        });
+                        if(identifier != null) {
+                            records = records.stream().filter(identifier::equals).collect(Collectors.toList());
+                        }
+                        model.setItems(records == null ? new ArrayList<>() : records);
                     }
                 });
                 return model;
@@ -89,7 +90,6 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
         }
 
         // query items
-        //
         Wrapper<StatisticsRecord> wrapper = new EntityWrapper<StatisticsRecord>().eq("field", field);
         if(identifier != null && !"".equals(identifier)) {
             wrapper.eq("identifier", identifier);

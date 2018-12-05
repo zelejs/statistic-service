@@ -1,20 +1,23 @@
 package com.jfeat.am.module.statistics.services.converter;
 
 import com.jfeat.am.module.statistics.services.converter.statistic.*;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import com.jfeat.am.module.statistics.services.crud.model.StatisticsFieldModel;
-import org.apache.commons.collections.list.TreeList;
+import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 import org.apache.commons.collections.map.HashedMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.sql.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Code Generator on 2017-11-25
  */
 public class StatisticConverter {
-
+    protected static final Logger logger = LoggerFactory.getLogger(StatisticConverter.class);
     /**
      * Pattern Count
      * @param model
@@ -120,6 +123,7 @@ public class StatisticConverter {
         Map<String,StatisticDataRate> hashTemp = new HashMap<>();
 
         List<StatisticDataRate> timeline = rateTimeline.getTimeline();
+        logger.debug("model.getItems() = {}", model.getItems());
         for (StatisticsRecord record : model.getItems()) {
             //从record 获取identifier名称
             if (rateTimeline.getIdentifier() == null) {

@@ -8,10 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Code Generator on 2017-11-25
@@ -105,7 +103,8 @@ public class StatisticConverter {
                         record.getRecordName(), record.getRecordValue()));
             }
         }
-
+        rates = rates.stream().sorted(Comparator.comparing(StatisticDataNameValue::getSeq)).collect(Collectors.toList());
+        rate.setRates(rates);
         return rate;
     }
     public static StatisticDataRateTimeline convertStatisticRateTimeline(StatisticsFieldModel model){

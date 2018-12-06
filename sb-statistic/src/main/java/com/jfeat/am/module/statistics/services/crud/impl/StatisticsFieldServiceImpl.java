@@ -72,12 +72,12 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
 
             model.setMetas(metas);
 
-            /// 如果需要实时查询，跳过获取统计项
+            /// 如果需要实时查询
             if (statisticsField.getAttrRuntime() > 0) {
                 metas.forEach(meta -> {
                     String sql = meta.getQuerySql();
 
-                    if (sql.length() > 0) {
+                    if (sql != null && sql.length() > 0) {
                         List<StatisticsRecord> records = queryStatisticsRecordDao.querySql(sql);
                         records = records == null ? new ArrayList<>() : records;
                         if(identifier != null) {
@@ -86,7 +86,7 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
                         model.addAll(records);
                     }
                 });
-                return model;
+               // return model;
             }
         }
 
@@ -97,7 +97,7 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
         }
         wrapper.orderBy("seq,record_tuple");
         List<StatisticsRecord> items = statisticsRecordMapper.selectList(wrapper);
-        model.setItems(items);
+        model.addAll(items);
 
 
         return model;

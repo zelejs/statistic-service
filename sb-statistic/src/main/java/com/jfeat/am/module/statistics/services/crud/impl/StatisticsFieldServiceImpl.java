@@ -79,10 +79,11 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
 
                     if (sql.length() > 0) {
                         List<StatisticsRecord> records = queryStatisticsRecordDao.querySql(sql);
+                        records = records == null ? new ArrayList<>() : records;
                         if(identifier != null) {
-                            records = records.stream().filter(identifier::equals).collect(Collectors.toList());
+                            records = records.stream().filter(record -> identifier.equals(record.getIdentifier())).collect(Collectors.toList());
                         }
-                        model.setItems(records == null ? new ArrayList<>() : records);
+                        model.addAll(records);
                     }
                 });
                 return model;
@@ -101,7 +102,6 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
 
         return model;
     }
-
     @Override
     public Integer createMaster(StatisticsField statisticsField) {
         return statisticsFieldMapper.insert(statisticsField);

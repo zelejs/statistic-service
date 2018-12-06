@@ -19,6 +19,12 @@ public class StatisticsFieldModel extends StatisticsField{
 
     private List<StatisticsRecord> items;
 
+    public void addAll(List<StatisticsRecord> items) {
+        if(this.items==null){
+            this.items = new ArrayList<>();
+        }
+        this.items.addAll(items);
+    }
     public void addItem(StatisticsRecord item){
         if(this.items==null){
             this.items = new ArrayList<>();

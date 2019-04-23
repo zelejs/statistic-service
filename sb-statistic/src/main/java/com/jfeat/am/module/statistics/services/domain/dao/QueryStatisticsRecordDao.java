@@ -13,4 +13,8 @@ import java.util.List;
  */
 public interface QueryStatisticsRecordDao extends BaseMapper<StatisticsRecord> {
     List<StatisticsRecord> querySql(String sql);
+
+    List<StatisticsRecord> items(@Param("field")String field,
+                                 @Param("identifier")String identifier);
+
 }

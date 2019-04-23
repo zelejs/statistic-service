@@ -5,4 +5,37 @@
       ${_parameter}
     </select>
 
+
+
+
+    <select id="items" resultType="com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord">
+        SELECT
+            id AS id,
+            field,
+            identifier,
+            seq,
+            record_name AS recordName,
+            record_value AS recordValue,
+            record_tuple AS recordTuple,
+            record_cluster AS recordCluster,
+            record_timeline AS recordTimeline,
+            timeline,
+            create_time AS createTime,
+            tmp_field_id AS tmpFieldId
+        FROM
+        st_statistics_record
+        WHERE 1=1
+        AND st_statistics_record.field = #{field}
+        <if test="identifier != null and identifier!= '' ">
+            AND st_statistics_record.identifier = #{identifier}
+        </if>
+        AND
+            CASE
+                WHEN (record_timeline = "本月" OR timeline = 'M') THEN (month(create_time) = month(curdate()) and year(create_time) = year(curdate()))
+                WHEN (record_timeline = "本周" OR timeline = 'W')THEN (week(create_time) = week(curdate()) and year(create_time) = year(curdate()))
+            ELSE NULL END
+
+        ORDER BY seq,record_tuple
+    </select>
+
 </mapper>

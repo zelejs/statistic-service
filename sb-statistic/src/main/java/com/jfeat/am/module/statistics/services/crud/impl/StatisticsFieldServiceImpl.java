@@ -91,27 +91,40 @@ public class StatisticsFieldServiceImpl implements StatisticsFieldService {
         }
 
         // query items
-        Wrapper<StatisticsRecord> wrapper = new EntityWrapper<StatisticsRecord>().eq("field", field);
+        /*Wrapper<StatisticsRecord> wrapper = new EntityWrapper<StatisticsRecord>().eq("field", field);
         if(identifier != null && !"".equals(identifier)) {
             wrapper.eq("identifier", identifier);
         }
+
+        if (model.getChart().equals("LineTimeline")){
+                wrapper.eq("month(create_time)","month(curdate())" )
+                        .eq("year(create_time)","year(curdate())");
+                wrapper.eq("week(create_time)","week(curdate())" )
+                        .eq("year(create_time)","year(curdate())");*//*
+        }
+        wrapper.orderBy("seq,record_tuple");
+        List<StatisticsRecord> items = statisticsRecordMapper.selectList(wrapper);*/
+        List<StatisticsRecord> items = queryStatisticsRecordDao.items(field,identifier);
+        model.addAll(items);
+        return model;
         //WHERE month([column-name]) = month(curdate()) and year([column-name]) = year(curdate())
         //WHERE week([column-name]) = week(curdate()) and year([column-name]) = year(curdate())
         //wrapper.eq("week(create_time)","week(curdate())" );
-        if (model.getChart().equals("LineTimeline")){
+        /*if (model.getChart().equals("LineTimeline")){
             if (field.equals("total:curmon:count@stat:order:count")){
                 wrapper.eq("month(create_time)","month(curdate())" )
                         .eq("year(create_time)","year(curdate())");
             }else if (field.equals("total:curweek:count@stat:order:count"))
             wrapper.eq("week(create_time)","week(curdate())" )
                     .eq("year(create_time)","year(curdate())");
-        }
-        wrapper.orderBy("seq,record_tuple");
-        List<StatisticsRecord> items = statisticsRecordMapper.selectList(wrapper);
-        model.addAll(items);
-
-
-        return model;
+        }*/
+        /*if (field.equals("total:curweek:count@stat:order:count")){
+            wrapper.eq("week(create_time)","week(curdate())" )
+                    .eq("year(create_time)","year(curdate())");
+        }else {
+            wrapper.eq("month(create_time)","month(curdate())" )
+                    .eq("year(create_time)","year(curdate())");
+        }*/
     }
     @Override
     public Integer createMaster(StatisticsField statisticsField) {

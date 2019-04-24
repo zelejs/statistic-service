@@ -31,8 +31,8 @@
         </if>
         AND
             CASE
-                WHEN (record_timeline = "本月" OR timeline = 'M') THEN (month(create_time) = month(curdate()) and year(create_time) = year(curdate()))
-                WHEN (record_timeline = "本周" OR timeline = 'W')THEN (week(create_time) = week(curdate()) and year(create_time) = year(curdate()))
+                WHEN (record_timeline = '本月' OR timeline = 'M') THEN (month(create_time) = month(curdate()) and year(create_time) = year(curdate()))
+                WHEN (record_timeline = '本周' OR timeline = 'W')THEN (week(create_time) = week(curdate()) and year(create_time) = year(curdate()))
             ELSE NULL END
 
         ORDER BY seq,record_tuple

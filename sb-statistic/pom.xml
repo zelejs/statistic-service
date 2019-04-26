@@ -41,6 +41,13 @@
             <artifactId>sb-crud</artifactId>
             <version>${sb-crud.version}</version>
         </dependency>
+	 <!--allow swagger support java 11 (above java9)-->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
 
         <!--spring boot依赖-->
         <dependency>

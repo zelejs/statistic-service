@@ -27,7 +27,7 @@
         WHERE 1=1
         AND st_statistics_record.field = #{field}
         <if test="identifier != null and identifier!= '' ">
-            AND ( st_statistics_record.identifier = #{identifier} OR st_statistics_record.record_name = #{identifier})
+            AND st_statistics_record.identifier = #{identifier}
         </if>
         AND
             CASE

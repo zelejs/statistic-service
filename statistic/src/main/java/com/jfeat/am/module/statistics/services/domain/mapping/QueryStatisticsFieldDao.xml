@@ -17,10 +17,10 @@
         <if test="statisticsField.field != null and statisticsField.field!= ''">
             AND st_statistics_field.field LIKE CONCAT('%',#{statisticsField.field},'%')
         </if>
-        <if test="statisticsField.index != null and statisticsField.index>0 ">
+        <if test="statisticsField.attrIndex != null and statisticsField.attrIndex>0 ">
             AND st_statistics_field.index LIKE CONCAT('%',#{statisticsField.index},'%')
         </if>
-        <if test="statisticsField.invisible != null and statisticsField.invisible>0 ">
+        <if test="statisticsField.attrInvisible != null and statisticsField.attrInvisible>0 ">
             AND st_statistics_field.invisible LIKE CONCAT('%',#{statisticsField.invisible},'%')
         </if>
         <if test="statisticsField.groupId != null and statisticsField.groupId>0 ">

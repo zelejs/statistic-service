@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- *  implementation
+ * implementation
  * </p>
  *
  * @author Code Generator
@@ -74,26 +74,26 @@ public class StatisticsFieldServiceImpl extends CRUDServiceOnlyImpl<StatisticsFi
 
 
         /// query meta
-        List<StatisticsMeta> metas = statisticsMetaMapper.selectList(new EntityWrapper<StatisticsMeta>().eq(StatisticsMeta.FIELD, field));
-        if(metas != null && !metas.isEmpty()) {
+        List<StatisticsMeta> metas = statisticsMetaMapper.selectList
+                (new EntityWrapper<StatisticsMeta>().eq(StatisticsMeta.FIELD, field));
+        if (metas != null && !metas.isEmpty()) {
 
             model.setMetas(metas);
 
             /// 如果需要实时查询
             if (statisticsField.getAttrRuntime() > 0) {
-                metas.forEach(meta -> {
+                for (StatisticsMeta meta: metas) {
                     String sql = meta.getQuerySql();
-
                     if (sql != null && sql.length() > 0) {
                         List<StatisticsRecord> records = queryStatisticsRecordDao.querySql(sql);
                         records = records == null ? new ArrayList<>() : records;
-                        if(identifier != null) {
+                        if (identifier != null) {
                             records = records.stream().filter(record -> identifier.equals(record.getIdentifier())).collect(Collectors.toList());
                         }
                         model.addAll(records);
                     }
-                });
-               // return model;
+                };
+                // return model;
             }
         }
 
@@ -111,7 +111,7 @@ public class StatisticsFieldServiceImpl extends CRUDServiceOnlyImpl<StatisticsFi
         }
         wrapper.orderBy("seq,record_tuple");
         List<StatisticsRecord> items = statisticsRecordMapper.selectList(wrapper);*/
-        List<StatisticsRecord> items = queryStatisticsRecordDao.items(field,identifier);
+        List<StatisticsRecord> items = queryStatisticsRecordDao.items(field, identifier);
         model.addAll(items);
         return model;
         //WHERE month([column-name]) = month(curdate()) and year([column-name]) = year(curdate())

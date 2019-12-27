@@ -1,5 +1,10 @@
 package com.jfeat.am.module.statistics.services.crud;
-            /**
+
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.List;
+
+/**
  * <p>
  *  service interface
  * </p>
@@ -11,4 +16,7 @@ package com.jfeat.am.module.statistics.services.crud;
   */
 public interface StatisticsMetaService {
     String getQuerySql(String field, String recordName, String tuple, String cluster, String timeline);
+
+    //根据field获取 json化的 表
+    public JSONObject getByField(String field);
 }

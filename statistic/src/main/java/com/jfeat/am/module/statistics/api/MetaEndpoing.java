@@ -7,12 +7,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@Api("统计 [Statistics]")
+@Api("统计 [Statistics] meta")
 @RestController
 @RequestMapping("/api/adm/stat/meta")
 public class MetaEndpoing {
@@ -22,8 +19,11 @@ public class MetaEndpoing {
 
     @ApiOperation("获取所有组")
     @GetMapping("/{field}")
-    public Tip getConfigGroupList(@PathVariable String field) {
-        return SuccessTip.create(statisticsMetaService.getByField(field));
+    public Tip getConfigGroupList(@PathVariable String field,
+                                  @RequestParam(name = "pageNum", required = false, defaultValue = "1") Long current,
+                                  @RequestParam(name = "pageSize", required = false, defaultValue = "10") Long size
+                                  ) {
+        return SuccessTip.create(statisticsMetaService.getByField(field,current,size));
     }
 
 }

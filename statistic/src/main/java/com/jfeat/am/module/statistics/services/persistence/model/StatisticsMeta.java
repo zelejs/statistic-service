@@ -46,9 +46,9 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
      */
 	private String title;
     /**
-     * 保留字段1
+     * 字段类型 D金钱  T时间  P百分比  C数量  S字符串
      */
-	private String field1;
+	private String type;
     /**
      * 保留字段2
      */
@@ -109,13 +109,12 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
 		return this;
 	}
 
-	public String getField1() {
-		return field1;
+	public String getType() {
+		return type;
 	}
 
-	public StatisticsMeta setField1(String field1) {
-		this.field1 = field1;
-		return this;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getField2() {
@@ -157,7 +156,7 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
 			", percent=" + percent +
 			", icon=" + icon +
 			", title=" + title +
-			", field1=" + field1 +
+			", field1=" + type +
 			", field2=" + field2 +
 			"}";
 	}

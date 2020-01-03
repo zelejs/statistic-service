@@ -122,7 +122,14 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
             date.put("size",size);
             date.put("pages",pages);
             date.put("current",current);
-        } catch (SQLException e) { e.printStackTrace(); }return date; }
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+
+            e.printStackTrace(); }
+        return date;
+            }
 
 public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,Map<String,String> nameType){
         if(nameType==null||nameType.size()==0) {
@@ -241,6 +248,9 @@ public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,M
             sql=getSearchSQL(sql,request,nameTypeMap);
             System.out.println("最终执行的sql:    ");
             System.out.println(sql);
+            rs.close();
+            stmt.close();
+            connection.close();
         } catch (SQLException e)
         { e.printStackTrace(); }
         return sql.toString(); }

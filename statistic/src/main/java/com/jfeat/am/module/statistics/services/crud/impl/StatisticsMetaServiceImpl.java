@@ -195,13 +195,55 @@ public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,M
               sql.append(" AND ");
               sql.append(field);
               sql.append(" LIKE ");
-               sql.append("'");
+               sql.append("'%");
               sql.append(fieldRequest);
-               sql.append("'");
+               sql.append("%'");
            }
         return  sql;
     }
 
+
+
+    //根据field获取 json化的 表
+    @Override
+    public  String getSQLByField(String field,HttpServletRequest request){
+        String[] typeArray=null;
+        StringBuilder sql=new StringBuilder();
+        try {
+            String countSQL;//用于查询总记录数
+            Connection connection = dataSource.getConnection();
+            //根据field获取sql
+            List<StatisticsMeta> statisticsMetas = statisticsMetaMapper.selectList(new EntityWrapper<StatisticsMeta>().eq(StatisticsMeta.FIELD, field));
+            if(statisticsMetas!=null&&statisticsMetas.size()>0){
+                StatisticsMeta meta = statisticsMetas.get(0);
+                typeArray = meta.getType().split(",");
+                //替换字符串 查找总数
+                countSQL=meta.getQuerySql().replaceFirst("(select|SELECT)","SELECT COUNT(*) as totle,");
+                //去除所有的‘;’防止拼接出错
+                sql.append(meta.getQuerySql().replaceAll(";",""));
+            }else{throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE,"查找不到field对应的Meta");}
+            //创建 可循环滚动的rs
+            Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = stmt.executeQuery(countSQL);
+            ResultSetMetaData resultSetMetaData = rs.getMetaData();
+            int colunmCount = resultSetMetaData.getColumnCount();
+            List<String> names=new ArrayList<>();//字段名
+            Map<String,String> nameTypeMap=new HashMap<>();//名字 类型映射
+            if(typeArray.length!=colunmCount-1){throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE,"得到的字段数量和类型数量不匹配 请检查sql和type"); }
+            //循环获取 字段名
+            for (int i = 0; i < colunmCount; i++) {
+                String name=resultSetMetaData.getColumnLabel(i+1);
+                if(name.equals("totle")){}
+                else {
+                    names.add(name);
+                    nameTypeMap.put(name,typeArray[i-1]); }}
+            // 添加搜索-----------
+            sql=getSearchSQL(sql,request,nameTypeMap);
+            System.out.println("最终执行的sql:    ");
+            System.out.println(sql);
+        } catch (SQLException e)
+        { e.printStackTrace(); }
+        return sql.toString(); }
 
 
 

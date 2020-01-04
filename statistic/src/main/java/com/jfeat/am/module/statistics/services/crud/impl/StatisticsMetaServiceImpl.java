@@ -135,7 +135,7 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
              }
         return date;
             }
-
+//凭借搜索sql
 public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,Map<String,String> nameType){
         if(nameType==null||nameType.size()==0) {
             throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE, "名字类型映射为空");
@@ -168,6 +168,7 @@ public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,M
         return sql;
 }
 
+//其他类型 拼接sql
     public StringBuilder   searchSQLByTypeAndFields(StringBuilder sql,String type,String field,String[] fieldRequests){
         String searchSQLLeft=" ";
         String searchSQLRigtht=" ";
@@ -202,6 +203,7 @@ public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,M
         return  sql;
     }
 
+    //字符串类型 拼接sql
         public StringBuilder  searchSQLByTypeAndField(StringBuilder sql,String type,String field,String fieldRequest){
            if(type.equals(MetaColumns.STRING)){
               sql.append(" AND ");
@@ -214,6 +216,7 @@ public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,M
         return  sql;
     }
 
+    //排序
     public StringBuilder orderSQL(StringBuilder sql,Map<String,String> nameType){
         StringBuilder orderSQL=new StringBuilder();
         String field=null;

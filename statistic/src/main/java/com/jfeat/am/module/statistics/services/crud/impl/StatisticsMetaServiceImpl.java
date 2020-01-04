@@ -52,7 +52,7 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
         Long pages=0L;
         Long total = 0L;
         String[] typeArray=null;
-
+        String[] searchArray=null;
         JSONObject date=new JSONObject();
         List<JSONObject> objList=new ArrayList<>();
         try {
@@ -64,10 +64,13 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
                     .eq(StatisticsMeta.FIELD, field));
             if(statisticsMetas!=null&&statisticsMetas.size()>0){
                 StatisticsMeta meta = statisticsMetas.get(0);
+                if(meta.getType()==null||meta.getType().equals("")){throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE,"需要搜索的类型未配置");}
+                if(meta.getSearch()==null||meta.getSearch().equals("")){}else{searchArray=meta.getSearch().split(",");}
                 typeArray = meta.getType().split(",");
                 date.put("columns",typeArray);
+                date.put("searchColumns",searchArray);
                 //替换字符串 查找总数
-                countSQL=meta.getQuerySql().replaceFirst("(select|SELECT)","SELECT COUNT(*) as totle,");
+                countSQL=meta.getQuerySql().replaceFirst("(select|SELECT)","SELECT COUNT(*) as total,");
                 //去除所有的‘;’防止拼接出错
                 sql.append(meta.getQuerySql().replaceAll(";",""));
             }else{throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE,"查找不到field对应的Meta");}
@@ -82,24 +85,26 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
             //循环获取 字段名
             for (int i = 0; i < colunmCount; i++) {
                 String name=resultSetMetaData.getColumnLabel(i+1);
-                if(name.equals("totle")){}
+                if(name.equals("total")){}
                 else {
                     names.add(name);
                     nameTypeMap.put(name,typeArray[i-1]); }}
             // 添加搜索-----------
             sql=getSearchSQL(sql,request,nameTypeMap);
+            // 添加排序-----------
+            sql=orderSQL(sql,nameTypeMap);
             //重新搜索查找总数
-            countSQL=sql.toString().replaceFirst("(select|SELECT)","SELECT COUNT(*) as totle,");
+            countSQL=sql.toString().replaceFirst("(select|SELECT)","SELECT COUNT(*) as total,");
             rs = stmt.executeQuery(countSQL);
            //指针回到最初位置
             rs.beforeFirst();
             while (rs.next()){
                 //使用sql查找总数据行数
-                total= Long.parseLong( rs.getObject("totle").toString());
+                total= Long.parseLong( rs.getObject("total").toString());
                 //向上取整
                 pages=(long)Math.ceil((double)total/(double)size); }
              //加入分页
-            sql.append(" limit "+((current-1)*size)+","+(size+((current-1)*size)));
+            sql.append(" limit "+((current-1)*size)+","+size);
             System.out.println("最终执行的sql:    ");
             System.out.println(sql);
             //更改sql 查全部
@@ -126,8 +131,8 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
             stmt.close();
             connection.close();
         } catch (SQLException e) {
-
-            e.printStackTrace(); }
+            throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE, e.getMessage());
+             }
         return date;
             }
 
@@ -209,6 +214,31 @@ public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,M
         return  sql;
     }
 
+    public StringBuilder orderSQL(StringBuilder sql,Map<String,String> nameType){
+        StringBuilder orderSQL=new StringBuilder();
+        String field=null;
+        String type=null;
+        Iterator<String> iter = nameType.keySet().iterator();
+        while (iter.hasNext()) {
+            field = iter.next();
+            type=nameType.get(field);
+            if(type.equals(MetaColumns.DECIMAL)){
+                if(orderSQL.toString()==null||orderSQL.toString().equals("")){
+                    orderSQL.append(" order by ");
+                    orderSQL.append(field);
+                    orderSQL.append(" desc ");
+                }else{
+                    orderSQL.append(",");
+                    orderSQL.append(field);
+                    orderSQL.append(" desc ");
+                }
+                }
+            }
+        sql.append(orderSQL);
+        return sql;
+
+    }
+
 
 
     //根据field获取 json化的 表
@@ -225,7 +255,7 @@ public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,M
                 StatisticsMeta meta = statisticsMetas.get(0);
                 typeArray = meta.getType().split(",");
                 //替换字符串 查找总数
-                countSQL=meta.getQuerySql().replaceFirst("(select|SELECT)","SELECT COUNT(*) as totle,");
+                countSQL=meta.getQuerySql().replaceFirst("(select|SELECT)","SELECT COUNT(*) as total,");
                 //去除所有的‘;’防止拼接出错
                 sql.append(meta.getQuerySql().replaceAll(";",""));
             }else{throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE,"查找不到field对应的Meta");}
@@ -240,7 +270,7 @@ public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,M
             //循环获取 字段名
             for (int i = 0; i < colunmCount; i++) {
                 String name=resultSetMetaData.getColumnLabel(i+1);
-                if(name.equals("totle")){}
+                if(name.equals("total")){}
                 else {
                     names.add(name);
                     nameTypeMap.put(name,typeArray[i-1]); }}

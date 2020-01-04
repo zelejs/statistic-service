@@ -52,7 +52,7 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
     /**
      * 保留字段2
      */
-	private String field2;
+	private String search;
 
 
 	public Long getId() {
@@ -117,13 +117,12 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
 		this.type = type;
 	}
 
-	public String getField2() {
-		return field2;
+	public String getSearch() {
+		return search;
 	}
 
-	public StatisticsMeta setField2(String field2) {
-		this.field2 = field2;
-		return this;
+	public void setSearch(String search) {
+		this.search = search;
 	}
 
 	public static final String ID = "id";
@@ -157,7 +156,7 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
 			", icon=" + icon +
 			", title=" + title +
 			", field1=" + type +
-			", field2=" + field2 +
+			", field2=" + search +
 			"}";
 	}
 }

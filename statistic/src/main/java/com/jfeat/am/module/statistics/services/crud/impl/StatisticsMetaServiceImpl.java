@@ -276,6 +276,8 @@ public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,M
                     nameTypeMap.put(name,typeArray[i-1]); }}
             // 添加搜索-----------
             sql=getSearchSQL(sql,request,nameTypeMap);
+            // 添加排序-----------
+            sql=orderSQL(sql,nameTypeMap);
             System.out.println("最终执行的sql:    ");
             System.out.println(sql);
             rs.close();

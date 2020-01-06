@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -114,7 +115,10 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
                 for (String name:names) {
                     //数据为空 则返回空
                     if(rs.getObject(name)!=null){
-                        pojoObject.put(name,rs.getObject(name).toString());
+                        if("P".equals(nameTypeMap.get(name))){
+                            pojoObject.put(name,Float.parseFloat(rs.getObject(name).toString())*10000/100);
+                        }else
+                            pojoObject.put(name,rs.getObject(name).toString());
                     }else {
                         pojoObject.put(name,null);
                     }

@@ -93,7 +93,7 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
             // 添加搜索-----------
             sql=getSearchSQL(sql,request,nameTypeMap);
             // 添加排序-----------
-            sql=orderSQL(sql,nameTypeMap);
+            //sql=orderSQL(sql,nameTypeMap);
             //重新搜索查找总数
             countSQL=sql.toString().replaceFirst("(select|SELECT)","SELECT COUNT(*) as total,");
             rs = stmt.executeQuery(countSQL);

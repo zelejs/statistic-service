@@ -2,6 +2,7 @@ package com.jfeat.am.module.statistics.services.crud.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.jfeat.am.module.statistics.services.crud.SQLSearchLabelService;
 import com.jfeat.am.module.statistics.services.crud.StatisticsMetaService;
 import com.jfeat.am.module.statistics.services.crud.model.MetaColumns;
 import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsMetaMapper;
@@ -14,11 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -38,6 +36,8 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
     @Resource
     StatisticsMetaMapper statisticsMetaMapper;
 
+    @Resource
+    SQLSearchLabelService sqlSearchLabelService;
 
 
     @Override
@@ -70,10 +70,18 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
                 typeArray = meta.getType().split(",");
                 date.put("columns",typeArray);
                 date.put("searchColumns",searchArray);
-                //替换字符串 查找总数
-                countSQL=meta.getQuerySql().replaceFirst("(select|SELECT)","SELECT COUNT(*) as total,");
+
+                Map<String, String[]> parameterMap = request.getParameterMap();
                 //去除所有的‘;’防止拼接出错
                 sql.append(meta.getQuerySql().replaceAll(";",""));
+                //使用标签
+
+                sql=sqlSearchLabelService.getSQL(parameterMap,sql);
+                //替换字符串 查找总数
+                countSQL=sql.toString().replaceFirst("(select|SELECT)","SELECT COUNT(*) as total,");
+
+
+
             }else{throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE,"查找不到field对应的Meta");}
             //创建 可循环滚动的rs
             Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);

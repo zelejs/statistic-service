@@ -19,7 +19,7 @@ jwt:
 
 ###################  项目启动端口  ###################
 server:
-  port: 8088
+  port: 8080
 
 ###################  beetl配置  ###################
 beetl:
@@ -90,7 +90,7 @@ am:
 spring:
   profiles: dev
   datasource:
-      url: jdbc:mysql://127.0.0.1:3306/mall?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+      url: jdbc:mysql://192.168.3.16:3306/user_alliance?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
       username: root
       password: root
       initialize: false

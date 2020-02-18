@@ -11,6 +11,7 @@ import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.jfeat.am.core.shiro.ShiroKit;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -67,6 +68,12 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
                 StatisticsMeta meta = statisticsMetas.get(0);
                 if(meta.getType()==null||meta.getType().equals("")){throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE,"需要搜索的类型未配置");}
                 if(meta.getSearch()==null||meta.getSearch().equals("")){}else{searchArray=meta.getSearch().split(",");}
+                // 如果报表有限制权限 权限判断
+                if(meta.getPermission()!=null&&!"".equals(meta.getPermission())){
+                    if(!ShiroKit.hasPermission(meta.getPermission())){
+                        throw new BusinessException(BusinessCode.AuthorizationError,"没有权限");
+                    }
+                }
                 typeArray = meta.getType().split(",");
                 date.put("columns",typeArray);
                 date.put("searchColumns",searchArray);
@@ -82,7 +89,9 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
 
 
 
-            }else{throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE,"查找不到field对应的Meta");}
+            }
+            else
+                {throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE,"查找不到field对应的Meta");}
             //创建 可循环滚动的rs
             Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = stmt.executeQuery(countSQL);
@@ -147,7 +156,9 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
              }
         return date;
             }
-//凭借搜索sql
+
+
+//拼接搜索sql
 public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,Map<String,String> nameType){
         if(nameType==null||nameType.size()==0) {
             throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE, "名字类型映射为空");

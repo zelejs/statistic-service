@@ -78,6 +78,7 @@ CREATE TABLE `st_statistics_meta` (
   `icon` varchar(255) DEFAULT NULL COMMENT '图标路径',
   `title` varchar(30) DEFAULT NULL COMMENT '图表标题',
   `type` varchar(50) DEFAULT NULL COMMENT '字段类型 D金钱  T时间  P百分比  C数量  S字符串 存储例子：D，D，T',
-  `field2` varchar(26) DEFAULT NULL COMMENT '保留字段2',
+  `search` varchar(255) DEFAULT NULL COMMENT '搜索字段',
+  `permission` varchar(50) DEFAULT NULL COMMENT '权限',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

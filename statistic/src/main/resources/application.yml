@@ -14,6 +14,7 @@ am:
 ###################  jwt配置  ###################
 jwt:
   encoded-key: L7A/6zARSkK1j7Vd5SDD9pSSqZlqF7mAhiOgRbgv9Smce6tf4cJnvKOjtKPxNNnWQj+2lQEScm3XIUjhW+YVZg==
+  normal-encoded-key: bm9ybWFsLWVuY29kZWQta2V5
   #tll-mills:
   #token-type: Bearer
 
@@ -36,10 +37,17 @@ spring:
   mvc:
     static-path-pattern: /static/**
     view:
-      prefix: /WEB-INF/view
+      prefix: /WEB-INF/view/
+      suffix: .html
   http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
     converters:
       preferred-json-mapper: fastjson
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
 
 
 ###################  mybatis-plus配置  ###################
@@ -92,7 +100,7 @@ spring:
   datasource:
       url: jdbc:mysql://localhost:3307/coop?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
       username: root
-      password: password
+      password: root
       initialize: false
       filters: log4j,wall,mergeStat
       schema: classpath*:sql/*-schema.sql
@@ -123,3 +131,4 @@ logging:
 
 am:
   shiro-cache-redis: true
+  reset-admin-perms: false

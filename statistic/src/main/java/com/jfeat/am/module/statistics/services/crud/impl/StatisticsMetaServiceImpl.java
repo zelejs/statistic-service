@@ -16,6 +16,8 @@ import com.jfeat.am.core.shiro.ShiroKit;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.*;
 import java.util.*;
 
@@ -49,6 +51,8 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
     //根据field获取 json化的 表
     @Override
     public  JSONObject getByField(String field, Long current, Long size, HttpServletRequest request){
+
+
         //分页 //总页数 pages //每页大小 size
         //总记录数 //当前页数 current
         Long pages=0L;
@@ -69,6 +73,8 @@ public class StatisticsMetaServiceImpl implements StatisticsMetaService {
                 if(meta.getType()==null||meta.getType().equals("")){throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE,"需要搜索的类型未配置");}
                 if(meta.getSearch()==null||meta.getSearch().equals("")){}else{searchArray=meta.getSearch().split(",");}
                 // 如果报表有限制权限 权限判断
+
+
                 if(meta.getPermission()!=null&&!"".equals(meta.getPermission())){
                     if(!ShiroKit.hasPermission(meta.getPermission())){
                         throw new BusinessException(BusinessCode.AuthorizationError,"没有权限");
@@ -251,11 +257,15 @@ public StringBuilder getSearchSQL(StringBuilder sql,HttpServletRequest request,M
             if(type.equals(MetaColumns.DECIMAL)){
                 if(orderSQL.toString()==null||orderSQL.toString().equals("")){
                     orderSQL.append(" order by ");
+                    orderSQL.append("`");
                     orderSQL.append(field);
+                    orderSQL.append("`");
                     orderSQL.append(" desc ");
                 }else{
                     orderSQL.append(",");
+                    orderSQL.append("`");
                     orderSQL.append(field);
+                    orderSQL.append("`");
                     orderSQL.append(" desc ");
                 }
                 }

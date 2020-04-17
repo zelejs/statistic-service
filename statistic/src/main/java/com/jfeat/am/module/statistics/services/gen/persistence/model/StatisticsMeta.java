@@ -1,4 +1,4 @@
-package com.jfeat.am.module.statistics.services.persistence.model;
+package com.jfeat.am.module.statistics.services.gen.persistence.model;
 
 import java.io.Serializable;
 
@@ -15,17 +15,28 @@ import java.io.Serializable;
  * </p>
  *
  * @author Code Generator
- * @since 2018-10-12
+ * @since 2020-04-17
  */
 @TableName("st_statistics_meta")
 public class StatisticsMeta extends Model<StatisticsMeta> {
+
+    @TableField(exist = false)
+    private com.alibaba.fastjson.JSONObject extra;
+
+    public com.alibaba.fastjson.JSONObject getExtra() {
+        return extra;
+    }
+    public void setExtra(com.alibaba.fastjson.JSONObject extra) {
+        this.extra = extra;
+    }
+
 
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
     /**
-     * 数据指标唯一标识符
+     * 数据指标唯一标识�?
      */
 	private String field;
     /**
@@ -46,23 +57,18 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
      */
 	private String title;
     /**
-     * 字段类型 D金钱  T时间  P百分比  C数量  S字符串
+     * 字段类型
      */
 	private String type;
     /**
-     * 保留字段2
+     * 搜索字段
      */
 	private String search;
-
+    /**
+     * 权限
+     */
 	private String permission;
 
-	public String getPermission() {
-		return permission;
-	}
-
-	public void setPermission(String permission) {
-		this.permission = permission;
-	}
 
 	public Long getId() {
 		return id;
@@ -122,16 +128,27 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
 		return type;
 	}
 
-	public void setType(String type) {
+	public StatisticsMeta setType(String type) {
 		this.type = type;
+		return this;
 	}
 
 	public String getSearch() {
 		return search;
 	}
 
-	public void setSearch(String search) {
+	public StatisticsMeta setSearch(String search) {
 		this.search = search;
+		return this;
+	}
+
+	public String getPermission() {
+		return permission;
+	}
+
+	public StatisticsMeta setPermission(String permission) {
+		this.permission = permission;
+		return this;
 	}
 
 	public static final String ID = "id";
@@ -146,9 +163,11 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
 
 	public static final String TITLE = "title";
 
-	public static final String FIELD1 = "field1";
+	public static final String TYPE = "type";
 
-	public static final String FIELD2 = "field2";
+	public static final String SEARCH = "search";
+
+	public static final String PERMISSION = "permission";
 
 	@Override
 	protected Serializable pkVal() {
@@ -164,8 +183,9 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
 			", percent=" + percent +
 			", icon=" + icon +
 			", title=" + title +
-			", field1=" + type +
-			", field2=" + search +
+			", type=" + type +
+			", search=" + search +
+			", permission=" + permission +
 			"}";
 	}
 }

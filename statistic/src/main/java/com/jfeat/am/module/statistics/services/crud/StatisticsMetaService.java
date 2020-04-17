@@ -1,6 +1,7 @@
 package com.jfeat.am.module.statistics.services.crud;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jfeat.am.module.statistics.services.gen.crud.service.CRUDStatisticsMetaService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * Master: ${cfg.masterModel}
   * Slave : st_statistics_meta
   */
-public interface StatisticsMetaService {
+public interface StatisticsMetaService extends CRUDStatisticsMetaService {
     String getQuerySql(String field, String recordName, String tuple, String cluster, String timeline);
 
     //根据field获取 json化的 表

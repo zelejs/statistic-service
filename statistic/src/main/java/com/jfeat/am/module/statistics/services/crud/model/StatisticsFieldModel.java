@@ -1,7 +1,7 @@
 package com.jfeat.am.module.statistics.services.crud.model;
 
+import com.jfeat.am.module.statistics.services.gen.persistence.model.StatisticsMeta;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsField;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsMeta;
 import com.jfeat.am.module.statistics.services.persistence.model.StatisticsRecord;
 
 import java.util.ArrayList;

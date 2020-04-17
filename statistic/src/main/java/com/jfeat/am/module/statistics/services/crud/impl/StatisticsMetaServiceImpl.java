@@ -5,14 +5,14 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.jfeat.am.module.statistics.services.crud.SQLSearchLabelService;
 import com.jfeat.am.module.statistics.services.crud.StatisticsMetaService;
 import com.jfeat.am.module.statistics.services.crud.model.MetaColumns;
-import com.jfeat.am.module.statistics.services.persistence.dao.StatisticsMetaMapper;
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsMeta;
+import com.jfeat.am.module.statistics.services.gen.crud.service.impl.CRUDStatisticsMetaServiceImpl;
+import com.jfeat.am.module.statistics.services.gen.persistence.dao.StatisticsMetaMapper;
+import com.jfeat.am.module.statistics.services.gen.persistence.model.StatisticsMeta;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.jfeat.am.core.shiro.ShiroKit;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
@@ -32,9 +32,9 @@ import java.util.*;
  */
 
 @Service
-public class StatisticsMetaServiceImpl implements StatisticsMetaService {
+public class StatisticsMetaServiceImpl extends CRUDStatisticsMetaServiceImpl implements StatisticsMetaService {
 
-    @Autowired
+    @Resource
     DataSource dataSource;
     @Resource
     StatisticsMetaMapper statisticsMetaMapper;

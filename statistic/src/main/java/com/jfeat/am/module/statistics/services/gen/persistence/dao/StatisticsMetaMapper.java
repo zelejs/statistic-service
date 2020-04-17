@@ -1,6 +1,6 @@
-package com.jfeat.am.module.statistics.services.persistence.dao;
+package com.jfeat.am.module.statistics.services.gen.persistence.dao;
 
-import com.jfeat.am.module.statistics.services.persistence.model.StatisticsMeta;
+import com.jfeat.am.module.statistics.services.gen.persistence.model.StatisticsMeta;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author Code Generator
- * @since 2018-10-12
+ * @since 2020-04-17
  */
 public interface StatisticsMetaMapper extends BaseMapper<StatisticsMeta> {
 

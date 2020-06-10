@@ -80,5 +80,6 @@ CREATE TABLE `st_statistics_meta` (
   `type` varchar(50) DEFAULT NULL COMMENT '字段类型 D金钱  T时间  P百分比  C数量  S字符串 存储例子：D，D，T',
   `search` varchar(255) DEFAULT NULL COMMENT '搜索字段',
   `permission` varchar(50) DEFAULT NULL COMMENT '权限',
+  `tips` text COMMENT '说明',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

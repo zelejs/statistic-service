@@ -13,11 +13,12 @@
 		<result column="type" property="type" />
 		<result column="search" property="search" />
 		<result column="permission" property="permission" />
+		<result column="tips" property="tips"/>
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, field, query_sql AS querySql, percent, icon, title, type, search, permission
+        id, field, query_sql AS querySql, percent, icon, title, type, search, permission,tips
     </sql>
 
 </mapper>

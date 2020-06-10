@@ -36,7 +36,7 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
 	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
     /**
-     * 数据指标唯一标识�?
+     * 数据指标唯一标识
      */
 	private String field;
     /**
@@ -69,6 +69,15 @@ public class StatisticsMeta extends Model<StatisticsMeta> {
      */
 	private String permission;
 
+	private String tips;
+
+	public String getTips() {
+		return tips;
+	}
+
+	public void setTips(String tips) {
+		this.tips = tips;
+	}
 
 	public Long getId() {
 		return id;
